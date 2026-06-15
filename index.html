@@ -1,0 +1,1818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CrumbStream - Watch Movies & TV</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@400;600;700;900&display=swap');
+
+  :root {
+    --orange: #FF6B00;
+    --orange-light: #FF8C2E;
+    --orange-dark: #CC5500;
+    --orange-glow: rgba(255, 107, 0, 0.35);
+    --white: #FFFFFF;
+    --off-white: #F5F5F0;
+    --bg-dark: #0A0A0A;
+    --bg-card: #141414;
+    --bg-card2: #1C1C1C;
+    --bg-sidebar: #0D0D0D;
+    --text-muted: #888;
+    --text-dim: #555;
+    --border: rgba(255,255,255,0.07);
+    --border-orange: rgba(255,107,0,0.3);
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  
+  body {
+    background: var(--bg-dark);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ─── SIDEBAR ─────────────────────────────── */
+  .sidebar {
+    position: fixed;
+    left: 0; top: 0; bottom: 0;
+    width: 240px;
+    background: var(--bg-sidebar);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    transition: transform 0.3s ease;
+  }
+
+  .sidebar-logo {
+    padding: 22px 20px 18px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 10px;
+  }
+
+  .logo-icon {
+    width: 40px; height: 40px;
+    background: var(--orange);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    box-shadow: 0 0 20px var(--orange-glow);
+    flex-shrink: 0;
+  }
+
+  .logo-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+  .logo-text span { color: var(--orange); }
+
+  .sidebar-search {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .sidebar-search input {
+    width: 100%;
+    background: var(--bg-card2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 12px 9px 36px;
+    color: var(--white);
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s;
+    font-family: 'Inter', sans-serif;
+  }
+  .sidebar-search input:focus { border-color: var(--orange); }
+  .sidebar-search input::placeholder { color: var(--text-dim); }
+  .search-wrap { position: relative; }
+  .search-wrap svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); opacity: 0.4; }
+
+  .sidebar-nav { flex: 1; overflow-y: auto; padding: 10px 0; }
+  .sidebar-nav::-webkit-scrollbar { width: 3px; }
+  .sidebar-nav::-webkit-scrollbar-thumb { background: var(--orange-dark); border-radius: 2px; }
+
+  .nav-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+    color: var(--text-dim); text-transform: uppercase;
+    padding: 14px 20px 6px;
+  }
+
+  .nav-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 20px;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 14px; font-weight: 500;
+    border-radius: 0;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .nav-item:hover { color: var(--white); background: rgba(255,255,255,0.04); }
+  .nav-item.active { color: var(--orange); }
+  .nav-item.active::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 3px; background: var(--orange);
+    border-radius: 0 2px 2px 0;
+  }
+  .nav-item svg { opacity: 0.7; flex-shrink: 0; }
+  .nav-item.active svg { opacity: 1; }
+
+  .sidebar-bottom {
+    padding: 16px;
+    border-top: 1px solid var(--border);
+    display: flex; flex-direction: column; gap: 8px;
+  }
+
+  .powered-btn {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 12px; font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: 1px solid var(--border-orange);
+    color: var(--orange-light);
+    background: rgba(255,107,0,0.06);
+  }
+  .powered-btn:hover { background: rgba(255,107,0,0.15); border-color: var(--orange); color: var(--white); }
+  .powered-btn .pb-icon { font-size: 15px; }
+
+  /* ─── MAIN ─────────────────────────────────── */
+  .main {
+    margin-left: 240px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ─── TOPBAR ────────────────────────────────── */
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 28px;
+    height: 60px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  .topbar-left { display: flex; align-items: center; gap: 8px; }
+  .topbar-pill {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px; font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: transparent; color: var(--text-muted);
+    border: 1px solid transparent;
+  }
+  .topbar-pill:hover { color: var(--white); }
+  .topbar-pill.active { background: var(--orange); color: var(--white); border-color: var(--orange); }
+
+  .topbar-right { display: flex; align-items: center; gap: 12px; }
+  .topbar-icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg-card2);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; color: var(--text-muted);
+    transition: all 0.2s;
+  }
+  .topbar-icon:hover { border-color: var(--orange); color: var(--orange); }
+
+  .avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 0 12px var(--orange-glow);
+  }
+
+  /* ─── CONTENT ────────────────────────────────── */
+  .content { padding: 0; flex: 1; }
+
+  /* ─── HERO ────────────────────────────────────── */
+  .hero {
+    position: relative;
+    height: 520px;
+    overflow: hidden;
+    margin-bottom: 36px;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #1a0a00 0%, #0a0a0a 60%);
+  }
+  .hero-bg-img {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center top;
+    opacity: 0.35;
+    transition: all 1s ease;
+  }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to right, rgba(10,10,10,0.95) 35%, transparent 70%),
+                linear-gradient(to top, rgba(10,10,10,0.9) 0%, transparent 50%);
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    padding: 60px 40px;
+    max-width: 600px;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--orange);
+    color: white; padding: 4px 12px;
+    border-radius: 4px; font-size: 11px; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 68px;
+    line-height: 0.95;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+  }
+
+  .hero-meta {
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 16px;
+    font-size: 13px; color: var(--text-muted);
+  }
+  .hero-meta .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--text-dim); }
+  .hero-rating {
+    display: flex; align-items: center; gap: 4px;
+    color: #FFB800; font-weight: 600; font-size: 14px;
+  }
+
+  .hero-desc {
+    font-size: 14px; line-height: 1.65;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 26px;
+    max-width: 460px;
+  }
+
+  .hero-tags { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+  .hero-tag {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px; font-weight: 500;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: var(--text-muted);
+  }
+
+  .hero-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 22px;
+    border-radius: 8px;
+    font-size: 14px; font-weight: 600;
+    cursor: pointer; border: none;
+    transition: all 0.2s; text-decoration: none;
+    font-family: 'Inter', sans-serif;
+  }
+  .btn-primary { background: var(--orange); color: white; }
+  .btn-primary:hover { background: var(--orange-light); box-shadow: 0 4px 20px var(--orange-glow); transform: translateY(-1px); }
+  .btn-secondary { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.15); }
+  .btn-secondary:hover { background: rgba(255,255,255,0.18); }
+  .btn-ghost { background: transparent; color: var(--text-muted); border: 1px solid var(--border); }
+  .btn-ghost:hover { color: white; border-color: rgba(255,255,255,0.3); }
+  .btn-download { background: rgba(255,107,0,0.15); color: var(--orange); border: 1px solid var(--border-orange); }
+  .btn-download:hover { background: var(--orange); color: white; }
+  .btn-sm { padding: 7px 14px; font-size: 12px; }
+
+  .hero-indicators {
+    position: absolute; bottom: 24px; right: 40px;
+    display: flex; gap: 6px; z-index: 3;
+  }
+  .hero-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    cursor: pointer; transition: all 0.3s;
+  }
+  .hero-dot.active { width: 22px; border-radius: 3px; background: var(--orange); }
+
+  /* ─── SECTIONS ─────────────────────────────── */
+  .section { padding: 0 32px 36px; }
+  .section-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 18px;
+  }
+  .section-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px; font-weight: 800;
+    letter-spacing: 0.3px;
+  }
+  .section-title span { color: var(--orange); }
+  .see-all {
+    font-size: 13px; font-weight: 600;
+    color: var(--orange); cursor: pointer;
+    display: flex; align-items: center; gap: 4px;
+    background: none; border: none; font-family: 'Inter', sans-serif;
+  }
+  .see-all:hover { text-decoration: underline; }
+
+  /* ─── HORIZONTAL SCROLL ROW ─────────────────── */
+  .scroll-row-wrap { position: relative; }
+  .scroll-row {
+    display: flex; gap: 14px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scrollbar-width: none;
+  }
+  .scroll-row::-webkit-scrollbar { display: none; }
+
+  .scroll-arrow {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 36px; height: 36px;
+    background: var(--bg-card2);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; z-index: 5;
+    color: var(--white);
+    transition: all 0.2s;
+    opacity: 0;
+  }
+  .scroll-row-wrap:hover .scroll-arrow { opacity: 1; }
+  .scroll-arrow:hover { background: var(--orange); border-color: var(--orange); }
+  .scroll-arrow.left { left: -18px; }
+  .scroll-arrow.right { right: -18px; }
+
+  /* ─── MOVIE CARD (PORTRAIT) ─────────────────── */
+  .card {
+    flex-shrink: 0;
+    width: 155px;
+    cursor: pointer;
+    transition: transform 0.25s;
+    position: relative;
+  }
+  .card:hover { transform: scale(1.04); z-index: 2; }
+
+  .card-poster {
+    width: 100%; aspect-ratio: 2/3;
+    border-radius: var(--radius-sm);
+    background: var(--bg-card2);
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--border);
+  }
+  .card-poster img { width: 100%; height: 100%; object-fit: cover; }
+
+  .card-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, transparent 55%);
+    opacity: 0;
+    transition: opacity 0.25s;
+    display: flex; flex-direction: column;
+    justify-content: flex-end; padding: 10px;
+    gap: 6px;
+  }
+  .card:hover .card-overlay { opacity: 1; }
+
+  .card-play {
+    width: 38px; height: 38px;
+    background: var(--orange);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    align-self: center;
+    box-shadow: 0 4px 14px var(--orange-glow);
+    transition: transform 0.2s;
+  }
+  .card-play:hover { transform: scale(1.1); }
+
+  .card-mini-btns { display: flex; gap: 5px; }
+  .card-mini-btn {
+    flex: 1; padding: 5px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 5px;
+    text-align: center; font-size: 9px; font-weight: 600;
+    color: white; cursor: pointer;
+    transition: background 0.2s;
+  }
+  .card-mini-btn:hover { background: var(--orange); }
+  .card-mini-btn.dl { background: rgba(255,107,0,0.25); color: var(--orange-light); }
+  .card-mini-btn.dl:hover { background: var(--orange); color: white; }
+
+  .card-rating-badge {
+    position: absolute; top: 7px; right: 7px;
+    background: rgba(0,0,0,0.8);
+    border: 1px solid rgba(255,184,0,0.5);
+    color: #FFB800;
+    font-size: 10px; font-weight: 700;
+    padding: 2px 6px; border-radius: 4px;
+    display: flex; align-items: center; gap: 3px;
+  }
+
+  .card-hd-badge {
+    position: absolute; top: 7px; left: 7px;
+    background: var(--orange);
+    color: white;
+    font-size: 9px; font-weight: 700;
+    padding: 2px 5px; border-radius: 3px;
+  }
+
+  .card-info { padding: 8px 2px 0; }
+  .card-title {
+    font-size: 13px; font-weight: 600;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    margin-bottom: 3px;
+  }
+  .card-year { font-size: 11px; color: var(--text-muted); }
+
+  /* ─── LANDSCAPE CARD ────────────────────────── */
+  .card-land {
+    flex-shrink: 0;
+    width: 280px;
+    cursor: pointer;
+    transition: transform 0.25s;
+    position: relative;
+  }
+  .card-land:hover { transform: scale(1.03); z-index: 2; }
+
+  .card-land-img {
+    width: 100%; aspect-ratio: 16/9;
+    border-radius: var(--radius-sm);
+    background: var(--bg-card2);
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--border);
+  }
+  .card-land-img img { width: 100%; height: 100%; object-fit: cover; }
+
+  .card-land-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.88), transparent 60%);
+    opacity: 0; transition: opacity 0.25s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .card-land:hover .card-land-overlay { opacity: 1; }
+
+  .land-play {
+    width: 46px; height: 46px;
+    background: var(--orange);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 16px var(--orange-glow);
+  }
+
+  .card-land-info { padding: 8px 2px 0; }
+  .card-land-title { font-size: 13px; font-weight: 600; margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .card-land-meta { font-size: 11px; color: var(--text-muted); }
+
+  /* ─── FEATURED ROW (wide landscape) ─────────── */
+  .featured-card {
+    flex-shrink: 0; width: 340px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--bg-card2);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+  }
+  .featured-card:hover { border-color: var(--orange); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(255,107,0,0.2); }
+  .featured-card img { width: 100%; height: 180px; object-fit: cover; }
+  .featured-card-body { padding: 14px; }
+  .featured-card-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+  .featured-card-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-bottom: 12px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .featured-card-footer { display: flex; gap: 7px; flex-wrap: wrap; }
+
+  /* ─── ACTOR CARD ─────────────────────────────── */
+  .actor-card {
+    flex-shrink: 0; width: 110px;
+    text-align: center; cursor: pointer;
+    transition: transform 0.25s;
+  }
+  .actor-card:hover { transform: translateY(-4px); }
+  .actor-img {
+    width: 90px; height: 90px; border-radius: 50%;
+    overflow: hidden; margin: 0 auto 8px;
+    border: 2px solid var(--border);
+    background: var(--bg-card2);
+    transition: border-color 0.2s;
+  }
+  .actor-card:hover .actor-img { border-color: var(--orange); }
+  .actor-img img { width: 100%; height: 100%; object-fit: cover; }
+  .actor-name { font-size: 12px; font-weight: 600; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .actor-role { font-size: 10px; color: var(--text-muted); }
+
+  /* ─── PLAYER MODAL ───────────────────────────── */
+  .modal-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 999;
+    display: none;
+    align-items: center; justify-content: center;
+  }
+  .modal-backdrop.open { display: flex; }
+
+  .player-modal {
+    width: min(900px, 95vw);
+    background: var(--bg-card);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    position: relative;
+    max-height: 90vh;
+    display: flex; flex-direction: column;
+  }
+
+  .player-header {
+    padding: 16px 20px;
+    background: var(--bg-sidebar);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .player-title-wrap { display: flex; flex-direction: column; }
+  .player-title { font-size: 17px; font-weight: 700; }
+  .player-subtitle { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+  .close-btn {
+    width: 32px; height: 32px;
+    border-radius: 50%; background: var(--bg-card2);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; color: var(--text-muted);
+    transition: all 0.2s; font-size: 16px;
+  }
+  .close-btn:hover { background: rgba(255,60,60,0.2); color: #ff4444; border-color: rgba(255,60,60,0.4); }
+
+  .player-tabs {
+    display: flex; gap: 0;
+    background: var(--bg-sidebar);
+    border-bottom: 1px solid var(--border);
+  }
+  .player-tab {
+    padding: 10px 20px;
+    font-size: 13px; font-weight: 600;
+    cursor: pointer; color: var(--text-muted);
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    background: none; border-top: none; border-left: none; border-right: none;
+    font-family: 'Inter', sans-serif;
+  }
+  .player-tab.active { color: var(--orange); border-bottom-color: var(--orange); }
+  .player-tab:hover { color: var(--white); }
+
+  .player-body { overflow-y: auto; }
+
+  .player-embed {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0; overflow: hidden;
+    background: #000;
+  }
+  .player-embed iframe {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    border: none;
+  }
+
+  .player-info-panel {
+    padding: 20px;
+    display: none;
+  }
+  .player-info-panel.active { display: block; }
+  .panel-section-title {
+    font-size: 14px; font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--orange);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-size: 11px;
+  }
+
+  .screenshots-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 8px; margin-bottom: 20px;
+  }
+  .screenshot-img {
+    aspect-ratio: 16/9;
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--bg-card2);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .screenshot-img:hover { border-color: var(--orange); }
+  .screenshot-img img { width: 100%; height: 100%; object-fit: cover; }
+
+  .clips-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+  .clip-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px;
+    border-radius: 8px;
+    background: var(--bg-card2);
+    cursor: pointer;
+    border: 1px solid var(--border);
+    transition: border-color 0.2s;
+  }
+  .clip-item:hover { border-color: var(--orange); }
+  .clip-thumb {
+    width: 100px; height: 56px;
+    border-radius: 5px; overflow: hidden;
+    background: var(--bg-sidebar); flex-shrink: 0;
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .clip-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .clip-play-icon {
+    position: absolute;
+    width: 24px; height: 24px;
+    background: rgba(255,107,0,0.9);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .clip-info { flex: 1; }
+  .clip-title { font-size: 13px; font-weight: 600; margin-bottom: 3px; }
+  .clip-dur { font-size: 11px; color: var(--text-muted); }
+
+  .actor-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 14px; margin-bottom: 20px;
+  }
+  .actor-grid-card {
+    text-align: center; cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .actor-grid-card:hover { transform: translateY(-3px); }
+  .actor-grid-img {
+    width: 72px; height: 72px; border-radius: 50%;
+    overflow: hidden; margin: 0 auto 7px;
+    background: var(--bg-card2);
+    border: 2px solid var(--border);
+    transition: border-color 0.2s;
+  }
+  .actor-grid-card:hover .actor-grid-img { border-color: var(--orange); }
+  .actor-grid-img img { width: 100%; height: 100%; object-fit: cover; }
+  .actor-grid-name { font-size: 12px; font-weight: 600; }
+  .actor-grid-role { font-size: 10px; color: var(--text-muted); }
+
+  .download-panel { padding: 20px; display: none; }
+  .download-panel.active { display: block; }
+  .download-option {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px;
+    border-radius: 10px;
+    background: var(--bg-card2);
+    border: 1px solid var(--border);
+    margin-bottom: 10px;
+    transition: border-color 0.2s;
+  }
+  .download-option:hover { border-color: var(--orange); }
+  .dl-quality { font-size: 14px; font-weight: 700; }
+  .dl-size { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+  /* ─── GENRE PILLS ─────────────────────────────── */
+  .genre-scroll { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 24px; scrollbar-width: none; }
+  .genre-scroll::-webkit-scrollbar { display: none; }
+  .genre-pill {
+    flex-shrink: 0; padding: 7px 18px;
+    border-radius: 20px;
+    font-size: 13px; font-weight: 600;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    background: transparent;
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+  }
+  .genre-pill:hover { color: var(--white); border-color: rgba(255,255,255,0.3); }
+  .genre-pill.active { background: var(--orange); color: white; border-color: var(--orange); }
+
+  /* ─── STATS BAR ──────────────────────────────── */
+  .stats-bar {
+    display: flex; gap: 0;
+    margin: 0 32px 32px;
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .stat-item {
+    flex: 1; padding: 20px;
+    text-align: center;
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px; color: var(--orange);
+    line-height: 1;
+  }
+  .stat-label { font-size: 11px; color: var(--text-muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* ─── TOP 10 ─────────────────────────────────── */
+  .top10-card {
+    flex-shrink: 0; width: 200px;
+    cursor: pointer; position: relative;
+    transition: transform 0.25s;
+  }
+  .top10-card:hover { transform: scale(1.03); z-index: 2; }
+  .top10-num {
+    position: absolute; bottom: 40px; left: -14px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 80px; line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 3px rgba(255,255,255,0.15);
+    z-index: 1;
+    user-select: none;
+  }
+  .top10-img {
+    width: 100%; aspect-ratio: 2/3;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: var(--bg-card2);
+    border: 1px solid var(--border);
+    position: relative; z-index: 2;
+  }
+  .top10-img img { width: 100%; height: 100%; object-fit: cover; }
+  .top10-title { font-size: 12px; font-weight: 600; padding: 7px 0 0; position: relative; z-index: 2; }
+
+  /* ─── CONTINUE WATCHING ──────────────────────── */
+  .cw-card {
+    flex-shrink: 0; width: 280px;
+    cursor: pointer;
+    transition: transform 0.25s;
+  }
+  .cw-card:hover { transform: scale(1.02); }
+  .cw-img {
+    width: 100%; aspect-ratio: 16/9;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    position: relative;
+    background: var(--bg-card2);
+    border: 1px solid var(--border);
+  }
+  .cw-img img { width: 100%; height: 100%; object-fit: cover; }
+  .cw-progress {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 3px; background: rgba(255,255,255,0.2);
+  }
+  .cw-bar { height: 100%; background: var(--orange); border-radius: 2px; }
+  .cw-overlay {
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.2s;
+  }
+  .cw-card:hover .cw-overlay { opacity: 1; }
+  .cw-play {
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    background: var(--orange);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 16px var(--orange-glow);
+  }
+  .cw-info { padding: 8px 2px 0; display: flex; align-items: center; justify-content: space-between; }
+  .cw-title { font-size: 13px; font-weight: 600; }
+  .cw-ep { font-size: 11px; color: var(--text-muted); }
+
+  /* ─── PAGE PANELS (hidden) ──────────────────── */
+  .page-panel { display: none; }
+  .page-panel.active-page { display: block; }
+
+  /* ─── SETTINGS PAGE ─────────────────────────── */
+  .settings-layout {
+    display: grid; grid-template-columns: 200px 1fr;
+    gap: 24px; padding: 28px 32px;
+  }
+  .settings-menu { display: flex; flex-direction: column; gap: 4px; }
+  .settings-menu-item {
+    padding: 9px 14px;
+    border-radius: 8px;
+    font-size: 13px; font-weight: 500;
+    cursor: pointer; color: var(--text-muted);
+    transition: all 0.2s;
+  }
+  .settings-menu-item:hover { color: white; background: var(--bg-card2); }
+  .settings-menu-item.active { color: var(--orange); background: rgba(255,107,0,0.08); }
+
+  .settings-panel-title {
+    font-size: 20px; font-weight: 800;
+    margin-bottom: 20px;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .settings-card {
+    background: var(--bg-card); border-radius: var(--radius);
+    border: 1px solid var(--border); padding: 20px; margin-bottom: 16px;
+  }
+  .settings-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .settings-row:last-child { border-bottom: none; }
+  .settings-row-label { font-size: 14px; font-weight: 500; }
+  .settings-row-desc { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .toggle {
+    width: 44px; height: 24px;
+    background: var(--bg-card2);
+    border-radius: 12px; cursor: pointer;
+    position: relative; border: 1px solid var(--border);
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+  .toggle.on { background: var(--orange); border-color: var(--orange); }
+  .toggle-thumb {
+    position: absolute; top: 2px; left: 2px;
+    width: 18px; height: 18px;
+    background: white; border-radius: 50%;
+    transition: transform 0.2s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  }
+  .toggle.on .toggle-thumb { transform: translateX(20px); }
+
+  /* ─── SEARCH RESULTS ─────────────────────────── */
+  .search-results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+    gap: 16px; padding: 28px 32px;
+  }
+
+  /* ─── NOTIFICATIONS ──────────────────────────── */
+  .notif-panel {
+    position: fixed; top: 60px; right: 20px;
+    width: 320px; background: var(--bg-card);
+    border: 1px solid var(--border); border-radius: 12px;
+    overflow: hidden; z-index: 200;
+    display: none; box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .notif-panel.open { display: block; }
+  .notif-header { padding: 14px 16px; border-bottom: 1px solid var(--border); font-size: 14px; font-weight: 700; }
+  .notif-item { padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; gap: 10px; cursor: pointer; transition: background 0.2s; }
+  .notif-item:hover { background: var(--bg-card2); }
+  .notif-item:last-child { border-bottom: none; }
+  .notif-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(255,107,0,0.15); display: flex; align-items: center; justify-content: center; color: var(--orange); flex-shrink: 0; }
+  .notif-text { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+  .notif-text strong { color: white; font-weight: 600; }
+
+  /* ─── RESPONSIVE ─────────────────────────────── */
+  @media (max-width: 900px) {
+    .sidebar { transform: translateX(-240px); }
+    .sidebar.open { transform: translateX(0); }
+    .main { margin-left: 0; }
+    .hero-title { font-size: 48px; }
+    .stats-bar { flex-wrap: wrap; }
+    .settings-layout { grid-template-columns: 1fr; }
+  }
+
+  /* ─── SCROLLBAR ──────────────────────────────── */
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--text-dim); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--orange); }
+
+  /* ─── SHIMMER/LOADING ─────────────────────────── */
+  .shimmer {
+    background: linear-gradient(90deg, var(--bg-card2) 25%, #2a2a2a 50%, var(--bg-card2) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+  @keyframes shimmer { to { background-position: -200% 0; } }
+
+  .toast {
+    position: fixed; bottom: 24px; right: 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-orange);
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-size: 13px; font-weight: 600;
+    display: flex; align-items: center; gap: 8px;
+    z-index: 9999;
+    transform: translateY(80px); opacity: 0;
+    transition: all 0.3s;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    color: white;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+  .toast-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--orange); }
+
+  .page-header {
+    padding: 28px 32px 0;
+    margin-bottom: 24px;
+  }
+  .page-header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 38px; letter-spacing: 1px;
+  }
+  .page-header h1 span { color: var(--orange); }
+  .page-header p { color: var(--text-muted); font-size: 14px; margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon">🎬</div>
+    <div class="logo-text">Crumb<span>Stream</span></div>
+  </div>
+
+  <div class="sidebar-search">
+    <div class="search-wrap">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="searchInput" placeholder="Search movies, shows..." oninput="handleSearch(this.value)">
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-label">Menu</div>
+    <div class="nav-item active" onclick="goPage('home',this)">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Home
+    </div>
+    <div class="nav-item" onclick="goPage('movies',this)">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/><line x1="17" y1="17" x2="22" y2="17"/></svg>
+      Movies
+    </div>
+    <div class="nav-item" onclick="goPage('tvshows',this)">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>
+      TV Shows
+    </div>
+    <div class="nav-item" onclick="goPage('trending',this)">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+      Trending
+    </div>
+    <div class="nav-item" onclick="goPage('watchlist',this)">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+      Watchlist
+    </div>
+
+    <div class="nav-label">Genres</div>
+    <div class="nav-item" onclick="filterGenre('Action')">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      Action
+    </div>
+    <div class="nav-item" onclick="filterGenre('Comedy')">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+      Comedy
+    </div>
+    <div class="nav-item" onclick="filterGenre('Horror')">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      Horror
+    </div>
+    <div class="nav-item" onclick="filterGenre('Sci-Fi')">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+      Sci-Fi
+    </div>
+    <div class="nav-item" onclick="filterGenre('Drama')">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      Drama
+    </div>
+    <div class="nav-item" onclick="filterGenre('Thriller')">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      Thriller
+    </div>
+    <div class="nav-item" onclick="filterGenre('Animation')">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      Animation
+    </div>
+
+    <div class="nav-label">More</div>
+    <div class="nav-item" onclick="goPage('newreleases',this)">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      New Releases
+    </div>
+    <div class="nav-item" onclick="goPage('settings',this)">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      Settings
+    </div>
+  </nav>
+
+  <div class="sidebar-bottom">
+    <a href="https://stary.base44.app" target="_blank" class="powered-btn">
+      <span class="pb-icon">⭐</span>
+      Powered with Starify
+    </a>
+    <a href="https://www.tiktok.com/@devofficialv" target="_blank" class="powered-btn">
+      <span class="pb-icon">🎵</span>
+      DreamCore
+    </a>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="topbar-pill active" onclick="goPage('home')">All</button>
+      <button class="topbar-pill" onclick="goPage('movies')">Movies</button>
+      <button class="topbar-pill" onclick="goPage('tvshows')">TV Shows</button>
+      <button class="topbar-pill" onclick="goPage('trending')">Trending</button>
+    </div>
+    <div class="topbar-right">
+      <div class="topbar-icon" onclick="toggleNotif()">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      </div>
+      <div class="topbar-icon" onclick="goPage('watchlist')">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <div class="avatar" onclick="goPage('settings')">CS</div>
+    </div>
+  </header>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- HOME PAGE -->
+    <div class="page-panel active-page" id="page-home">
+
+      <!-- HERO -->
+      <div class="hero" id="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-bg-img" id="heroBg" style="background-image:url('https://image.tmdb.org/t/p/original/b0PlSFdDwbyK0cf5RxwDpaOJQvQ.jpg')"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <div class="hero-badge">🔥 Trending Now</div>
+          <div class="hero-title" id="heroTitle">Dune:<br>Part Two</div>
+          <div class="hero-meta">
+            <span class="hero-rating">★ 8.5</span>
+            <span class="dot"></span>
+            <span>2024</span>
+            <span class="dot"></span>
+            <span>2h 46m</span>
+            <span class="dot"></span>
+            <span>PG-13</span>
+          </div>
+          <div class="hero-tags">
+            <span class="hero-tag">Sci-Fi</span>
+            <span class="hero-tag">Adventure</span>
+            <span class="hero-tag">Drama</span>
+          </div>
+          <p class="hero-desc" id="heroDesc">Paul Atreides unites with the Fremen to wage war against House Harkonnen as he seeks vengeance against those who destroyed his family. The fate of the universe rests on his choices.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" onclick="openPlayer(10995,'movie','Dune: Part Two',false)">▶ Watch Now</button>
+            <button class="btn btn-secondary" onclick="openTrailer('Dune Part Two')">🎬 Trailer</button>
+            <button class="btn btn-download" onclick="downloadMovie(10995,'movie')">⬇ Download</button>
+            <button class="btn btn-ghost" onclick="addWatchlist('Dune: Part Two')">+ Watchlist</button>
+          </div>
+        </div>
+        <div class="hero-indicators">
+          <div class="hero-dot active" onclick="cycleHero(0)"></div>
+          <div class="hero-dot" onclick="cycleHero(1)"></div>
+          <div class="hero-dot" onclick="cycleHero(2)"></div>
+          <div class="hero-dot" onclick="cycleHero(3)"></div>
+        </div>
+      </div>
+
+      <!-- STATS -->
+      <div class="stats-bar">
+        <div class="stat-item"><div class="stat-num">50K+</div><div class="stat-label">Movies</div></div>
+        <div class="stat-item"><div class="stat-num">8K+</div><div class="stat-label">TV Shows</div></div>
+        <div class="stat-item"><div class="stat-num">4K</div><div class="stat-label">Max Quality</div></div>
+        <div class="stat-item"><div class="stat-num">0</div><div class="stat-label">Ads Ever</div></div>
+        <div class="stat-item"><div class="stat-num">∞</div><div class="stat-label">Streams</div></div>
+      </div>
+
+      <!-- GENRE FILTER -->
+      <div class="section">
+        <div class="genre-scroll" id="genreScroll">
+          <button class="genre-pill active" onclick="setGenre(this,'All')">All</button>
+          <button class="genre-pill" onclick="setGenre(this,'Action')">Action</button>
+          <button class="genre-pill" onclick="setGenre(this,'Comedy')">Comedy</button>
+          <button class="genre-pill" onclick="setGenre(this,'Horror')">Horror</button>
+          <button class="genre-pill" onclick="setGenre(this,'Sci-Fi')">Sci-Fi</button>
+          <button class="genre-pill" onclick="setGenre(this,'Drama')">Drama</button>
+          <button class="genre-pill" onclick="setGenre(this,'Thriller')">Thriller</button>
+          <button class="genre-pill" onclick="setGenre(this,'Romance')">Romance</button>
+          <button class="genre-pill" onclick="setGenre(this,'Animation')">Animation</button>
+          <button class="genre-pill" onclick="setGenre(this,'Documentary')">Documentary</button>
+          <button class="genre-pill" onclick="setGenre(this,'Fantasy')">Fantasy</button>
+        </div>
+      </div>
+
+      <!-- CONTINUE WATCHING -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title">⏱ Continue <span>Watching</span></div>
+        </div>
+        <div class="scroll-row-wrap">
+          <button class="scroll-arrow left" onclick="scrollRow('cw',-1)">‹</button>
+          <div class="scroll-row" id="cw">
+            <div class="cw-card" onclick="openPlayer(10995,'movie','Dune: Part Two',false)">
+              <div class="cw-img"><img src="https://image.tmdb.org/t/p/w500/ctMserH8g2SeOAnCw5gFjdQF8mo.jpg" loading="lazy">
+                <div class="cw-progress"><div class="cw-bar" style="width:65%"></div></div>
+                <div class="cw-overlay"><div class="cw-play">▶</div></div>
+              </div>
+              <div class="cw-info"><div><div class="cw-title">Dune: Part Two</div><div class="cw-ep">65% watched</div></div><div style="font-size:11px;color:var(--orange)">Resume</div></div>
+            </div>
+            <div class="cw-card" onclick="openPlayer(1396,'tv','Breaking Bad',false)">
+              <div class="cw-img"><img src="https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg" loading="lazy">
+                <div class="cw-progress"><div class="cw-bar" style="width:30%"></div></div>
+                <div class="cw-overlay"><div class="cw-play">▶</div></div>
+              </div>
+              <div class="cw-info"><div><div class="cw-title">Breaking Bad</div><div class="cw-ep">S1 E3 · 30% watched</div></div><div style="font-size:11px;color:var(--orange)">Resume</div></div>
+            </div>
+            <div class="cw-card" onclick="openPlayer(872585,'movie','Oppenheimer',false)">
+              <div class="cw-img"><img src="https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg" loading="lazy">
+                <div class="cw-progress"><div class="cw-bar" style="width:80%"></div></div>
+                <div class="cw-overlay"><div class="cw-play">▶</div></div>
+              </div>
+              <div class="cw-info"><div><div class="cw-title">Oppenheimer</div><div class="cw-ep">80% watched</div></div><div style="font-size:11px;color:var(--orange)">Resume</div></div>
+            </div>
+            <div class="cw-card" onclick="openPlayer(100,'tv','Breaking Bad',false)">
+              <div class="cw-img"><img src="https://image.tmdb.org/t/p/w500/reEMJA1uzscCbkpeRJeTT2bjqUp.jpg" loading="lazy">
+                <div class="cw-progress"><div class="cw-bar" style="width:45%"></div></div>
+                <div class="cw-overlay"><div class="cw-play">▶</div></div>
+              </div>
+              <div class="cw-info"><div><div class="cw-title">The Bear</div><div class="cw-ep">S2 E1 · 45% watched</div></div><div style="font-size:11px;color:var(--orange)">Resume</div></div>
+            </div>
+          </div>
+          <button class="scroll-arrow right" onclick="scrollRow('cw',1)">›</button>
+        </div>
+      </div>
+
+      <!-- TRENDING MOVIES (Portrait) -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title">🔥 Trending <span>Movies</span></div>
+          <button class="see-all" onclick="goPage('movies')">See All →</button>
+        </div>
+        <div class="scroll-row-wrap">
+          <button class="scroll-arrow left" onclick="scrollRow('trending-movies',-1)">‹</button>
+          <div class="scroll-row" id="trending-movies"></div>
+          <button class="scroll-arrow right" onclick="scrollRow('trending-movies',1)">›</button>
+        </div>
+      </div>
+
+      <!-- TOP 10 THIS WEEK -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title">🏆 Top 10 <span>This Week</span></div>
+          <button class="see-all" onclick="goPage('trending')">See All →</button>
+        </div>
+        <div class="scroll-row-wrap">
+          <button class="scroll-arrow left" onclick="scrollRow('top10',-1)">‹</button>
+          <div class="scroll-row" id="top10"></div>
+          <button class="scroll-arrow right" onclick="scrollRow('top10',1)">›</button>
+        </div>
+      </div>
+
+      <!-- NEW RELEASES (Landscape) -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title">🆕 New <span>Releases</span></div>
+          <button class="see-all" onclick="goPage('newreleases')">See All →</button>
+        </div>
+        <div class="scroll-row-wrap">
+          <button class="scroll-arrow left" onclick="scrollRow('new-releases',-1)">‹</button>
+          <div class="scroll-row" id="new-releases"></div>
+          <button class="scroll-arrow right" onclick="scrollRow('new-releases',1)">›</button>
+        </div>
+      </div>
+
+      <!-- POPULAR TV SHOWS -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title">📺 Popular <span>TV Shows</span></div>
+          <button class="see-all" onclick="goPage('tvshows')">See All →</button>
+        </div>
+        <div class="scroll-row-wrap">
+          <button class="scroll-arrow left" onclick="scrollRow('trending-tv',-1)">‹</button>
+          <div class="scroll-row" id="trending-tv"></div>
+          <button class="scroll-arrow right" onclick="scrollRow('trending-tv',1)">›</button>
+        </div>
+      </div>
+
+      <!-- POPULAR ACTORS -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title">⭐ Popular <span>Actors</span></div>
+        </div>
+        <div class="scroll-row-wrap">
+          <button class="scroll-arrow left" onclick="scrollRow('actors',-1)">‹</button>
+          <div class="scroll-row" id="actors"></div>
+          <button class="scroll-arrow right" onclick="scrollRow('actors',1)">›</button>
+        </div>
+      </div>
+
+      <!-- FEATURED PICKS (Landscape) -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title">🎯 Editor's <span>Picks</span></div>
+        </div>
+        <div class="scroll-row-wrap">
+          <button class="scroll-arrow left" onclick="scrollRow('featured',-1)">‹</button>
+          <div class="scroll-row" id="featured"></div>
+          <button class="scroll-arrow right" onclick="scrollRow('featured',1)">›</button>
+        </div>
+      </div>
+
+    </div><!-- /home -->
+
+    <!-- MOVIES PAGE -->
+    <div class="page-panel" id="page-movies">
+      <div class="page-header">
+        <h1>All <span>Movies</span></h1>
+        <p>Browse our full collection of movies</p>
+      </div>
+      <div class="search-results-grid" id="movies-grid"></div>
+    </div>
+
+    <!-- TV SHOWS PAGE -->
+    <div class="page-panel" id="page-tvshows">
+      <div class="page-header">
+        <h1>TV <span>Shows</span></h1>
+        <p>Binge your favorite series</p>
+      </div>
+      <div class="search-results-grid" id="tv-grid"></div>
+    </div>
+
+    <!-- TRENDING PAGE -->
+    <div class="page-panel" id="page-trending">
+      <div class="page-header">
+        <h1><span>Trending</span> Now</h1>
+        <p>What everyone is watching right now</p>
+      </div>
+      <div class="search-results-grid" id="trending-grid"></div>
+    </div>
+
+    <!-- WATCHLIST PAGE -->
+    <div class="page-panel" id="page-watchlist">
+      <div class="page-header">
+        <h1>My <span>Watchlist</span></h1>
+        <p>Movies and shows you've saved</p>
+      </div>
+      <div class="search-results-grid" id="watchlist-grid">
+        <div style="grid-column:1/-1;text-align:center;padding:60px 0;color:var(--text-muted);">
+          <div style="font-size:48px;margin-bottom:12px">🎬</div>
+          <div style="font-size:16px;font-weight:600;color:var(--white);margin-bottom:8px">Your watchlist is empty</div>
+          <div style="font-size:13px">Add movies and shows to keep track of what you want to watch</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEW RELEASES PAGE -->
+    <div class="page-panel" id="page-newreleases">
+      <div class="page-header">
+        <h1>New <span>Releases</span></h1>
+        <p>The latest movies and shows added this week</p>
+      </div>
+      <div class="search-results-grid" id="new-grid"></div>
+    </div>
+
+    <!-- SEARCH RESULTS PAGE -->
+    <div class="page-panel" id="page-search">
+      <div class="page-header">
+        <h1>Search <span>Results</span></h1>
+        <p id="search-query-label">Searching...</p>
+      </div>
+      <div class="search-results-grid" id="search-grid"></div>
+    </div>
+
+    <!-- SETTINGS PAGE -->
+    <div class="page-panel" id="page-settings">
+      <div class="page-header">
+        <h1>⚙️ <span>Settings</span></h1>
+        <p>Customize your CrumbStream experience</p>
+      </div>
+      <div class="settings-layout">
+        <div>
+          <div class="settings-menu">
+            <div class="settings-menu-item active" onclick="setSettingsTab(this,'general')">General</div>
+            <div class="settings-menu-item" onclick="setSettingsTab(this,'playback')">Playback</div>
+            <div class="settings-menu-item" onclick="setSettingsTab(this,'appearance')">Appearance</div>
+            <div class="settings-menu-item" onclick="setSettingsTab(this,'notifications')">Notifications</div>
+            <div class="settings-menu-item" onclick="setSettingsTab(this,'about')">About</div>
+          </div>
+        </div>
+        <div id="settings-content">
+          <div class="settings-panel-title">General Settings</div>
+          <div class="settings-card">
+            <div class="settings-row">
+              <div><div class="settings-row-label">Autoplay Next Episode</div><div class="settings-row-desc">Automatically play the next episode when finished</div></div>
+              <div class="toggle on" onclick="toggleSwitch(this)"><div class="toggle-thumb"></div></div>
+            </div>
+            <div class="settings-row">
+              <div><div class="settings-row-label">Continue Watching</div><div class="settings-row-desc">Save your progress across sessions</div></div>
+              <div class="toggle on" onclick="toggleSwitch(this)"><div class="toggle-thumb"></div></div>
+            </div>
+            <div class="settings-row">
+              <div><div class="settings-row-label">Adult Content Filter</div><div class="settings-row-desc">Filter out adult-rated content</div></div>
+              <div class="toggle" onclick="toggleSwitch(this)"><div class="toggle-thumb"></div></div>
+            </div>
+            <div class="settings-row">
+              <div><div class="settings-row-label">Show Spoilers</div><div class="settings-row-desc">Show plot details in previews</div></div>
+              <div class="toggle" onclick="toggleSwitch(this)"><div class="toggle-thumb"></div></div>
+            </div>
+          </div>
+          <div class="settings-card">
+            <div style="font-size:13px;font-weight:700;margin-bottom:10px;color:var(--orange)">DEFAULT QUALITY</div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <button class="genre-pill active" style="border-radius:8px">4K Ultra HD</button>
+              <button class="genre-pill" style="border-radius:8px">1080p FHD</button>
+              <button class="genre-pill" style="border-radius:8px">720p HD</button>
+              <button class="genre-pill" style="border-radius:8px">480p</button>
+              <button class="genre-pill" style="border-radius:8px">Auto</button>
+            </div>
+          </div>
+          <div class="settings-card">
+            <div style="font-size:13px;font-weight:700;margin-bottom:10px;color:var(--orange)">SUBTITLE LANGUAGE</div>
+            <select style="background:var(--bg-card2);color:white;border:1px solid var(--border);border-radius:8px;padding:9px 14px;font-size:13px;font-family:Inter,sans-serif;width:200px;outline:none;">
+              <option>English</option>
+              <option>Spanish</option>
+              <option>French</option>
+              <option>German</option>
+              <option>Japanese</option>
+              <option>Off</option>
+            </select>
+          </div>
+          <div style="margin-top:24px;padding:20px;background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-orange)">
+            <div style="font-size:12px;color:var(--text-muted);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px;font-weight:700">Powered By</div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <a href="https://stary.base44.app" target="_blank" class="powered-btn" style="flex:1;justify-content:center">⭐ Powered with Starify</a>
+              <a href="https://www.tiktok.com/@devofficialv" target="_blank" class="powered-btn" style="flex:1;justify-content:center">🎵 DreamCore</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<!-- PLAYER MODAL -->
+<div class="modal-backdrop" id="playerModal">
+  <div class="player-modal">
+    <div class="player-header">
+      <div class="player-title-wrap">
+        <div class="player-title" id="modalTitle">Movie Title</div>
+        <div class="player-subtitle" id="modalSubtitle">2024 · HD · CrumbStream</div>
+      </div>
+      <button class="close-btn" onclick="closePlayer()">✕</button>
+    </div>
+    <div class="player-tabs">
+      <button class="player-tab active" onclick="switchTab(this,'watch')">▶ Watch</button>
+      <button class="player-tab" onclick="switchTab(this,'trailer')">🎬 Trailer</button>
+      <button class="player-tab" onclick="switchTab(this,'clips')">🎞 Clips</button>
+      <button class="player-tab" onclick="switchTab(this,'screenshots')">📸 Screenshots</button>
+      <button class="player-tab" onclick="switchTab(this,'cast')">⭐ Cast</button>
+      <button class="player-tab" onclick="switchTab(this,'download')">⬇ Download</button>
+    </div>
+    <div class="player-body">
+      <!-- WATCH TAB -->
+      <div id="tab-watch" class="player-info-panel active">
+        <div class="player-embed">
+          <iframe id="playerIframe" src="" allowfullscreen allow="autoplay; fullscreen"></iframe>
+        </div>
+        <div style="padding:16px 20px;display:flex;gap:10px;flex-wrap:wrap;border-bottom:1px solid var(--border)">
+          <button class="btn btn-secondary btn-sm" onclick="switchTab(null,'trailer')">🎬 Trailer</button>
+          <button class="btn btn-download btn-sm" id="dlBtn">⬇ Download</button>
+          <button class="btn btn-ghost btn-sm" onclick="addWatchlist(document.getElementById('modalTitle').textContent)">+ Watchlist</button>
+          <button class="btn btn-ghost btn-sm">↗ Share</button>
+        </div>
+      </div>
+
+      <!-- TRAILER TAB -->
+      <div id="tab-trailer" class="player-info-panel">
+        <div class="player-embed">
+          <iframe id="trailerIframe" src="" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- CLIPS TAB -->
+      <div id="tab-clips" class="player-info-panel">
+        <div class="panel-section-title">Official Clips</div>
+        <div class="clips-list" id="clips-list"></div>
+      </div>
+
+      <!-- SCREENSHOTS TAB -->
+      <div id="tab-screenshots" class="player-info-panel">
+        <div class="panel-section-title">Screenshots & Stills</div>
+        <div class="screenshots-grid" id="screenshots-grid"></div>
+      </div>
+
+      <!-- CAST TAB -->
+      <div id="tab-cast" class="player-info-panel">
+        <div class="panel-section-title">Cast & Crew</div>
+        <div class="actor-grid" id="cast-grid"></div>
+      </div>
+
+      <!-- DOWNLOAD TAB -->
+      <div id="tab-download" class="download-panel">
+        <div class="panel-section-title" style="padding:20px 20px 0;display:block">Download Options</div>
+        <div style="padding:0 20px 20px" id="download-options"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NOTIFICATIONS PANEL -->
+<div class="notif-panel" id="notifPanel">
+  <div class="notif-header">🔔 Notifications</div>
+  <div class="notif-item"><div class="notif-icon">🎬</div><div class="notif-text"><strong>Deadpool & Wolverine</strong> is now available in 4K on CrumbStream</div></div>
+  <div class="notif-item"><div class="notif-icon">📺</div><div class="notif-text"><strong>The Boys S5</strong> — New episode dropped. Watch now!</div></div>
+  <div class="notif-item"><div class="notif-icon">⭐</div><div class="notif-text"><strong>Oppenheimer</strong> is trending #1 in your region today</div></div>
+  <div class="notif-item"><div class="notif-icon">🆕</div><div class="notif-text"><strong>5 new movies</strong> were added to your watchlist genres</div></div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><div class="toast-dot"></div><span id="toast-msg">Added to watchlist</span></div>
+
+<script>
+// ─── DATA ───────────────────────────────────────
+const MOVIES = [
+  {id:10995,title:'Dune: Part Two',year:2024,rating:8.5,type:'movie',poster:'https://image.tmdb.org/t/p/w500/1pdfLvkbY9ohJlCjQH2CZjjYVvJ.jpg',backdrop:'https://image.tmdb.org/t/p/original/b0PlSFdDwbyK0cf5RxwDpaOJQvQ.jpg',genre:['Sci-Fi','Adventure'],desc:'Paul Atreides unites with the Fremen and leads a holy war.'},
+  {id:872585,title:'Oppenheimer',year:2023,rating:8.9,type:'movie',poster:'https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg',backdrop:'https://image.tmdb.org/t/p/original/rLb2cwF3Pazuxaj0sRXQ037tGI1.jpg',genre:['Drama','History'],desc:'The story of the development of the atomic bomb.'},
+  {id:346698,title:'Barbie',year:2023,rating:7.0,type:'movie',poster:'https://image.tmdb.org/t/p/w500/iuFNMS8vlbRoNTnW3F2bSBcbUj3.jpg',backdrop:'https://image.tmdb.org/t/p/original/nHf61UzkfFno5X1ofILZthF1gdB.jpg',genre:['Comedy','Fantasy'],desc:'Barbie suffers a crisis and sets out to discover happiness in the real world.'},
+  {id:335977,title:'Indiana Jones 5',year:2023,rating:7.0,type:'movie',poster:'https://image.tmdb.org/t/p/w500/Af4bXE63pVsb2FtbW8uYIyPBadD.jpg',backdrop:'https://image.tmdb.org/t/p/original/4Dp6N6B6rOItE2RNDm70Xa5tVRb.jpg',genre:['Action','Adventure'],desc:'Indiana Jones races against time to retrieve a legendary dial.'},
+  {id:848326,title:'Rebel Moon',year:2023,rating:6.0,type:'movie',poster:'https://image.tmdb.org/t/p/w500/ui4DrH1cKk2vkHl0YZcwCJHVKIG.jpg',backdrop:'https://image.tmdb.org/t/p/original/4YZpsylmjHbqeWzjKpUEF8gcLNW.jpg',genre:['Sci-Fi','Action'],desc:'A peaceful colony on the edge of the galaxy finds itself threatened.'},
+  {id:603692,title:'John Wick 4',year:2023,rating:7.8,type:'movie',poster:'https://image.tmdb.org/t/p/w500/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg',backdrop:'https://image.tmdb.org/t/p/original/eo4NT7oScJqgNERZHaWVfMZP3Oh.jpg',genre:['Action','Thriller'],desc:'John Wick uncovers a path to defeating the High Table.'},
+  {id:569094,title:'Spider-Man: Across the Spider-Verse',year:2023,rating:8.6,type:'movie',poster:'https://image.tmdb.org/t/p/w500/8Vt6mWEReuy4Of61Lnj5Xj704m8.jpg',backdrop:'https://image.tmdb.org/t/p/original/4HodYYKEIsGOdinkGi2Ucz6X9i0.jpg',genre:['Animation','Action'],desc:'Miles Morales catapults across the multiverse.'},
+  {id:940551,title:'Migration',year:2023,rating:7.2,type:'movie',poster:'https://image.tmdb.org/t/p/w500/ldfCF9RhR40mppkzmftxapaHeTo.jpg',backdrop:'https://image.tmdb.org/t/p/original/4MCzm7kRHuoGJvLHyLy4qU1RYMS.jpg',genre:['Animation','Comedy'],desc:'A family of ducks shakes up their lives and risks it all.'},
+  {id:933260,title:'The Substance',year:2024,rating:7.3,type:'movie',poster:'https://image.tmdb.org/t/p/w500/lqoMzCcZYEFK729d6qzt349fB4o.jpg',backdrop:'https://image.tmdb.org/t/p/original/tpIMm15eFb0FI6HmZrLa6WwURxG.jpg',genre:['Horror','Sci-Fi'],desc:'A fading celebrity takes a drug that creates another younger self.'},
+  {id:1022789,title:'Inside Out 2',year:2024,rating:7.8,type:'movie',poster:'https://image.tmdb.org/t/p/w500/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg',backdrop:'https://image.tmdb.org/t/p/original/xg27NrXi7VXCGUr7MG75UqLl6Vg.jpg',genre:['Animation','Comedy'],desc:'Riley is suddenly hit by new emotions as she navigates the teen years.'},
+  {id:519182,title:'Despicable Me 4',year:2024,rating:6.3,type:'movie',poster:'https://image.tmdb.org/t/p/w500/wWba3TkzvM2vv8OP3PZBm83J63U.jpg',backdrop:'https://image.tmdb.org/t/p/original/b9W7GOqNyj7fUJFiF0VYSxP9rJX.jpg',genre:['Animation','Comedy'],desc:'Gru and his family are forced to go on the run.'},
+  {id:748783,title:'The Garfield Movie',year:2024,rating:6.2,type:'movie',poster:'https://image.tmdb.org/t/p/w500/xYduFGuch8NWnGrFNSNaVS93PuD.jpg',backdrop:'https://image.tmdb.org/t/p/original/o3OhbkVRcFiWi8XqRRCn8sxd7OA.jpg',genre:['Animation','Comedy'],desc:'Garfield embarks on a wild outdoor adventure.'},
+];
+
+const TV_SHOWS = [
+  {id:1396,title:'Breaking Bad',year:2008,rating:9.5,type:'tv',poster:'https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg',backdrop:'https://image.tmdb.org/t/p/original/tsRy63Mu5cu8etL1X7ZLyf7UP1M.jpg',genre:['Drama','Thriller'],desc:'A high school chemistry teacher turns to manufacturing methamphetamine.'},
+  {id:94997,title:'House of the Dragon',year:2022,rating:8.4,type:'tv',poster:'https://image.tmdb.org/t/p/w500/z2yahl2uefxDCl0nogcRBstwruJ.jpg',backdrop:'https://image.tmdb.org/t/p/original/etj8E2o0Bud0HkONVQPjyCkIvpv.jpg',genre:['Fantasy','Drama'],desc:'The story of House Targaryen, set 200 years before Game of Thrones.'},
+  {id:100,title:'The Bear',year:2022,rating:8.6,type:'tv',poster:'https://image.tmdb.org/t/p/w500/reEMJA1uzscCbkpeRJeTT2bjqUp.jpg',backdrop:'https://image.tmdb.org/t/p/original/xEHQFz7nOA4DpCo62v5nCwLfbRu.jpg',genre:['Drama','Comedy'],desc:'A young chef transforms a family sandwich shop into a fine-dining restaurant.'},
+  {id:61889,title:'Wednesday',year:2022,rating:8.1,type:'tv',poster:'https://image.tmdb.org/t/p/w500/jeGtaMwGxPmQN5xM4ClnwPQcNQG.jpg',backdrop:'https://image.tmdb.org/t/p/original/9PqD3wSIjntyJDBzMNuxuKHgLThB.jpg',genre:['Horror','Comedy'],desc:'Wednesday Addams solves supernatural mysteries at Nevermore Academy.'},
+  {id:202555,title:'The Last of Us',year:2023,rating:8.8,type:'tv',poster:'https://image.tmdb.org/t/p/w500/uKvVjHNqB5VmOrdxqAt2F7J78ED.jpg',backdrop:'https://image.tmdb.org/t/p/original/9Gtg2DzBhmYamXBS1hKAhiwbBKS.jpg',genre:['Drama','Sci-Fi'],desc:'Joel smuggles a girl across a post-apocalyptic US.'},
+  {id:90803,title:'Squid Game',year:2021,rating:8.0,type:'tv',poster:'https://image.tmdb.org/t/p/w500/dDlEmu3EZ0Pgg93K2SVNLCjCSvE.jpg',backdrop:'https://image.tmdb.org/t/p/original/qw3J9cNeLioOLoR68WX7z79aCdK.jpg',genre:['Thriller','Drama'],desc:'Hundreds of cash-strapped players compete in deadly children\'s games.'},
+  {id:63174,title:'Loki',year:2021,rating:8.2,type:'tv',poster:'https://image.tmdb.org/t/p/w500/voHUmluYkKpnM0qZQMHoF0UcaT7.jpg',backdrop:'https://image.tmdb.org/t/p/original/nO1OSEMezLbTBpRIbhQkBrEKBMH.jpg',genre:['Sci-Fi','Action'],desc:'The God of Mischief steps out of his brother\'s shadow.'},
+  {id:84773,title:'The Lord of the Rings: The Rings of Power',year:2022,rating:7.0,type:'tv',poster:'https://image.tmdb.org/t/p/w500/mYLOqiStMxDK3fYZFirgrMt8z5d.jpg',backdrop:'https://image.tmdb.org/t/p/original/5OmKRxaaCm2tkRvSJDnRfYRLCmY.jpg',genre:['Fantasy','Drama'],desc:'Epic tales set during the Age of Numenor in Middle-earth.'},
+];
+
+const ACTORS = [
+  {name:'Timothée Chalamet',role:'Paul Atreides',img:'https://image.tmdb.org/t/p/w185/BE2sdjpgsa2rNTFa66f7upkaOP.jpg'},
+  {name:'Zendaya',role:'Chani',img:'https://image.tmdb.org/t/p/w185/yCGXFMx4GCXQlw3sH57lSHkYNSR.jpg'},
+  {name:'Cillian Murphy',role:'Oppenheimer',img:'https://image.tmdb.org/t/p/w185/dm6V24NjjvjMiCtbMkc8Y2WPm2e.jpg'},
+  {name:'Margot Robbie',role:'Barbie',img:'https://image.tmdb.org/t/p/w185/euDPyqLnuwaWMHajcU3oZ9uZezR.jpg'},
+  {name:'Keanu Reeves',role:'John Wick',img:'https://image.tmdb.org/t/p/w185/4D0PpNI0kmP58hgrwGC3wCjxhnm.jpg'},
+  {name:'Demi Moore',role:'Elisabeth',img:'https://image.tmdb.org/t/p/w185/lTZB4cFqgJJLBGEFolVW1KZKBLY.jpg'},
+  {name:'Shameik Moore',role:'Miles Morales',img:'https://image.tmdb.org/t/p/w185/n3SB4IVF93TBfR1cBqnxI3Vbimv.jpg'},
+  {name:'Amy Poehler',role:'Joy (Voice)',img:'https://image.tmdb.org/t/p/w185/rwmvRonpluV6dCPiQissYna3d3K.jpg'},
+  {name:'Bryan Cranston',role:'Walter White',img:'https://image.tmdb.org/t/p/w185/7Jahy5LZX2Fo8fGJltMreAI49hC.jpg'},
+  {name:'Pedro Pascal',role:'Joel Miller',img:'https://image.tmdb.org/t/p/w185/a4xdgrqGCp2MOtq1KmqmCO8mLiX.jpg'},
+  {name:'Jenna Ortega',role:'Wednesday',img:'https://image.tmdb.org/t/p/w185/uSBzdQKN6bXC0JxjUFfEKKkzFSp.jpg'},
+  {name:'Tom Hiddleston',role:'Loki',img:'https://image.tmdb.org/t/p/w185/toY09Ypf8BVmYpRHQR0fETxiDxI.jpg'},
+];
+
+const CLIPS_DATA = [
+  {title:'Opening Scene',dur:'2:34',thumb:'https://image.tmdb.org/t/p/w300/b0PlSFdDwbyK0cf5RxwDpaOJQvQ.jpg'},
+  {title:'Battle in the Desert',dur:'4:12',thumb:'https://image.tmdb.org/t/p/w300/rLb2cwF3Pazuxaj0sRXQ037tGI1.jpg'},
+  {title:'Featurette: Behind the Scenes',dur:'6:48',thumb:'https://image.tmdb.org/t/p/w300/nHf61UzkfFno5X1ofILZthF1gdB.jpg'},
+  {title:'Deleted Scene',dur:'1:52',thumb:'https://image.tmdb.org/t/p/w300/4Dp6N6B6rOItE2RNDm70Xa5tVRb.jpg'},
+];
+
+// ─── HERO CYCLE ────────────────────────────────
+const heroItems = [
+  {id:10995,type:'movie',bg:'https://image.tmdb.org/t/p/original/b0PlSFdDwbyK0cf5RxwDpaOJQvQ.jpg',title:'Dune: Part Two',desc:'Paul Atreides unites with the Fremen to wage war against House Harkonnen.'},
+  {id:872585,type:'movie',bg:'https://image.tmdb.org/t/p/original/rLb2cwF3Pazuxaj0sRXQ037tGI1.jpg',title:'Oppenheimer',desc:'The triumphant and tragic story behind the creation of the atomic bomb.'},
+  {id:94997,type:'tv',bg:'https://image.tmdb.org/t/p/original/etj8E2o0Bud0HkONVQPjyCkIvpv.jpg',title:'House of the Dragon',desc:'The story of House Targaryen, 200 years before Game of Thrones.'},
+  {id:569094,type:'movie',bg:'https://image.tmdb.org/t/p/original/4HodYYKEIsGOdinkGi2Ucz6X9i0.jpg',title:'Spider-Man: Across the Spider-Verse',desc:'Miles Morales catapults across the multiverse on an epic adventure.'},
+];
+let heroIdx = 0;
+function cycleHero(i) {
+  heroIdx = (i !== undefined) ? i : (heroIdx+1) % heroItems.length;
+  const h = heroItems[heroIdx];
+  document.getElementById('heroBg').style.backgroundImage = `url('${h.bg}')`;
+  document.getElementById('heroTitle').textContent = h.title;
+  document.getElementById('heroDesc').textContent = h.desc;
+  document.querySelectorAll('.hero-dot').forEach((d,j) => d.classList.toggle('active', j===heroIdx));
+}
+setInterval(cycleHero, 7000);
+
+// ─── RENDER CARDS ───────────────────────────────
+function movieCard(m) {
+  return `<div class="card" onclick="openPlayer(${m.id},'${m.type}','${m.title.replace(/'/g,"\\'")}',false)">
+    <div class="card-poster">
+      <img src="${m.poster}" loading="lazy" alt="${m.title}">
+      <div class="card-rating-badge">★ ${m.rating}</div>
+      <div class="card-hd-badge">4K</div>
+      <div class="card-overlay">
+        <div class="card-play" onclick="event.stopPropagation();openPlayer(${m.id},'${m.type}','${m.title.replace(/'/g,"\\'")}',false)">▶</div>
+        <div class="card-mini-btns">
+          <div class="card-mini-btn" onclick="event.stopPropagation();openTrailer('${m.title.replace(/'/g,"\\'")}')">🎬</div>
+          <div class="card-mini-btn dl" onclick="event.stopPropagation();downloadMovie(${m.id},'${m.type}')">⬇</div>
+          <div class="card-mini-btn" onclick="event.stopPropagation();addWatchlist('${m.title.replace(/'/g,"\\'")}')">+</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-info">
+      <div class="card-title">${m.title}</div>
+      <div class="card-year">${m.year} · ${m.type==='tv'?'TV':'Movie'}</div>
+    </div>
+  </div>`;
+}
+
+function landscapeCard(m) {
+  return `<div class="card-land" onclick="openPlayer(${m.id},'${m.type}','${m.title.replace(/'/g,"\\'")}',false)">
+    <div class="card-land-img">
+      <img src="${m.backdrop||m.poster}" loading="lazy" alt="${m.title}">
+      <div class="card-land-overlay"><div class="land-play">▶</div></div>
+    </div>
+    <div class="card-land-info">
+      <div class="card-land-title">${m.title}</div>
+      <div class="card-land-meta">★ ${m.rating} · ${m.year} · ${(m.genre||[]).join(', ')}</div>
+    </div>
+  </div>`;
+}
+
+function top10Card(m, rank) {
+  return `<div class="top10-card" onclick="openPlayer(${m.id},'${m.type}','${m.title.replace(/'/g,"\\'")}',false)">
+    <div class="top10-num">${rank}</div>
+    <div class="top10-img"><img src="${m.poster}" loading="lazy" alt="${m.title}"></div>
+    <div class="top10-title">${m.title}</div>
+  </div>`;
+}
+
+function featuredCard(m) {
+  return `<div class="featured-card">
+    <img src="${m.backdrop||m.poster}" loading="lazy" alt="${m.title}">
+    <div class="featured-card-body">
+      <div class="featured-card-title">${m.title}</div>
+      <div class="featured-card-desc">${m.desc}</div>
+      <div class="featured-card-footer">
+        <button class="btn btn-primary btn-sm" onclick="openPlayer(${m.id},'${m.type}','${m.title.replace(/'/g,"\\'")}',false)">▶ Watch</button>
+        <button class="btn btn-download btn-sm" onclick="downloadMovie(${m.id},'${m.type}')">⬇ Download</button>
+        <button class="btn btn-ghost btn-sm" onclick="openTrailer('${m.title.replace(/'/g,"\\'")}')">🎬 Trailer</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function actorCard(a) {
+  return `<div class="actor-card">
+    <div class="actor-img"><img src="${a.img}" loading="lazy" alt="${a.name}"></div>
+    <div class="actor-name">${a.name}</div>
+    <div class="actor-role">${a.role}</div>
+  </div>`;
+}
+
+// ─── INIT ROWS ──────────────────────────────────
+function initRows() {
+  const all = [...MOVIES, ...TV_SHOWS];
+
+  document.getElementById('trending-movies').innerHTML = MOVIES.map(m=>movieCard(m)).join('');
+  document.getElementById('trending-tv').innerHTML = TV_SHOWS.map(m=>movieCard(m)).join('');
+  document.getElementById('top10').innerHTML = [...MOVIES].sort((a,b)=>b.rating-a.rating).slice(0,10).map((m,i)=>top10Card(m,i+1)).join('');
+  document.getElementById('new-releases').innerHTML = [...MOVIES].slice(0,8).map(m=>landscapeCard(m)).join('');
+  document.getElementById('actors').innerHTML = ACTORS.map(a=>actorCard(a)).join('');
+  document.getElementById('featured').innerHTML = all.sort(()=>Math.random()-0.5).slice(0,8).map(m=>featuredCard(m)).join('');
+
+  document.getElementById('movies-grid').innerHTML = MOVIES.map(m=>movieCard(m)).join('');
+  document.getElementById('tv-grid').innerHTML = TV_SHOWS.map(m=>movieCard(m)).join('');
+  document.getElementById('trending-grid').innerHTML = [...all].sort((a,b)=>b.rating-a.rating).map(m=>movieCard(m)).join('');
+  document.getElementById('new-grid').innerHTML = MOVIES.map(m=>movieCard(m)).join('');
+}
+
+// ─── SCROLL ROWS ───────────────────────────────
+function scrollRow(id, dir) {
+  const el = document.getElementById(id);
+  if(el) el.scrollBy({left: dir*320, behavior:'smooth'});
+}
+
+// ─── PLAYER ────────────────────────────────────
+let currentId = null, currentType = null;
+
+function openPlayer(id, type, title, isTv) {
+  currentId = id; currentType = type;
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalSubtitle').textContent = `${type==='tv'?'TV Series':'Movie'} · HD · CrumbStream`;
+  
+  const src = type==='tv'
+    ? `https://vidcore.net/tv/${id}/1/1?api=3a73619bbb8fc6d47742d1b5b2b707b5`
+    : `https://vidcore.net/movie/${id}?api=3a73619bbb8fc6d47742d1b5b2b707b5`;
+  document.getElementById('playerIframe').src = src;
+
+  const dlUrl = type==='tv' ? `https://vidvault.ru/tv/${id}/1/1` : `https://vidvault.ru/movie/${id}`;
+  document.getElementById('dlBtn').onclick = () => window.open(dlUrl,'_blank');
+
+  populateClips(title);
+  populateScreenshots();
+  populateCast();
+  populateDownload(id, type);
+
+  switchTab(null,'watch');
+  document.getElementById('playerModal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function openTrailer(title) {
+  document.getElementById('playerModal').classList.add('open');
+  document.body.style.overflow='hidden';
+  document.getElementById('modalTitle').textContent = title + ' — Trailer';
+  document.getElementById('trailerIframe').src = `https://www.youtube.com/embed?search=${encodeURIComponent(title+' official trailer')}&autoplay=1`;
+  switchTab(null,'trailer');
+}
+
+function closePlayer() {
+  document.getElementById('playerModal').classList.remove('open');
+  document.body.style.overflow='';
+  document.getElementById('playerIframe').src='';
+  document.getElementById('trailerIframe').src='';
+}
+
+function switchTab(btn, tab) {
+  document.querySelectorAll('.player-tab').forEach(t=>t.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  else document.querySelectorAll('.player-tab').forEach(t=>{ if(t.textContent.toLowerCase().includes(tab)) t.classList.add('active'); });
+
+  document.querySelectorAll('.player-info-panel, .download-panel').forEach(p=>p.classList.remove('active'));
+  const panel = document.getElementById('tab-'+tab);
+  if(panel) panel.classList.add('active');
+}
+
+// ─── POPULATE PANELS ───────────────────────────
+function populateClips(title) {
+  document.getElementById('clips-list').innerHTML = CLIPS_DATA.map(c=>`
+    <div class="clip-item" onclick="showToast('Playing: ${c.title}')">
+      <div class="clip-thumb">
+        <img src="${c.thumb}" loading="lazy">
+        <div class="clip-play-icon">▶</div>
+      </div>
+      <div class="clip-info">
+        <div class="clip-title">${c.title}</div>
+        <div class="clip-dur">${c.dur} · Official Clip</div>
+      </div>
+    </div>`).join('');
+}
+
+function populateScreenshots() {
+  const imgs = [
+    'https://image.tmdb.org/t/p/w500/b0PlSFdDwbyK0cf5RxwDpaOJQvQ.jpg',
+    'https://image.tmdb.org/t/p/w500/rLb2cwF3Pazuxaj0sRXQ037tGI1.jpg',
+    'https://image.tmdb.org/t/p/w500/nHf61UzkfFno5X1ofILZthF1gdB.jpg',
+    'https://image.tmdb.org/t/p/w500/4Dp6N6B6rOItE2RNDm70Xa5tVRb.jpg',
+    'https://image.tmdb.org/t/p/w500/4YZpsylmjHbqeWzjKpUEF8gcLNW.jpg',
+    'https://image.tmdb.org/t/p/w500/eo4NT7oScJqgNERZHaWVfMZP3Oh.jpg',
+  ];
+  document.getElementById('screenshots-grid').innerHTML = imgs.map(src=>`
+    <div class="screenshot-img" onclick="showToast('Screenshot saved!')">
+      <img src="${src}" loading="lazy">
+    </div>`).join('');
+}
+
+function populateCast() {
+  document.getElementById('cast-grid').innerHTML = ACTORS.slice(0,8).map(a=>`
+    <div class="actor-grid-card">
+      <div class="actor-grid-img"><img src="${a.img}" loading="lazy" alt="${a.name}"></div>
+      <div class="actor-grid-name">${a.name}</div>
+      <div class="actor-grid-role">${a.role}</div>
+    </div>`).join('');
+}
+
+function populateDownload(id, type) {
+  const baseUrl = type==='tv' ? `https://vidvault.ru/tv/${id}/1/1` : `https://vidvault.ru/movie/${id}`;
+  const qualities = [
+    {q:'4K Ultra HD',res:'2160p',size:'~12 GB',fmt:'H.265/HEVC'},
+    {q:'1080p Full HD',res:'1080p',size:'~4.2 GB',fmt:'H.264'},
+    {q:'720p HD',res:'720p',size:'~1.8 GB',fmt:'H.264'},
+    {q:'480p SD',res:'480p',size:'~700 MB',fmt:'H.264'},
+  ];
+  document.getElementById('download-options').innerHTML = qualities.map(q=>`
+    <div class="download-option">
+      <div>
+        <div class="dl-quality">${q.q}</div>
+        <div class="dl-size">${q.res} · ${q.size} · ${q.fmt}</div>
+      </div>
+      <a href="${baseUrl}" target="_blank" class="btn btn-download btn-sm">⬇ Download</a>
+    </div>`).join('');
+}
+
+// ─── DOWNLOAD ──────────────────────────────────
+function downloadMovie(id, type) {
+  const url = type==='tv' ? `https://vidvault.ru/tv/${id}/1/1` : `https://vidvault.ru/movie/${id}`;
+  window.open(url,'_blank');
+  showToast('Opening download page...');
+}
+
+// ─── WATCHLIST ─────────────────────────────────
+let watchlist = [];
+function addWatchlist(title) {
+  if(!watchlist.includes(title)) {
+    watchlist.push(title);
+    showToast(`Added "${title}" to watchlist`);
+    renderWatchlist();
+  } else { showToast(`Already in watchlist!`); }
+}
+function renderWatchlist() {
+  const el = document.getElementById('watchlist-grid');
+  const items = MOVIES.filter(m=>watchlist.includes(m.title)).concat(TV_SHOWS.filter(m=>watchlist.includes(m.title)));
+  if(items.length) el.innerHTML = items.map(m=>movieCard(m)).join('');
+  else el.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 0;color:var(--text-muted);"><div style="font-size:48px;margin-bottom:12px">🎬</div><div style="font-size:16px;font-weight:600;color:var(--white);margin-bottom:8px">Your watchlist is empty</div></div>';
+}
+
+// ─── SEARCH ────────────────────────────────────
+let searchTimeout;
+function handleSearch(val) {
+  clearTimeout(searchTimeout);
+  if(!val.trim()) { goPage('home'); return; }
+  searchTimeout = setTimeout(()=>{
+    const q = val.toLowerCase();
+    const results = [...MOVIES,...TV_SHOWS].filter(m=>
+      m.title.toLowerCase().includes(q) || (m.genre||[]).some(g=>g.toLowerCase().includes(q))
+    );
+    document.getElementById('search-query-label').textContent = `${results.length} results for "${val}"`;
+    document.getElementById('search-grid').innerHTML = results.length
+      ? results.map(m=>movieCard(m)).join('')
+      : `<div style="grid-column:1/-1;text-align:center;padding:60px 0;color:var(--text-muted);">No results found for "<strong style="color:white">${val}</strong>"</div>`;
+    goPage('search');
+  }, 300);
+}
+
+// ─── NAVIGATION ────────────────────────────────
+function goPage(page, navEl) {
+  document.querySelectorAll('.page-panel').forEach(p=>p.classList.remove('active-page'));
+  const panel = document.getElementById('page-'+page);
+  if(panel) panel.classList.add('active-page');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(navEl) navEl.classList.add('active');
+  document.querySelectorAll('.topbar-pill').forEach(p=>p.classList.remove('active'));
+  window.scrollTo(0,0);
+}
+
+function filterGenre(genre) {
+  const results = [...MOVIES,...TV_SHOWS].filter(m=>(m.genre||[]).some(g=>g===genre));
+  document.getElementById('search-query-label').textContent = `${results.length} results in "${genre}"`;
+  document.getElementById('search-grid').innerHTML = results.map(m=>movieCard(m)).join('');
+  goPage('search');
+}
+
+function setGenre(el, genre) {
+  document.querySelectorAll('.genre-pill').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  if(genre==='All') {
+    document.getElementById('trending-movies').innerHTML = MOVIES.map(m=>movieCard(m)).join('');
+  } else {
+    const filtered = MOVIES.filter(m=>(m.genre||[]).some(g=>g===genre));
+    document.getElementById('trending-movies').innerHTML = filtered.length
+      ? filtered.map(m=>movieCard(m)).join('')
+      : '<div style="color:var(--text-muted);padding:20px;font-size:13px">No movies in this genre</div>';
+  }
+}
+
+// ─── SETTINGS ──────────────────────────────────
+function setSettingsTab(el, tab) {
+  document.querySelectorAll('.settings-menu-item').forEach(i=>i.classList.remove('active'));
+  el.classList.add('active');
+  const tabs = {
+    general: `<div class="settings-panel-title">General Settings</div>
+      <div class="settings-card"><div class="settings-row"><div><div class="settings-row-label">Autoplay Next Episode</div><div class="settings-row-desc">Automatically play the next episode</div></div><div class="toggle on" onclick="toggleSwitch(this)"><div class="toggle-thumb"></div></div></div><div class="settings-row"><div><div class="settings-row-label">Continue Watching</div><div class="settings-row-desc">Save your progress</div></div><div class="toggle on" onclick="toggleSwitch(this)"><div class="toggle-thumb"></div></div></div></div>`,
+    playback: `<div class="settings-panel-title">Playback</div><div class="settings-card"><div class="settings-row"><div><div class="settings-row-label">Default Quality</div><div class="settings-row-desc">Choose stream quality</div></div><select style="background:var(--bg-card2);color:white;border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-family:Inter,sans-serif;outline:none"><option>4K Ultra HD</option><option>1080p</option><option>720p</option><option>Auto</option></select></div><div class="settings-row"><div><div class="settings-row-label">Subtitles</div><div class="settings-row-desc">Show subtitles by default</div></div><div class="toggle" onclick="toggleSwitch(this)"><div class="toggle-thumb"></div></div></div></div>`,
+    appearance: `<div class="settings-panel-title">Appearance</div><div class="settings-card"><div class="settings-row"><div><div class="settings-row-label">Theme</div><div class="settings-row-desc">Dark theme active</div></div><div style="color:var(--orange);font-size:13px;font-weight:600">Dark</div></div><div class="settings-row"><div><div class="settings-row-label">Accent Color</div></div><div style="display:flex;gap:6px"><div style="width:20px;height:20px;border-radius:50%;background:#FF6B00;border:2px solid white;cursor:pointer"></div><div style="width:20px;height:20px;border-radius:50%;background:#00B4FF;cursor:pointer"></div><div style="width:20px;height:20px;border-radius:50%;background:#00FF88;cursor:pointer"></div></div></div></div>`,
+    notifications: `<div class="settings-panel-title">Notifications</div><div class="settings-card"><div class="settings-row"><div><div class="settings-row-label">New Releases</div><div class="settings-row-desc">Get notified when new content drops</div></div><div class="toggle on" onclick="toggleSwitch(this)"><div class="toggle-thumb"></div></div></div><div class="settings-row"><div><div class="settings-row-label">Recommendations</div><div class="settings-row-desc">Personalized suggestions</div></div><div class="toggle on" onclick="toggleSwitch(this)"><div class="toggle-thumb"></div></div></div></div>`,
+    about: `<div class="settings-panel-title">About CrumbStream</div><div class="settings-card"><div class="settings-row"><div class="settings-row-label">Version</div><div style="color:var(--orange);font-weight:600">1.0.0</div></div><div class="settings-row"><div class="settings-row-label">Content API</div><div style="color:var(--text-muted);font-size:13px">VidCore + VidVault</div></div><div class="settings-row"><div class="settings-row-label">Total Content</div><div style="color:var(--orange);font-weight:600">50,000+ titles</div></div></div>`,
+  };
+  const poweredHtml = `<div style="margin-top:24px;padding:20px;background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-orange)"><div style="font-size:12px;color:var(--text-muted);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px;font-weight:700">Powered By</div><div style="display:flex;gap:10px;flex-wrap:wrap"><a href="https://stary.base44.app" target="_blank" class="powered-btn" style="flex:1;justify-content:center">⭐ Powered with Starify</a><a href="https://www.tiktok.com/@devofficialv" target="_blank" class="powered-btn" style="flex:1;justify-content:center">🎵 DreamCore</a></div></div>`;
+  document.getElementById('settings-content').innerHTML = (tabs[tab]||'') + poweredHtml;
+}
+
+function toggleSwitch(el) { el.classList.toggle('on'); }
+
+// ─── NOTIFICATIONS ──────────────────────────────
+function toggleNotif() {
+  document.getElementById('notifPanel').classList.toggle('open');
+}
+document.addEventListener('click', e=>{
+  const p = document.getElementById('notifPanel');
+  if(p.classList.contains('open') && !p.contains(e.target) && !e.target.closest('.topbar-icon')) p.classList.remove('open');
+});
+
+// ─── TOAST ─────────────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 3000);
+}
+
+// ─── CLOSE MODAL ON BACKDROP CLICK ─────────────
+document.getElementById('playerModal').addEventListener('click', e=>{
+  if(e.target===document.getElementById('playerModal')) closePlayer();
+});
+
+// ─── INIT ──────────────────────────────────────
+initRows();
+</script>
+</body>
+</html>
