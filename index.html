@@ -36,6 +36,44 @@
     overflow-x: hidden;
   }
 
+  /* ─── ACCENT COLOR THEMES (Appearance settings) ─── */
+  body.accent-blue {
+    --orange: #00B4FF; --orange-light: #3CC8FF; --orange-dark: #0086C2;
+    --orange-glow: rgba(0,180,255,0.35); --border-orange: rgba(0,180,255,0.3);
+  }
+  body.accent-green {
+    --orange: #00D26A; --orange-light: #2EE88C; --orange-dark: #00A352;
+    --orange-glow: rgba(0,210,106,0.35); --border-orange: rgba(0,210,106,0.3);
+  }
+  body.accent-purple {
+    --orange: #9B5DFF; --orange-light: #B583FF; --orange-dark: #7A3DE0;
+    --orange-glow: rgba(155,93,255,0.35); --border-orange: rgba(155,93,255,0.3);
+  }
+  body.accent-red {
+    --orange: #FF3B3B; --orange-light: #FF6B6B; --orange-dark: #CC1F1F;
+    --orange-glow: rgba(255,59,59,0.35); --border-orange: rgba(255,59,59,0.3);
+  }
+
+  /* ─── LIGHT THEME (Appearance settings) ─────────── */
+  body.theme-light {
+    --bg-dark: #F2F2F0; --bg-card: #FFFFFF; --bg-card2: #ECECE8;
+    --bg-sidebar: #FFFFFF; --white: #14140F; --text-muted: #6B6B65;
+    --text-dim: #9A9A93; --border: rgba(0,0,0,0.08); --off-white: #14140F;
+  }
+  body.theme-light .hero-overlay {
+    background: linear-gradient(to right, rgba(242,242,240,0.96) 35%, transparent 70%),
+                linear-gradient(to top, rgba(242,242,240,0.92) 0%, transparent 50%);
+  }
+  body.theme-light .hero-bg { background: linear-gradient(135deg, #fff4ea 0%, #f2f2f0 60%); }
+  body.theme-light .topbar { background: rgba(242,242,240,0.92); }
+  body.theme-light .modal-backdrop { background: rgba(0,0,0,0.75); }
+
+  /* ─── COMPACT DENSITY (Appearance settings) ─────── */
+  body.density-compact .card { width: 130px; }
+  body.density-compact .section { padding: 0 32px 22px; }
+  body.density-compact .card-info { padding-top: 6px; }
+
+  
   /* ─── SIDEBAR ─────────────────────────────── */
   .sidebar {
     position: fixed;
@@ -494,6 +532,56 @@
   .featured-card-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
   .featured-card-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-bottom: 12px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
   .featured-card-footer { display: flex; gap: 7px; flex-wrap: wrap; }
+
+  /* ─── COMING SOON CARD ───────────────────────── */
+  .soon-card {
+    flex-shrink: 0;
+    width: 175px;
+    cursor: pointer;
+    transition: transform 0.25s;
+    position: relative;
+  }
+  .soon-card:hover { transform: scale(1.04); z-index: 2; }
+  .soon-poster {
+    width: 100%; aspect-ratio: 2/3;
+    border-radius: var(--radius-sm);
+    background: var(--bg-card2);
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--border-orange);
+  }
+  .soon-poster img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.85); }
+  .soon-date-badge {
+    position: absolute; top: 8px; left: 8px;
+    background: var(--orange);
+    color: white; font-size: 10px; font-weight: 700;
+    padding: 4px 8px; border-radius: 5px;
+    letter-spacing: 0.3px;
+    box-shadow: 0 2px 8px var(--orange-glow);
+  }
+  .soon-lock-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, transparent 55%);
+    opacity: 0; transition: opacity 0.25s;
+    display: flex; flex-direction: column;
+    justify-content: flex-end; padding: 10px; gap: 6px;
+  }
+  .soon-card:hover .soon-lock-overlay { opacity: 1; }
+  .soon-notify-btn {
+    background: rgba(255,107,0,0.18);
+    border: 1px solid var(--border-orange);
+    color: var(--orange-light);
+    font-size: 11px; font-weight: 700;
+    padding: 7px; border-radius: 6px;
+    text-align: center; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .soon-notify-btn:hover { background: var(--orange); color: white; }
+  .soon-notify-btn.notified { background: var(--orange); color: white; }
+  .soon-info { padding: 8px 2px 0; }
+  .soon-title { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .soon-meta { font-size: 11px; color: var(--text-muted); margin-top: 2px; display: flex; align-items: center; gap: 5px; }
+  .soon-meta .countdown { color: var(--orange); font-weight: 600; }
 
   /* ─── ACTOR CARD ─────────────────────────────── */
   .actor-card {
@@ -995,6 +1083,10 @@
       <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
       New Releases
     </div>
+    <div class="nav-item" onclick="goPage('comingsoon',this)">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M12 14v3M10.5 16.5h3"/></svg>
+      Coming Soon
+    </div>
     <div class="nav-item" onclick="goPage('settings',this)">
       <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
       Settings
@@ -1159,6 +1251,20 @@
         </div>
       </div>
 
+      <!-- COMING SOON 2026 -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title">📅 Coming Soon <span>2026</span></div>
+          <button class="see-all" onclick="goPage('comingsoon')">See All →</button>
+        </div>
+        <div class="scroll-row-wrap">
+          <button class="scroll-arrow left" onclick="scrollRow('coming-soon',-1)">‹</button>
+          <div class="scroll-row" id="coming-soon"></div>
+          <button class="scroll-arrow right" onclick="scrollRow('coming-soon',1)">›</button>
+        </div>
+      </div>
+
+
       <!-- TOP 10 THIS WEEK -->
       <div class="section">
         <div class="section-header">
@@ -1273,6 +1379,15 @@
         <p>The latest movies and shows added this week</p>
       </div>
       <div class="search-results-grid" id="new-grid"></div>
+    </div>
+
+    <!-- COMING SOON PAGE -->
+    <div class="page-panel" id="page-comingsoon">
+      <div class="page-header">
+        <h1>Coming <span>Soon</span></h1>
+        <p>Upcoming 2026 movies — set a reminder so you don't miss them</p>
+      </div>
+      <div class="search-results-grid soon-grid" id="comingsoon-grid"></div>
     </div>
 
     <!-- SEARCH RESULTS PAGE -->
@@ -1448,6 +1563,92 @@ const MOVIES = [
   {id:1022789,title:'Inside Out 2',year:2024,rating:7.8,type:'movie',poster:'https://image.tmdb.org/t/p/w500/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg',backdrop:'https://image.tmdb.org/t/p/original/xg27NrXi7VXCGUr7MG75UqLl6Vg.jpg',genre:['Animation','Comedy'],desc:'Riley is suddenly hit by new emotions as she navigates the teen years.'},
   {id:519182,title:'Despicable Me 4',year:2024,rating:6.3,type:'movie',poster:'https://image.tmdb.org/t/p/w500/wWba3TkzvM2vv8OP3PZBm83J63U.jpg',backdrop:'https://image.tmdb.org/t/p/original/b9W7GOqNyj7fUJFiF0VYSxP9rJX.jpg',genre:['Animation','Comedy'],desc:'Gru and his family are forced to go on the run.'},
   {id:748783,title:'The Garfield Movie',year:2024,rating:6.2,type:'movie',poster:'https://image.tmdb.org/t/p/w500/xYduFGuch8NWnGrFNSNaVS93PuD.jpg',backdrop:'https://image.tmdb.org/t/p/original/o3OhbkVRcFiWi8XqRRCn8sxd7OA.jpg',genre:['Animation','Comedy'],desc:'Garfield embarks on a wild outdoor adventure.'},
+  {id:786892,title:'Furiosa: A Mad Max Saga',year:2024,rating:7.6,type:'movie',poster:'https://image.tmdb.org/t/p/w500/iADOJ8Zymht2JPMoy3R7xceZprc.jpg',backdrop:'https://image.tmdb.org/t/p/original/zRMmJ0Cl4xKQQFq5kRYUSqfb86b.jpg',genre:['Action','Sci-Fi'],desc:'Young Furiosa is snatched from the Green Place and falls into the hands of a Biker Horde.'},
+  {id:653346,title:'Kingdom of the Planet of the Apes',year:2024,rating:7.1,type:'movie',poster:'https://image.tmdb.org/t/p/w500/gKkl37BQuKTanygYQG1pyYgLVgf.jpg',backdrop:'https://image.tmdb.org/t/p/original/cBsEDYE0fhcRdYTAUZUm1Oo7E14.jpg',genre:['Sci-Fi','Action'],desc:'Many years after the reign of Caesar, a young ape goes on a journey that leads him to question what he has been taught.'},
+  {id:912649,title:'Venom: The Last Dance',year:2024,rating:6.6,type:'movie',poster:'https://image.tmdb.org/t/p/w500/aosm8NMQ3UyoBVpSxyimorCQykC.jpg',backdrop:'https://image.tmdb.org/t/p/original/3V4kLQg0kSqPLctI5ziYWabAZYF.jpg',genre:['Action','Sci-Fi'],desc:'Eddie and Venom are on the run, hunted by both their worlds, with the net closing in.'},
+  {id:558449,title:'Gladiator II',year:2024,rating:6.8,type:'movie',poster:'https://image.tmdb.org/t/p/w500/2cxhvwyEwjlIdpVnAIPHKVZkjOZ.jpg',backdrop:'https://image.tmdb.org/t/p/original/jpfBuXEFqEHsQ70RtKqQVAyM6lj.jpg',genre:['Action','Drama'],desc:'Years after witnessing the death of Maximus, Lucius is forced to enter the Colosseum.'},
+  {id:573435,title:'Bad Boys: Ride or Die',year:2024,rating:7.1,type:'movie',poster:'https://image.tmdb.org/t/p/w500/oGythE98MYauIb0kCYjB2gK9KAm.jpg',backdrop:'https://image.tmdb.org/t/p/original/wcKFYIiVDvRURrzglWyrT6D3X2Q.jpg',genre:['Action','Comedy'],desc:'Miami detectives Lowrey and Burnett investigate a conspiracy linking them to drug cartels.'},
+  {id:402431,title:'Wicked',year:2024,rating:7.6,type:'movie',poster:'https://image.tmdb.org/t/p/w500/xDGbZ0JJ3mYaGKy4Nzd9Kph6M9L.jpg',backdrop:'https://image.tmdb.org/t/p/original/xDGbZ0JJ3mYaGKy4Nzd9Kph6M9L.jpg',genre:['Fantasy','Drama'],desc:'The story of the unlikely friendship between two witches in the Land of Oz.'},
+  {id:1241982,title:'Moana 2',year:2024,rating:7.0,type:'movie',poster:'https://image.tmdb.org/t/p/w500/yh64qw9mgXBvlaWDi7Q9tpUBAvH.jpg',backdrop:'https://image.tmdb.org/t/p/original/qcCccsSURtcANgnDvDVHcSGzAxJ.jpg',genre:['Animation','Adventure'],desc:'After receiving an unexpected call from her wayfinding ancestors, Moana journeys to the far seas of Oceania.'},
+  {id:929590,title:'Civil War',year:2024,rating:7.0,type:'movie',poster:'https://image.tmdb.org/t/p/w500/sh7Rg8Er3tFcN9BpKIPOMvALgZd.jpg',backdrop:'https://image.tmdb.org/t/p/original/rktDFPbfHfUbArZ6OOOKsXcv0Bm.jpg',genre:['Action','Drama'],desc:'A journey across a dystopian future America, following a team of military-embedded journalists.'},
+  {id:1011985,title:'Kung Fu Panda 4',year:2024,rating:6.9,type:'movie',poster:'https://image.tmdb.org/t/p/w500/kDp1vUBnMpe8ak4rjgl3cLELqjU.jpg',backdrop:'https://image.tmdb.org/t/p/original/lFCk7DGJhfP1RHTYqe9HqMcMHaJ.jpg',genre:['Animation','Comedy'],desc:'Po must train a new warrior when he is chosen to become the spiritual leader.'},
+  {id:447365,title:'Guardians of the Galaxy Vol. 3',year:2023,rating:7.9,type:'movie',poster:'https://image.tmdb.org/t/p/w500/r2J02Z2OpNTctfOSN1Ydgii51I3.jpg',backdrop:'https://image.tmdb.org/t/p/original/5YZbUmjbMa3ClvSW1Wj3D6XGolb.jpg',genre:['Sci-Fi','Action'],desc:'Still reeling from the loss of Gamora, Peter Quill rallies his team to defend the universe.'},
+  {id:298618,title:'The Flash',year:2023,rating:6.7,type:'movie',poster:'https://image.tmdb.org/t/p/w500/rktDFPbfHfUbArZ6OOOKsXcv0Bm.jpg',backdrop:'https://image.tmdb.org/t/p/original/yF1eOkaYvwiORauRCPWznV9xVvi.jpg',genre:['Action','Sci-Fi'],desc:'Barry Allen uses his super speed to change the past, altering the present in unexpected ways.'},
+  {id:502356,title:'The Super Mario Bros. Movie',year:2023,rating:7.7,type:'movie',poster:'https://image.tmdb.org/t/p/w500/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg',backdrop:'https://image.tmdb.org/t/p/original/9PXZIUsSDh4alB80jheWX4fhZmy.jpg',genre:['Animation','Adventure'],desc:'A plumber named Mario travels through the Mushroom Kingdom with his brother Luigi.'},
+  {id:667538,title:'Transformers: Rise of the Beasts',year:2023,rating:7.1,type:'movie',poster:'https://image.tmdb.org/t/p/w500/gPbM0MK8CP8A174rmUwGsADNYKD.jpg',backdrop:'https://image.tmdb.org/t/p/original/sQXEHTfDtVO4F8sm5gv1trWwiM5.jpg',genre:['Action','Sci-Fi'],desc:'Optimus Prime and the Autobots take on their most powerful threat yet alongside the Maximals.'},
+
+  /* ── HORROR ── */
+  {id:507089,title:'Five Nights at Freddy\'s',year:2023,rating:7.5,type:'movie',poster:'https://image.tmdb.org/t/p/w500/A4vbrSDPNhBpMZ6N5cBjlfwfTuS.jpg',backdrop:'https://image.tmdb.org/t/p/original/dGTH8WJ4APcjMqxQzbjmCgM5Pyk.jpg',genre:['Horror','Mystery'],desc:'A troubled security guard begins working at Freddy Fazbear\'s Pizza, where horrors lurk after dark.'},
+  {id:1034541,title:'Terrifier 3',year:2024,rating:7.0,type:'movie',poster:'https://image.tmdb.org/t/p/w500/oPYupRG6gfM5y8eVQ2OukfNeq2P.jpg',backdrop:'https://image.tmdb.org/t/p/original/sBmtKqQTQqi8Cgqsk0d8aLp1nQv.jpg',genre:['Horror'],desc:'Art the Clown returns to terrorize the town of Miles County on Christmas.'},
+  {id:1064213,title:'Anora',year:2024,rating:7.5,type:'movie',poster:'https://image.tmdb.org/t/p/w500/aZ7ekgT9JZuaIDcsXkPKfVQfdNI.jpg',backdrop:'https://image.tmdb.org/t/p/original/yPCfWyVxQgC2eSnoBHKhBzPLAQu.jpg',genre:['Drama','Comedy'],desc:'A sex worker from Brooklyn gets her chance at a Cinderella story when she marries a Russian oligarch\'s son.'},
+  {id:1100988,title:'Smile 2',year:2024,rating:6.9,type:'movie',poster:'https://image.tmdb.org/t/p/w500/aQ0iIaXAYxAhJzZsy0qZsXkPGwH.jpg',backdrop:'https://image.tmdb.org/t/p/original/wRnbSpFMRz8X4VnRsiq6q3F8GfV.jpg',genre:['Horror'],desc:'About to embark on a new world tour, global pop sensation Skye Riley begins experiencing terrifying events.'},
+  {id:541671,title:'Trap',year:2024,rating:6.6,type:'movie',poster:'https://image.tmdb.org/t/p/w500/wlfòexample.jpg',backdrop:'https://image.tmdb.org/t/p/original/2yQqXZjW3Tz1QzPnYzv0pIvNkBN.jpg',genre:['Horror','Thriller'],desc:'A father and daughter attend a pop concert, only to discover it\'s a trap to catch a notorious serial killer.'},
+  {id:1241436,title:'Heretic',year:2024,rating:7.2,type:'movie',poster:'https://image.tmdb.org/t/p/w500/7Eom5OoBOznxAtwdarqfBSWA1ot.jpg',backdrop:'https://image.tmdb.org/t/p/original/y5SaPnRJ8O5RPYVqzWFvUyVeUTL.jpg',genre:['Horror','Mystery'],desc:'Two young missionaries are trapped in a deadly game of cat and mouse with a deceptively cunning man.'},
+  {id:1100782,title:'Longlegs',year:2024,rating:6.6,type:'movie',poster:'https://image.tmdb.org/t/p/w500/4XbgAjJWolPbB67TUjpQQfHJchr.jpg',backdrop:'https://image.tmdb.org/t/p/original/lcEFwtfNxq6PgvgZP0WfNGiDjUk.jpg',genre:['Horror','Thriller'],desc:'An FBI agent uncovers a series of unsolved murders linked to a satanic serial killer.'},
+  {id:466420,title:'Nosferatu',year:2024,rating:7.1,type:'movie',poster:'https://image.tmdb.org/t/p/w500/5qGIxdEfk2HUaiEPnXfNhKqHQfV.jpg',backdrop:'https://image.tmdb.org/t/p/original/wEKamuiQpA1J2K8jbnPjUv9CKuW.jpg',genre:['Horror'],desc:'A gothic tale of obsession between a haunted young woman and the terrifying vampire infatuated with her.'},
+  {id:359410,title:'It Ends With Us',year:2024,rating:7.5,type:'movie',poster:'https://image.tmdb.org/t/p/w500/AjV6jFOcfNn5sgUoPzz0ZGmKKL.jpg',backdrop:'https://image.tmdb.org/t/p/original/feSiISwgEpVzR1v3zv2n1bAprwM.jpg',genre:['Drama','Romance'],desc:'Lily overcomes a difficult childhood to embark on a new life, but old wounds resurface.'},
+  {id:507971,title:'Imaginary',year:2024,rating:6.0,type:'movie',poster:'https://image.tmdb.org/t/p/w500/q1mzAdNnEx2eWAUUtjVeoTL2nKZ.jpg',backdrop:'https://image.tmdb.org/t/p/original/4WHVgQ9bQ2rt9DiBC9CLZ9Q4XdY.jpg',genre:['Horror'],desc:'A woman returns to her childhood home only to discover the imaginary friend she left behind has taken on a life of its own.'},
+  {id:951491,title:'Saw X',year:2023,rating:7.3,type:'movie',poster:'https://image.tmdb.org/t/p/w500/zPwHv8DwAYXg2WhVbn0Sx9C5y2v.jpg',backdrop:'https://image.tmdb.org/t/p/original/uxOkTNcwlAYDoSpsAaqe22BvgEs.jpg',genre:['Horror','Mystery'],desc:'John Kramer travels to Mexico for an experimental medical procedure, only to discover the entire operation is a scam.'},
+  {id:976573,title:'A Quiet Place: Day One',year:2024,rating:6.7,type:'movie',poster:'https://image.tmdb.org/t/p/w500/lFWrhTBOOiivxs9eowYAFnIxKaN.jpg',backdrop:'https://image.tmdb.org/t/p/original/eyhEHnoB5dJUgUFVi3vS9eDQVQR.jpg',genre:['Horror','Sci-Fi'],desc:'As New York City is invaded by alien creatures who hunt by sound, one woman fights to survive.'},
+  {id:1029575,title:'Cuckoo',year:2024,rating:6.2,type:'movie',poster:'https://image.tmdb.org/t/p/w500/7AvKEEDxhrPhpw4r5jadAjg44G3.jpg',backdrop:'https://image.tmdb.org/t/p/original/bA9eGfBdEDfBh3jzCpfbZ4Vrk9z.jpg',genre:['Horror','Thriller'],desc:'While staying at a resort in the Bavarian Alps, a teenage girl experiences strange and disturbing events.'},
+  {id:1126166,title:'Speak No Evil',year:2024,rating:6.7,type:'movie',poster:'https://image.tmdb.org/t/p/w500/kBpKvpNxRzD4VxAYNwwjnHk5lwh.jpg',backdrop:'https://image.tmdb.org/t/p/original/6PV2dn2hQzhqJVYwGdJxA2NQTYx.jpg',genre:['Horror','Thriller'],desc:'An American family visiting the English countryside accept an invitation to stay with new friends, but soon discover dark intentions.'},
+  {id:1008042,title:'Talk to Me',year:2023,rating:7.1,type:'movie',poster:'https://image.tmdb.org/t/p/w500/kdPMUMJzyYAc4roD52qavX0nLIC.jpg',backdrop:'https://image.tmdb.org/t/p/original/8x6kjGEhAQfQzG2bL3pXOAyZQa1.jpg',genre:['Horror'],desc:'When a group of friends discover how to conjure spirits using an embalmed hand, they become hooked on the new thrill.'},
+
+  /* ── CLASSICS & DRAMA ── */
+  {id:13,title:'Forrest Gump',year:1994,rating:8.8,type:'movie',poster:'https://image.tmdb.org/t/p/w500/arw2vcBveWOVZr6pxd9XTd1TdQa.jpg',backdrop:'https://image.tmdb.org/t/p/original/qdIMHd4sEoajAKeGqeLqetE3FIb.jpg',genre:['Drama','Comedy'],desc:'The history of the United States unfolds through the eyes of a man from Alabama with an IQ of 75.'},
+  {id:238,title:'The Godfather',year:1972,rating:9.2,type:'movie',poster:'https://image.tmdb.org/t/p/w500/3bhkrj58Vtu7enYsLegHQr3gbFD.jpg',backdrop:'https://image.tmdb.org/t/p/original/tmU7GeKVybMWFButWEGl2M4GeiP.jpg',genre:['Drama','Thriller'],desc:'The aging patriarch of an organized crime dynasty transfers control to his reluctant son.'},
+  {id:424,title:'Schindler\'s List',year:1993,rating:9.0,type:'movie',poster:'https://image.tmdb.org/t/p/w500/sF1U4EUQS8YHUYjNl3pMGNIQyr0.jpg',backdrop:'https://image.tmdb.org/t/p/original/loRmRzQXZeqG78TqZEAsxPDKz9U.jpg',genre:['Drama','History'],desc:'Oskar Schindler saves the lives of more than a thousand Jewish refugees during the Holocaust.'},
+  {id:278,title:'The Shawshank Redemption',year:1994,rating:9.3,type:'movie',poster:'https://image.tmdb.org/t/p/w500/lyQBXzOQSuE59IsHyhrp0qIiPAz.jpg',backdrop:'https://image.tmdb.org/t/p/original/kXfqcdQKsToO0OUXHcrrNCHDBzO.jpg',genre:['Drama','Thriller'],desc:'Two imprisoned men bond over years, finding solace and eventual redemption through acts of decency.'},
+  {id:129,title:'Spirited Away',year:2001,rating:8.5,type:'movie',poster:'https://image.tmdb.org/t/p/w500/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg',backdrop:'https://image.tmdb.org/t/p/original/Ab8mkHmkYADjU7wQiOkia9BzGvS.jpg',genre:['Animation','Fantasy'],desc:'A ten-year-old girl wanders into a world ruled by gods, witches and spirits.'},
+  {id:19404,title:'Dilwale Dulhania Le Jayenge',year:1995,rating:8.0,type:'movie',poster:'https://image.tmdb.org/t/p/w500/2CAL2433ZeIihfX1Hb2139CX0pW.jpg',backdrop:'https://image.tmdb.org/t/p/original/90ez6ArvpO8bvpyIngEx9LalnzP.jpg',genre:['Drama','Romance'],desc:'A young man and woman fall in love on a European vacation, but complications arise with their families.'},
+  {id:389,title:'12 Angry Men',year:1957,rating:8.9,type:'movie',poster:'https://image.tmdb.org/t/p/w500/ow3wq89wM8qd5X7hWKxiRfsFf9C.jpg',backdrop:'https://image.tmdb.org/t/p/original/oFB2rlBFv6KQdlnj0c4iocB7yVA.jpg',genre:['Drama','Thriller'],desc:'A jury holdout attempts to prevent a miscarriage of justice by forcing his peers to reconsider the evidence.'},
+  {id:550,title:'Fight Club',year:1999,rating:8.8,type:'movie',poster:'https://image.tmdb.org/t/p/w500/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg',backdrop:'https://image.tmdb.org/t/p/original/hZkgoQYus5vegHoetLkCJzVFGFZ.jpg',genre:['Drama','Thriller'],desc:'An insomniac office worker and a soap salesman build a network of underground fight clubs.'},
+  {id:680,title:'Pulp Fiction',year:1994,rating:8.9,type:'movie',poster:'https://image.tmdb.org/t/p/w500/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg',backdrop:'https://image.tmdb.org/t/p/original/suaEOtk1N1sgg2MTM7oZd2cfVp3.jpg',genre:['Drama','Thriller'],desc:'The lives of two mob hitmen, a boxer, a gangster and his wife intertwine in four tales of violence.'},
+  {id:155,title:'The Dark Knight',year:2008,rating:9.0,type:'movie',poster:'https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg',backdrop:'https://image.tmdb.org/t/p/original/nMKdUUepR0i5zn0y1T4CejMgiGQ.jpg',genre:['Action','Thriller'],desc:'When the menace known as the Joker wreaks havoc, Batman must accept one of the greatest psychological tests.'},
+  {id:671,title:'Harry Potter and the Philosopher\'s Stone',year:2001,rating:7.9,type:'movie',poster:'https://image.tmdb.org/t/p/w500/wuMc08IPKEatf9rnMNXvIDxqP4W.jpg',backdrop:'https://image.tmdb.org/t/p/original/hziiv14OpD73u9gApdl9MjAaGa6.jpg',genre:['Fantasy','Adventure'],desc:'An eleven-year-old boy discovers he is a wizard and attends Hogwarts School of Witchcraft and Wizardry.'},
+  {id:122,title:'The Lord of the Rings: The Return of the King',year:2003,rating:9.0,type:'movie',poster:'https://image.tmdb.org/t/p/w500/rCzpDGLbOoPwLjy3OAm5NUPOTrC.jpg',backdrop:'https://image.tmdb.org/t/p/original/lXhgCODAbBXL5buk9yEmTpOoOgR.jpg',genre:['Fantasy','Adventure'],desc:'Gandalf and Aragorn lead the world of Men against Sauron\'s army while Frodo and Sam approach Mount Doom.'},
+  {id:27205,title:'Inception',year:2010,rating:8.8,type:'movie',poster:'https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg',backdrop:'https://image.tmdb.org/t/p/original/s3TBrRGB1iav7gFOCNx3H31MoES.jpg',genre:['Sci-Fi','Thriller'],desc:'A thief who steals corporate secrets through dream-sharing technology is given the inverse task.'},
+  {id:157336,title:'Interstellar',year:2014,rating:8.7,type:'movie',poster:'https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg',backdrop:'https://image.tmdb.org/t/p/original/pbrkL804c8yAv3zBZR4QPEafpAR.jpg',genre:['Sci-Fi','Adventure'],desc:'A team of explorers travel through a wormhole in space to ensure humanity\'s survival.'},
+  {id:76600,title:'Avatar: The Way of Water',year:2022,rating:7.6,type:'movie',poster:'https://image.tmdb.org/t/p/w500/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg',backdrop:'https://image.tmdb.org/t/p/original/s16H6tpK2utvwpaOffkiW1gXiJq.jpg',genre:['Sci-Fi','Adventure'],desc:'Jake Sully and his family must leave their home and explore the regions of Pandora.'},
+  {id:315162,title:'Puss in Boots: The Last Wish',year:2022,rating:7.9,type:'movie',poster:'https://image.tmdb.org/t/p/w500/kuf6dutpsT0vSVehic3EZIqkOBt.jpg',backdrop:'https://image.tmdb.org/t/p/original/mVWkTLFBkadPIVLBVAqHHfD0hIi.jpg',genre:['Animation','Adventure'],desc:'Puss in Boots discovers that his passion for adventure has taken its toll and he only has one life left.'},
+  {id:438148,title:'Minions: The Rise of Gru',year:2022,rating:6.5,type:'movie',poster:'https://image.tmdb.org/t/p/w500/wKiOkZTd6fMSPGcHGKDMFisMaVf.jpg',backdrop:'https://image.tmdb.org/t/p/original/gBBPhKL6UHgEu3KDqB2CRYFOjzU.jpg',genre:['Animation','Comedy'],desc:'The untold story of one twelve-year-old\'s dream to become the world\'s greatest supervillain.'},
+  {id:496243,title:'Parasite',year:2019,rating:8.5,type:'movie',poster:'https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg',backdrop:'https://image.tmdb.org/t/p/original/TU9NIjwzjoKPwQHoHshkFcQUCG.jpg',genre:['Drama','Thriller'],desc:'Greed and class discrimination threaten the newly formed symbiotic relationship between the wealthy Park family and the destitute Kim clan.'},
+  {id:324857,title:'Spider-Man: Into the Spider-Verse',year:2018,rating:8.4,type:'movie',poster:'https://image.tmdb.org/t/p/w500/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',backdrop:'https://image.tmdb.org/t/p/original/7du3VeuCjRMtQtaMogJMbR0BVLK.jpg',genre:['Animation','Action'],desc:'Teen Miles Morales becomes the Spider-Man of his reality and must stop a threat to all realities.'},
+  {id:299536,title:'Avengers: Infinity War',year:2018,rating:8.4,type:'movie',poster:'https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg',backdrop:'https://image.tmdb.org/t/p/original/bOGkgRGdhrBYJSLpXaxhXVstddV.jpg',genre:['Action','Sci-Fi'],desc:'The Avengers and their allies must be willing to sacrifice all in an attempt to defeat Thanos.'},
+  {id:299534,title:'Avengers: Endgame',year:2019,rating:8.4,type:'movie',poster:'https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg',backdrop:'https://image.tmdb.org/t/p/original/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg',genre:['Action','Sci-Fi'],desc:'After the devastating events of Infinity War, the universe is in ruins due to the efforts of the Mad Titan, Thanos.'},
+  {id:475557,title:'Joker',year:2019,rating:8.4,type:'movie',poster:'https://image.tmdb.org/t/p/w500/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg',backdrop:'https://image.tmdb.org/t/p/original/n6bUvigpRFqSwmPp1ZIzf9M7QXBR.jpg',genre:['Drama','Thriller'],desc:'A mentally troubled stand-up comedian embarks on a downward spiral that leads to the creation of an iconic villain.'},
+  {id:496450,title:'Red Notice',year:2021,rating:6.3,type:'movie',poster:'https://image.tmdb.org/t/p/w500/wdE6ewaKZHr62bLqCn7A2DiGShm.jpg',backdrop:'https://image.tmdb.org/t/p/original/rcvBQwmJMEFMMUVVCaFimRxGjYq.jpg',genre:['Action','Comedy'],desc:'An Interpol-issued Red Notice is a global alert to hunt and capture the world\'s most wanted.'},
+  {id:634649,title:'Spider-Man: No Way Home',year:2021,rating:7.9,type:'movie',poster:'https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg',backdrop:'https://image.tmdb.org/t/p/original/iQFcwSGbZXMkeyKrxbPnwnRo5fl.jpg',genre:['Action','Sci-Fi'],desc:'Peter Parker asks Doctor Strange to make everyone forget he is Spider-Man, which brings chaos to his world.'},
+  {id:436270,title:'Black Adam',year:2022,rating:6.7,type:'movie',poster:'https://image.tmdb.org/t/p/w500/pFlaoHTZeyNkG83vxsAJiGzfSsa.jpg',backdrop:'https://image.tmdb.org/t/p/original/bQXAqRx2Fgc46uCVWgoPz5L5Dtr.jpg',genre:['Action','Sci-Fi'],desc:'Nearly 5,000 years after he was bestowed with the almighty powers of the Egyptian gods, Black Adam is freed.'},
+  {id:315635,title:'Thor: Ragnarok',year:2017,rating:7.9,type:'movie',poster:'https://image.tmdb.org/t/p/w500/rzRwTcFvttcN1ZpX2xv4j3tSdJu.jpg',backdrop:'https://image.tmdb.org/t/p/original/kaIfm5ryEOwYg8mLbq8HkPuM9Zj.jpg',genre:['Action','Sci-Fi'],desc:'Imprisoned on Sakaar, Thor must race against time to return to Asgard and stop Ragnarök.'},
+  {id:335984,title:'Blade Runner 2049',year:2017,rating:8.0,type:'movie',poster:'https://image.tmdb.org/t/p/w500/gajva2L0rPYkEWjzgFlBXCAVBE5.jpg',backdrop:'https://image.tmdb.org/t/p/original/ilRyazdMJwN3LHZP7iBbUCdRMf.jpg',genre:['Sci-Fi','Drama'],desc:'A young blade runner discovers a long-buried secret that has the potential to plunge what\'s left of society into chaos.'},
+  {id:361743,title:'Top Gun: Maverick',year:2022,rating:8.3,type:'movie',poster:'https://image.tmdb.org/t/p/w500/62HCnUTziyWcpDaBO2i1DX17ljH.jpg',backdrop:'https://image.tmdb.org/t/p/original/odJ4hx6g6vBt4lBWKFD1tI8WS4x.jpg',genre:['Action','Drama'],desc:'After thirty years, Maverick is still pushing the envelope as a top naval aviator.'},
+  {id:370172,title:'No Time to Die',year:2021,rating:7.3,type:'movie',poster:'https://image.tmdb.org/t/p/w500/iUgygt3fscRoKWCV1d0C7FbM9TP.jpg',backdrop:'https://image.tmdb.org/t/p/original/1953j0QEbtN17WFFTnJHIm6bn6I.jpg',genre:['Action','Thriller'],desc:'James Bond has left active service when his friend Felix Leiter enlists his help with a mission.'},
+  {id:260514,title:'Cars 3',year:2017,rating:6.7,type:'movie',poster:'https://image.tmdb.org/t/p/w500/tX3HxGxj8lScWEy4EiEGVqkQEGR.jpg',backdrop:'https://image.tmdb.org/t/p/original/b8mJg7EMHZjBTVbJo4qTCGXV2gG.jpg',genre:['Animation','Comedy'],desc:'Blindsided by a new generation of blazing-fast racers, the legendary Lightning McQueen is sidelined.'},
+  {id:438631,title:'The Witch',year:2015,rating:6.9,type:'movie',poster:'https://image.tmdb.org/t/p/w500/zhMBZTFbmnjOEFPLVRpvG0QBLYT.jpg',backdrop:'https://image.tmdb.org/t/p/original/99FIBbDQ9TPJg9lAYtPuChp7KqG.jpg',genre:['Horror'],desc:'A Puritan farmer\'s daughter faces supernatural forces as her family is torn apart in colonial New England.'},
+  {id:363088,title:'Annihilation',year:2018,rating:7.5,type:'movie',poster:'https://image.tmdb.org/t/p/w500/nHgHkF1Uqmq9dD9tP73ew2jcRcI.jpg',backdrop:'https://image.tmdb.org/t/p/original/jtM7SnMYnxkoF63iT7WEQTP5MdF.jpg',genre:['Horror','Sci-Fi'],desc:'A biologist and her husband disappear into an environmental disaster zone known as "The Shimmer."'},
+  {id:346364,title:'It',year:2017,rating:7.3,type:'movie',poster:'https://image.tmdb.org/t/p/w500/9E2y5Q7WlCVHDbtB5T2a3FToNnT.jpg',backdrop:'https://image.tmdb.org/t/p/original/tcheoB7nYAFJqGHuBGtBqfMBBFT.jpg',genre:['Horror','Thriller'],desc:'In the summer of 1989, a group of bullied kids band together to destroy a shapeshifting monster.'},
+  {id:320288,title:'Midsommar',year:2019,rating:7.1,type:'movie',poster:'https://image.tmdb.org/t/p/w500/7LEI8ulZzO5gy9Ww2NVCrKmHeDZ.jpg',backdrop:'https://image.tmdb.org/t/p/original/3NQL7XHrIDcRXHRgx2rAGHRg8AB.jpg',genre:['Horror','Drama'],desc:'A couple travels to Sweden to visit a rural hometown\'s midsummer festival that quickly descends into something more sinister.'},
+  {id:394117,title:'Get Out',year:2017,rating:7.7,type:'movie',poster:'https://image.tmdb.org/t/p/w500/qyZeAbDFKIGv1En4HAfXfZKp4eE.jpg',backdrop:'https://image.tmdb.org/t/p/original/2Ax5XP8TUMd4FgMFDFNukn7h0oH.jpg',genre:['Horror','Thriller'],desc:'A young African-American visits his white girlfriend\'s parents for the weekend, where his uneasiness grows into full-blown terror.'},
+  {id:400617,title:'Hereditary',year:2018,rating:7.3,type:'movie',poster:'https://image.tmdb.org/t/p/w500/p9eAzBvLmV1IJSHRqPsLFjgL4UN.jpg',backdrop:'https://image.tmdb.org/t/p/original/fzVi0ooTEP0YhpDMwlz2rBkBdDp.jpg',genre:['Horror','Drama'],desc:'When the matriarch of the Graham family passes away, her daughter\'s family begins to unravel cryptic and terrifying secrets.'},
+  {id:458156,title:'John Wick',year:2014,rating:7.4,type:'movie',poster:'https://image.tmdb.org/t/p/w500/fZPSd91yGE9fCcCe6OoQr6E3Bev.jpg',backdrop:'https://image.tmdb.org/t/p/original/umC04Cozevu8nn3JTDJ0L1cOEYw.jpg',genre:['Action','Thriller'],desc:'An ex-hit-man comes out of retirement to track down the gangsters that took everything from him.'},
+  {id:454626,title:'Sonic the Hedgehog',year:2020,rating:6.6,type:'movie',poster:'https://image.tmdb.org/t/p/w500/aQvJ5WPzZgYVDrxLX4R6cLJCEaQ.jpg',backdrop:'https://image.tmdb.org/t/p/original/stmYfCUGd8Iy6kAMBr6AmSqIvX.jpg',genre:['Action','Comedy'],desc:'A small-town police officer and Sonic the Hedgehog team up to discover the meaning of true friendship.'},
+  {id:508943,title:'Luca',year:2021,rating:7.4,type:'movie',poster:'https://image.tmdb.org/t/p/w500/jTswp6KyDYKtvC52GbHagrZbGvD.jpg',backdrop:'https://image.tmdb.org/t/p/original/4MCzm7kRHuoGJvLHyLy4qU1RYMS.jpg',genre:['Animation','Adventure'],desc:'A young sea monster and his new best friend experience a memorable summer in a beautiful seaside town on the Italian Riviera.'},
+  {id:718789,title:'Killers of the Flower Moon',year:2023,rating:7.7,type:'movie',poster:'https://image.tmdb.org/t/p/w500/dB6Krk806zeqd1psiHaCCRukafb.jpg',backdrop:'https://image.tmdb.org/t/p/original/1X7vow16X7CnCoZ9eatbMUzASyY.jpg',genre:['Drama','History'],desc:'Members of the Osage tribe in the United States are murdered under mysterious circumstances in the 1920s.'},
+  {id:823219,title:'Flow',year:2024,rating:8.3,type:'movie',poster:'https://image.tmdb.org/t/p/w500/2YMnBRh4RP1QNPAzAHdCHjCbf1z.jpg',backdrop:'https://image.tmdb.org/t/p/original/cbKwHCEbCzZFUGPXBevMRqJKk1L.jpg',genre:['Animation','Adventure'],desc:'A cat navigates a post-human world, forming an unlikely fellowship with other animals aboard a boat.'},
+  {id:945961,title:'Alien: Romulus',year:2024,rating:7.2,type:'movie',poster:'https://image.tmdb.org/t/p/w500/b33nnKl1GSFbao4l3fZDDqsMx0F.jpg',backdrop:'https://image.tmdb.org/t/p/original/9ssEimmyRpBPxS7pTYmUBflI9j5.jpg',genre:['Horror','Sci-Fi'],desc:'A group of young people on a distant world find themselves in a confrontation with the most terrifying life form in the universe.'},
+  {id:1011985,title:'Deadpool & Wolverine',year:2024,rating:7.9,type:'movie',poster:'https://image.tmdb.org/t/p/w500/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg',backdrop:'https://image.tmdb.org/t/p/original/yDHYTfA3R0jFYba16jBB1ef8oIt.jpg',genre:['Action','Comedy'],desc:'Deadpool is recruited by the Time Variance Authority to join forces with a variant Wolverine.'},
+  {id:762509,title:'Mufasa: The Lion King',year:2024,rating:7.0,type:'movie',poster:'https://image.tmdb.org/t/p/w500/435s37pnJKNJQfQ6Bx3SXWBZJrd.jpg',backdrop:'https://image.tmdb.org/t/p/original/5BcTMJQtENq7eqpCYKHiGIBYkQG.jpg',genre:['Animation','Adventure'],desc:'Told in flashbacks, Mufasa the cub is orphaned and taken in by a lion named Obasi.'},
+  {id:1084736,title:'Twisters',year:2024,rating:7.2,type:'movie',poster:'https://image.tmdb.org/t/p/w500/pjnD08FlMAIXsfOLKQbvmO0f0MD.jpg',backdrop:'https://image.tmdb.org/t/p/original/l6KMbBqHi4bNpLCCKc2cM8pJ1q0.jpg',genre:['Action','Thriller'],desc:'Storm chasers race against time chasing deadly tornadoes across the American heartland.'},
+  {id:519182,title:'Alien',year:1979,rating:8.5,type:'movie',poster:'https://image.tmdb.org/t/p/w500/vfrQk5IPloGg1v9Rzbh2Eg3VGyM.jpg',backdrop:'https://image.tmdb.org/t/p/original/AmR3JG9CZAKAkFSRJaI95UMGFl.jpg',genre:['Horror','Sci-Fi'],desc:'After a space merchant vessel receives an unknown transmission, the crew is unaware of the terror that awaits them.'},
+  {id:694919,title:'Money Heist: The Movie',year:2023,rating:7.0,type:'movie',poster:'https://image.tmdb.org/t/p/w500/6Mo3jBbxDVQQz1TRcVmMDjFiVIZ.jpg',backdrop:'https://image.tmdb.org/t/p/original/4kFQkAF7FBrHlHHLRdJ0DOT7p5Z.jpg',genre:['Thriller','Action'],desc:'The Professor executes a heist on the Royal Mint of Spain with the help of eight thieves.'},
+  {id:773,title:'Mean Girls',year:2004,rating:7.2,type:'movie',poster:'https://image.tmdb.org/t/p/w500/fVM8jOVHHULEHRqIhsqLMGjO6dH.jpg',backdrop:'https://image.tmdb.org/t/p/original/pyBzTNMzKbmJJIIqPTh40OMEjAP.jpg',genre:['Comedy','Drama'],desc:'A teenager who has been home-schooled by her zoologist parents joins a public high school where she faces teen society.'},
+  {id:9806,title:'The Incredibles',year:2004,rating:8.0,type:'movie',poster:'https://image.tmdb.org/t/p/w500/2LqaLgk4Z226KkgPJuiOQ58ShpD.jpg',backdrop:'https://image.tmdb.org/t/p/original/2ARhDDCRbAOJkTGKO0GHZCqXlwT.jpg',genre:['Animation','Action'],desc:'A family of undercover superheroes tries to live quietly but is forced back into action by a new villain.'},
+  {id:585,title:'Monsters, Inc.',year:2001,rating:8.1,type:'movie',poster:'https://image.tmdb.org/t/p/w500/sgheSKxZkttIe8ONbw5NJFjuAyR.jpg',backdrop:'https://image.tmdb.org/t/p/original/5Y6PLFsXHLkEe2cFfMvNHvDZBqE.jpg',genre:['Animation','Comedy'],desc:'Monsters generate their city\'s power by scaring children, but that changes when a girl enters their world.'},
+  {id:37724,title:'Skyfall',year:2012,rating:7.8,type:'movie',poster:'https://image.tmdb.org/t/p/w500/xcBSVRvExBdJRZ0VKsAlNfXnHEF.jpg',backdrop:'https://image.tmdb.org/t/p/original/xFcNKQe3AnQHkqNkLXuQIqTuTVY.jpg',genre:['Action','Thriller'],desc:'Bond\'s loyalty to M is tested as her past comes back to haunt her as MI6 comes under attack.'},
+  {id:324552,title:'John Wick: Chapter 2',year:2017,rating:7.4,type:'movie',poster:'https://image.tmdb.org/t/p/w500/hXWBc0ioZP3cN4zCu6SN3YHXZVO.jpg',backdrop:'https://image.tmdb.org/t/p/original/8zCHtHFELBNDHrIl98mEhZjUFwl.jpg',genre:['Action','Thriller'],desc:'After returning to the criminal underworld to repay a debt, John Wick discovers there is a large bounty on his life.'},
+  {id:359724,title:'Ford v Ferrari',year:2019,rating:8.1,type:'movie',poster:'https://image.tmdb.org/t/p/w500/6ApDtO7xaWAfPqfi2IARXIzj8QS.jpg',backdrop:'https://image.tmdb.org/t/p/original/iCBxMQaMrHbTHiPJiurMjNTVhDx.jpg',genre:['Drama','Action'],desc:'American car designer Carroll Shelby and driver Ken Miles battle corporate interference to build a race car for Ford.'},
+  {id:530385,title:'Midsommar Director\'s Cut',year:2019,rating:7.2,type:'movie',poster:'https://image.tmdb.org/t/p/w500/7LEI8ulZzO5gy9Ww2NVCrKmHeDZ.jpg',backdrop:'https://image.tmdb.org/t/p/original/3NQL7XHrIDcRXHRgx2rAGHRg8AB.jpg',genre:['Horror','Drama'],desc:'The extended cut of the folk horror film where a couple travels to Sweden\'s midsummer celebration.'},
 ];
 
 const TV_SHOWS = [
@@ -1459,6 +1660,30 @@ const TV_SHOWS = [
   {id:90803,title:'Squid Game',year:2021,rating:8.0,type:'tv',poster:'https://image.tmdb.org/t/p/w500/dDlEmu3EZ0Pgg93K2SVNLCjCSvE.jpg',backdrop:'https://image.tmdb.org/t/p/original/qw3J9cNeLioOLoR68WX7z79aCdK.jpg',genre:['Thriller','Drama'],desc:'Hundreds of cash-strapped players compete in deadly children\'s games.'},
   {id:63174,title:'Loki',year:2021,rating:8.2,type:'tv',poster:'https://image.tmdb.org/t/p/w500/voHUmluYkKpnM0qZQMHoF0UcaT7.jpg',backdrop:'https://image.tmdb.org/t/p/original/nO1OSEMezLbTBpRIbhQkBrEKBMH.jpg',genre:['Sci-Fi','Action'],desc:'The God of Mischief steps out of his brother\'s shadow.'},
   {id:84773,title:'The Lord of the Rings: The Rings of Power',year:2022,rating:7.0,type:'tv',poster:'https://image.tmdb.org/t/p/w500/mYLOqiStMxDK3fYZFirgrMt8z5d.jpg',backdrop:'https://image.tmdb.org/t/p/original/5OmKRxaaCm2tkRvSJDnRfYRLCmY.jpg',genre:['Fantasy','Drama'],desc:'Epic tales set during the Age of Numenor in Middle-earth.'},
+  {id:1399,title:'Game of Thrones',year:2011,rating:9.2,type:'tv',poster:'https://image.tmdb.org/t/p/w500/1XS1oqL89opfnbLl8WnZY1O1uJx.jpg',backdrop:'https://image.tmdb.org/t/p/original/suopoADq0k8YZr4dQXcU6pToj6s.jpg',genre:['Fantasy','Drama'],desc:'Seven noble families fight for control of the mythical land of Westeros while an ancient enemy returns.'},
+  {id:1402,title:'The Walking Dead',year:2010,rating:8.1,type:'tv',poster:'https://image.tmdb.org/t/p/w500/n7PO4AGzAl3OZSrQ7tB9JQxfCQy.jpg',backdrop:'https://image.tmdb.org/t/p/original/pwCJnMWLniE4lMFcWdRIMkdVfJQ.jpg',genre:['Horror','Drama'],desc:'Sheriff Deputy Rick Grimes leads a group of survivors in a zombie apocalypse.'},
+  {id:66732,title:'Stranger Things',year:2016,rating:8.7,type:'tv',poster:'https://image.tmdb.org/t/p/w500/49WJfeN0moxb9IPfGn8AIqMGskD.jpg',backdrop:'https://image.tmdb.org/t/p/original/56v2KjBlU4XaOv9rVYEQypROD7P.jpg',genre:['Sci-Fi','Horror'],desc:'When a boy disappears, his friends, family and local police discover a series of extraordinary mysteries.'},
+  {id:87108,title:'Chernobyl',year:2019,rating:9.4,type:'tv',poster:'https://image.tmdb.org/t/p/w500/hlLXt2tOPT6RRnjiUmoxyG1LTFi.jpg',backdrop:'https://image.tmdb.org/t/p/original/suopoADq0k8YZr4dQXcU6pToj6s.jpg',genre:['Drama','History'],desc:'In April 1986, an explosion at the Chernobyl nuclear power plant in the USSR becomes one of the world\'s worst disasters.'},
+  {id:1418,title:'The Big Bang Theory',year:2007,rating:7.8,type:'tv',poster:'https://image.tmdb.org/t/p/w500/ooBGRQBdbGzBxAVfExiO8r7kloA.jpg',backdrop:'https://image.tmdb.org/t/p/original/nGsNruW3W27V6r4gkyMYPvHn9Yw.jpg',genre:['Comedy'],desc:'A group of socially awkward friends navigate life, love and the universe.'},
+  {id:1100,title:'How I Met Your Mother',year:2005,rating:7.8,type:'tv',poster:'https://image.tmdb.org/t/p/w500/b34jPzmB0wZy7EjUZoleXOl2RRI.jpg',backdrop:'https://image.tmdb.org/t/p/original/jvP2UlQHFVaKf8OMZ6xMb77HjDD.jpg',genre:['Comedy','Romance'],desc:'Ted Mosby recounts to his kids the story of how he met their mother.'},
+  {id:2190,title:'South Park',year:1997,rating:8.7,type:'tv',poster:'https://image.tmdb.org/t/p/w500/vxuoMW6YBt6UsxvMfRNwRl9LtWS.jpg',backdrop:'https://image.tmdb.org/t/p/original/5qPOQtVDHWBOgJXEaX9pHBnQFTR.jpg',genre:['Animation','Comedy'],desc:'Follows the exploits of four irreverent grade-schoolers in the quiet, dysfunctional mountain town of South Park, Colorado.'},
+  {id:46952,title:'Black Mirror',year:2011,rating:8.3,type:'tv',poster:'https://image.tmdb.org/t/p/w500/7PRddO7z7mcPi21nZTCMGShAyy1.jpg',backdrop:'https://image.tmdb.org/t/p/original/9VXbRMkLqxJSPdC6LTWJ0XBYTM4.jpg',genre:['Sci-Fi','Drama'],desc:'An anthology series exploring a twisted, high-tech multiverse where humanity\'s greatest innovations and darkest instincts collide.'},
+  {id:44217,title:'The Crown',year:2016,rating:8.2,type:'tv',poster:'https://image.tmdb.org/t/p/w500/aBjZHzKVmMRVkTqBIpqnxAcVHTy.jpg',backdrop:'https://image.tmdb.org/t/p/original/x1s6ykDEDI5GfCxMVS1Lm0wC7qP.jpg',genre:['Drama','History'],desc:'This drama follows the political rivalries and romance of Queen Elizabeth II\'s reign.'},
+  {id:83097,title:'The Boys',year:2019,rating:8.7,type:'tv',poster:'https://image.tmdb.org/t/p/w500/stTEycfG9928HYGEISBFaG1ngjM.jpg',backdrop:'https://image.tmdb.org/t/p/original/mY7SeH4HFFxW1hiI6cWuwCRKptN.jpg',genre:['Action','Drama'],desc:'A group of vigilantes set out to take down corrupt superheroes who abuse their powers.'},
+  {id:71446,title:'Money Heist',year:2017,rating:8.2,type:'tv',poster:'https://image.tmdb.org/t/p/w500/reEMJA1uzscCbkpeRJeTT2bjqUp.jpg',backdrop:'https://image.tmdb.org/t/p/original/xGexTKCJDkl61E1KVRS3GBgjAqT.jpg',genre:['Thriller','Drama'],desc:'A criminal mastermind who goes by "The Professor" recruits eight thieves with specific skills to carry out an elaborate heist.'},
+  {id:37854,title:'One Piece',year:1999,rating:8.9,type:'tv',poster:'https://image.tmdb.org/t/p/w500/fcfVMBMf0dVQHAMk5bxbmMJVbbC.jpg',backdrop:'https://image.tmdb.org/t/p/original/2IwouEQCMqTQk7LO4La5Qpmj8JT.jpg',genre:['Animation','Action'],desc:'Follows the adventures of Monkey D. Luffy and his pirate crew in search of the greatest treasure, the One Piece.'},
+  {id:60625,title:'Rick and Morty',year:2013,rating:9.2,type:'tv',poster:'https://image.tmdb.org/t/p/w500/gdIrmf2DdY5mgN6ycVP0XlzKzbE.jpg',backdrop:'https://image.tmdb.org/t/p/original/gxGCbJVcqSAkQiZlJnkU7P2pj0w.jpg',genre:['Animation','Sci-Fi'],desc:'An animated series that follows the exploits of a super scientist and his not-so-bright grandson.'},
+  {id:153313,title:'Avatar: The Last Airbender',year:2024,rating:8.4,type:'tv',poster:'https://image.tmdb.org/t/p/w500/xuiHEFfhJiJMoEgRHRz5pZSjPiX.jpg',backdrop:'https://image.tmdb.org/t/p/original/vttDq3gYtf1qrjSJIBkXWpbEAlR.jpg',genre:['Fantasy','Action'],desc:'Aang, a young successor to a long line of Avatars, must master all four elements and stop the Fire Nation.'},
+  {id:85552,title:'Euphoria',year:2019,rating:8.4,type:'tv',poster:'https://image.tmdb.org/t/p/w500/3Q0hd3heuWwDWpwcDkhQOA6TYWI.jpg',backdrop:'https://image.tmdb.org/t/p/original/jtnfNzqZwN4E32FGGxx1YZaBWWf.jpg',genre:['Drama','Thriller'],desc:'A look at life for a group of high school students as they grapple with issues of drugs, sex and violence.'},
+  {id:57243,title:'Doctor Who',year:2005,rating:8.3,type:'tv',poster:'https://image.tmdb.org/t/p/w500/4edFyasCrkH4MKs6H4mHqlrxA6b.jpg',backdrop:'https://image.tmdb.org/t/p/original/bDJsWfp95hIMJoHVDNJHkd7in7h.jpg',genre:['Sci-Fi','Adventure'],desc:'The further adventures of the time traveling alien doctor and his companions from planet Earth.'},
+  {id:75006,title:'The Mandalorian',year:2019,rating:8.6,type:'tv',poster:'https://image.tmdb.org/t/p/w500/eU1i6eHXlzMqZen0Hm60AE7DXhq.jpg',backdrop:'https://image.tmdb.org/t/p/original/9ijMGlJKqcslswWUzTEwScm82Gs.jpg',genre:['Sci-Fi','Action'],desc:'A lone bounty hunter in the outer reaches of the galaxy, far from the authority of the New Republic.'},
+  {id:1668,title:'Friends',year:1994,rating:8.9,type:'tv',poster:'https://image.tmdb.org/t/p/w500/f496cm9enuEsZkSPzCwnTESEK5s.jpg',backdrop:'https://image.tmdb.org/t/p/original/l0qVZIpXtIo7km9Saturn.jpg',genre:['Comedy','Romance'],desc:'Follows the lives of six friends living in Manhattan navigating love, relationships and the pursuit of fame.'},
+  {id:48866,title:'The Office',year:2005,rating:8.9,type:'tv',poster:'https://image.tmdb.org/t/p/w500/qWnJzyZhyy74gjpSjIXWmuk0ifX.jpg',backdrop:'https://image.tmdb.org/t/p/original/vNpuAxGTl9HsUbHqam3E9CzqCvX.jpg',genre:['Comedy'],desc:'A mockumentary on a group of typical office workers, where the workday consists of ego clashes, inappropriate behavior and tedium.'},
+  {id:31917,title:'Pretty Little Liars',year:2010,rating:7.4,type:'tv',poster:'https://image.tmdb.org/t/p/w500/2iwBMtJYQ9LcCyaJDG1O3TbMjd3.jpg',backdrop:'https://image.tmdb.org/t/p/original/wXPNKPWIkTUGbLqTU4ChRvxbwSS.jpg',genre:['Thriller','Drama'],desc:'Four friends band together against an anonymous foe who threatens to reveal their darkest secrets.'},
+  {id:67419,title:'Victoria',year:2016,rating:7.8,type:'tv',poster:'https://image.tmdb.org/t/p/w500/5Pgmm1nNFiUCtyEnx79F7wOdJeE.jpg',backdrop:'https://image.tmdb.org/t/p/original/2NbeFsPNImAtMJNqpnkMwYNLDWf.jpg',genre:['Drama','History'],desc:'A dramatized account of the early life of Queen Victoria.'},
+  {id:93405,title:'Squid Game S2',year:2024,rating:7.5,type:'tv',poster:'https://image.tmdb.org/t/p/w500/dDlEmu3EZ0Pgg93K2SVNLCjCSvE.jpg',backdrop:'https://image.tmdb.org/t/p/original/qw3J9cNeLioOLoR68WX7z79aCdK.jpg',genre:['Thriller','Drama'],desc:'Gi-hun returns to the Squid Game, determined to find the people behind it and put an end to the deadly competition.'},
+  {id:100757,title:'The Diplomat',year:2023,rating:7.7,type:'tv',poster:'https://image.tmdb.org/t/p/w500/1KYz1akLkFJnTYNXIqTAlgkiJdN.jpg',backdrop:'https://image.tmdb.org/t/p/original/mVaGNMaISnqB0QZOS7KRwnlb5QH.jpg',genre:['Drama','Thriller'],desc:'A career diplomat is thrust into a high-profile ambassadorial role in London during an international crisis.'},
+  {id:136315,title:'Yellowjackets',year:2021,rating:7.8,type:'tv',poster:'https://image.tmdb.org/t/p/w500/fLbww3y8hKRFKmWWSnZEMZGfYi6.jpg',backdrop:'https://image.tmdb.org/t/p/original/2kI4tDVmeyPHnEFhbE0mS7PvImM.jpg',genre:['Horror','Drama'],desc:'A team of teenage girl soccer players survives a plane crash in the remote northern wilderness and must fend for themselves.'},
 ];
 
 const ACTORS = [
