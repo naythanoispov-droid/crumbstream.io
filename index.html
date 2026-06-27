@@ -36,44 +36,6 @@
     overflow-x: hidden;
   }
 
-  /* ─── ACCENT COLOR THEMES (Appearance settings) ─── */
-  body.accent-blue {
-    --orange: #00B4FF; --orange-light: #3CC8FF; --orange-dark: #0086C2;
-    --orange-glow: rgba(0,180,255,0.35); --border-orange: rgba(0,180,255,0.3);
-  }
-  body.accent-green {
-    --orange: #00D26A; --orange-light: #2EE88C; --orange-dark: #00A352;
-    --orange-glow: rgba(0,210,106,0.35); --border-orange: rgba(0,210,106,0.3);
-  }
-  body.accent-purple {
-    --orange: #9B5DFF; --orange-light: #B583FF; --orange-dark: #7A3DE0;
-    --orange-glow: rgba(155,93,255,0.35); --border-orange: rgba(155,93,255,0.3);
-  }
-  body.accent-red {
-    --orange: #FF3B3B; --orange-light: #FF6B6B; --orange-dark: #CC1F1F;
-    --orange-glow: rgba(255,59,59,0.35); --border-orange: rgba(255,59,59,0.3);
-  }
-
-  /* ─── LIGHT THEME (Appearance settings) ─────────── */
-  body.theme-light {
-    --bg-dark: #F2F2F0; --bg-card: #FFFFFF; --bg-card2: #ECECE8;
-    --bg-sidebar: #FFFFFF; --white: #14140F; --text-muted: #6B6B65;
-    --text-dim: #9A9A93; --border: rgba(0,0,0,0.08); --off-white: #14140F;
-  }
-  body.theme-light .hero-overlay {
-    background: linear-gradient(to right, rgba(242,242,240,0.96) 35%, transparent 70%),
-                linear-gradient(to top, rgba(242,242,240,0.92) 0%, transparent 50%);
-  }
-  body.theme-light .hero-bg { background: linear-gradient(135deg, #fff4ea 0%, #f2f2f0 60%); }
-  body.theme-light .topbar { background: rgba(242,242,240,0.92); }
-  body.theme-light .modal-backdrop { background: rgba(0,0,0,0.75); }
-
-  /* ─── COMPACT DENSITY (Appearance settings) ─────── */
-  body.density-compact .card { width: 130px; }
-  body.density-compact .section { padding: 0 32px 22px; }
-  body.density-compact .card-info { padding-top: 6px; }
-
-  
   /* ─── SIDEBAR ─────────────────────────────── */
   .sidebar {
     position: fixed;
@@ -533,56 +495,6 @@
   .featured-card-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-bottom: 12px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
   .featured-card-footer { display: flex; gap: 7px; flex-wrap: wrap; }
 
-  /* ─── COMING SOON CARD ───────────────────────── */
-  .soon-card {
-    flex-shrink: 0;
-    width: 175px;
-    cursor: pointer;
-    transition: transform 0.25s;
-    position: relative;
-  }
-  .soon-card:hover { transform: scale(1.04); z-index: 2; }
-  .soon-poster {
-    width: 100%; aspect-ratio: 2/3;
-    border-radius: var(--radius-sm);
-    background: var(--bg-card2);
-    overflow: hidden;
-    position: relative;
-    border: 1px solid var(--border-orange);
-  }
-  .soon-poster img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.85); }
-  .soon-date-badge {
-    position: absolute; top: 8px; left: 8px;
-    background: var(--orange);
-    color: white; font-size: 10px; font-weight: 700;
-    padding: 4px 8px; border-radius: 5px;
-    letter-spacing: 0.3px;
-    box-shadow: 0 2px 8px var(--orange-glow);
-  }
-  .soon-lock-overlay {
-    position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, transparent 55%);
-    opacity: 0; transition: opacity 0.25s;
-    display: flex; flex-direction: column;
-    justify-content: flex-end; padding: 10px; gap: 6px;
-  }
-  .soon-card:hover .soon-lock-overlay { opacity: 1; }
-  .soon-notify-btn {
-    background: rgba(255,107,0,0.18);
-    border: 1px solid var(--border-orange);
-    color: var(--orange-light);
-    font-size: 11px; font-weight: 700;
-    padding: 7px; border-radius: 6px;
-    text-align: center; cursor: pointer;
-    transition: all 0.2s;
-  }
-  .soon-notify-btn:hover { background: var(--orange); color: white; }
-  .soon-notify-btn.notified { background: var(--orange); color: white; }
-  .soon-info { padding: 8px 2px 0; }
-  .soon-title { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .soon-meta { font-size: 11px; color: var(--text-muted); margin-top: 2px; display: flex; align-items: center; gap: 5px; }
-  .soon-meta .countdown { color: var(--orange); font-weight: 600; }
-
   /* ─── ACTOR CARD ─────────────────────────────── */
   .actor-card {
     flex-shrink: 0; width: 110px;
@@ -997,21 +909,245 @@
   .toast.show { transform: translateY(0); opacity: 1; }
   .toast-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--orange); }
 
-  .page-header {
-    padding: 28px 32px 0;
-    margin-bottom: 24px;
-  }
-  .page-header h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 38px; letter-spacing: 1px;
-  }
+  .page-header { padding: 28px 32px 0; margin-bottom: 24px; }
+  .page-header h1 { font-family: 'Bebas Neue', sans-serif; font-size: 38px; letter-spacing: 1px; }
   .page-header h1 span { color: var(--orange); }
   .page-header p { color: var(--text-muted); font-size: 14px; margin-top: 4px; }
+
+  /* ── ACCENT THEMES ── */
+  body.accent-blue{--orange:#00B4FF;--orange-light:#3CC8FF;--orange-dark:#0086C2;--orange-glow:rgba(0,180,255,.35);--border-orange:rgba(0,180,255,.3)}
+  body.accent-green{--orange:#00D26A;--orange-light:#2EE88C;--orange-dark:#00A352;--orange-glow:rgba(0,210,106,.35);--border-orange:rgba(0,210,106,.3)}
+  body.accent-purple{--orange:#9B5DFF;--orange-light:#B583FF;--orange-dark:#7A3DE0;--orange-glow:rgba(155,93,255,.35);--border-orange:rgba(155,93,255,.3)}
+  body.accent-red{--orange:#FF3B3B;--orange-light:#FF6B6B;--orange-dark:#CC1F1F;--orange-glow:rgba(255,59,59,.35);--border-orange:rgba(255,59,59,.3)}
+  body.accent-pink{--orange:#FF3CAC;--orange-light:#FF6EC7;--orange-dark:#C9008A;--orange-glow:rgba(255,60,172,.35);--border-orange:rgba(255,60,172,.3)}
+  body.accent-gold{--orange:#FFB800;--orange-light:#FFD040;--orange-dark:#CC9400;--orange-glow:rgba(255,184,0,.35);--border-orange:rgba(255,184,0,.3)}
+
+  /* ── LIGHT THEME ── */
+  body.theme-light{--bg-dark:#F2F2F0;--bg-card:#FFFFFF;--bg-card2:#ECECE8;--bg-sidebar:#FFFFFF;--white:#14140F;--text-muted:#6B6B65;--text-dim:#9A9A93;--border:rgba(0,0,0,.08);--off-white:#14140F}
+  body.theme-light .hero-overlay{background:linear-gradient(to right,rgba(242,242,240,.96) 35%,transparent 70%),linear-gradient(to top,rgba(242,242,240,.92) 0%,transparent 50%)}
+  body.theme-light .topbar{background:rgba(242,242,240,.92)}
+  body.theme-light select{color:#14140F}
+
+  /* ── COMPACT DENSITY ── */
+  body.density-compact .card{width:120px}
+  body.density-compact .section{padding:0 24px 20px}
+
+  /* ── FONT SIZE ── */
+  body.font-sm{font-size:12px} body.font-lg{font-size:16px}
+
+  /* ── AUTH SCREEN ── */
+  #authScreen{
+    position:fixed;inset:0;z-index:9999;
+    background:#0A0A0A;
+    display:flex;align-items:center;justify-content:center;
+    flex-direction:column;
+  }
+  .auth-box{
+    background:var(--bg-card);border:1px solid var(--border);
+    border-radius:20px;padding:40px;width:min(440px,92vw);
+    box-shadow:0 30px 80px rgba(0,0,0,.7);
+    position:relative;overflow:hidden;
+  }
+  .auth-box::before{
+    content:'';position:absolute;top:-60px;right:-60px;
+    width:200px;height:200px;border-radius:50%;
+    background:var(--orange-glow);filter:blur(60px);pointer-events:none;
+  }
+  .auth-logo{display:flex;align-items:center;gap:10px;margin-bottom:28px;justify-content:center}
+  .auth-logo-icon{width:46px;height:46px;background:var(--orange);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 0 24px var(--orange-glow)}
+  .auth-logo-text{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:1px}
+  .auth-logo-text span{color:var(--orange)}
+  .auth-tabs{display:flex;background:var(--bg-card2);border-radius:10px;padding:3px;margin-bottom:24px}
+  .auth-tab{flex:1;padding:9px;text-align:center;font-size:13px;font-weight:700;cursor:pointer;border-radius:8px;color:var(--text-muted);transition:all .2s}
+  .auth-tab.active{background:var(--orange);color:white}
+  .auth-field{margin-bottom:14px}
+  .auth-field label{display:block;font-size:12px;font-weight:700;color:var(--text-muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+  .auth-field input{width:100%;background:var(--bg-card2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--white);font-size:14px;outline:none;transition:border-color .2s;font-family:'Inter',sans-serif}
+  .auth-field input:focus{border-color:var(--orange)}
+  .auth-btn{width:100%;padding:13px;background:var(--orange);color:white;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;margin-top:6px}
+  .auth-btn:hover{background:var(--orange-light);box-shadow:0 6px 24px var(--orange-glow);transform:translateY(-1px)}
+  .auth-divider{display:flex;align-items:center;gap:12px;margin:18px 0;color:var(--text-dim);font-size:12px}
+  .auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+  .auth-guest-btn{width:100%;padding:12px;background:transparent;color:var(--text-muted);border:1px solid var(--border);border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;text-align:center}
+  .auth-guest-btn:hover{border-color:var(--orange);color:var(--orange)}
+  .auth-guest-note{font-size:11px;color:var(--text-dim);text-align:center;margin-top:8px}
+  .auth-error{background:rgba(255,60,60,.12);border:1px solid rgba(255,60,60,.3);color:#ff6b6b;border-radius:8px;padding:10px 14px;font-size:13px;margin-bottom:12px;display:none}
+
+  /* ── PROFILE MODAL ── */
+  #profileModal{position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center}
+  #profileModal.open{display:flex}
+  .profile-box{background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:32px;width:min(480px,92vw);max-height:90vh;overflow-y:auto}
+  .profile-avatar-wrap{display:flex;flex-direction:column;align-items:center;gap:12px;margin-bottom:24px}
+  .profile-avatar-big{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--orange),var(--orange-dark));display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:700;box-shadow:0 0 24px var(--orange-glow);cursor:pointer;position:relative;overflow:hidden}
+  .profile-avatar-big img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+  .profile-avatar-big input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
+  .avatar-emojis{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:6px}
+  .avatar-emoji{width:36px;height:36px;border-radius:50%;background:var(--bg-card2);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;transition:all .2s}
+  .avatar-emoji:hover,.avatar-emoji.active{border-color:var(--orange);background:rgba(255,107,0,.15)}
+  .profile-field{margin-bottom:14px}
+  .profile-field label{display:block;font-size:12px;font-weight:700;color:var(--text-muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+  .profile-field input,.profile-field select{width:100%;background:var(--bg-card2);border:1px solid var(--border);border-radius:10px;padding:11px 14px;color:var(--white);font-size:14px;outline:none;font-family:'Inter',sans-serif;transition:border-color .2s}
+  .profile-field input:focus,.profile-field select:focus{border-color:var(--orange)}
+  .profile-color-row{display:flex;gap:8px;flex-wrap:wrap}
+  .profile-color{width:28px;height:28px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:all .2s}
+  .profile-color.active{border-color:white;transform:scale(1.15)}
+
+  /* ── EPISODE PICKER ── */
+  .ep-picker{padding:16px 20px;border-top:1px solid var(--border)}
+  .ep-picker-title{font-size:11px;font-weight:700;color:var(--orange);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
+  .ep-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+  .ep-season-btn,.ep-num-btn{padding:5px 12px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text-muted);font-family:'Inter',sans-serif;transition:all .2s}
+  .ep-season-btn.active,.ep-num-btn.active{background:var(--orange);color:white;border-color:var(--orange)}
+  .ep-season-btn:hover,.ep-num-btn:hover{border-color:var(--orange);color:var(--orange)}
+
+  /* ── COMING SOON CARD ── */
+  .soon-card{flex-shrink:0;width:175px;cursor:pointer;transition:transform .25s;position:relative}
+  .soon-card:hover{transform:scale(1.04);z-index:2}
+  .soon-poster{width:100%;aspect-ratio:2/3;border-radius:var(--radius-sm);background:var(--bg-card2);overflow:hidden;position:relative;border:1px solid var(--border-orange)}
+  .soon-poster img{width:100%;height:100%;object-fit:cover;filter:saturate(.85)}
+  .soon-date-badge{position:absolute;top:8px;left:8px;background:var(--orange);color:white;font-size:10px;font-weight:700;padding:4px 8px;border-radius:5px;letter-spacing:.3px;box-shadow:0 2px 8px var(--orange-glow)}
+  .soon-lock-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.92) 0%,transparent 55%);opacity:0;transition:opacity .25s;display:flex;flex-direction:column;justify-content:flex-end;padding:10px;gap:6px}
+  .soon-card:hover .soon-lock-overlay{opacity:1}
+  .soon-notify-btn{background:rgba(255,107,0,.18);border:1px solid var(--border-orange);color:var(--orange-light);font-size:11px;font-weight:700;padding:7px;border-radius:6px;text-align:center;cursor:pointer;transition:all .2s}
+  .soon-notify-btn:hover,.soon-notify-btn.notified{background:var(--orange);color:white}
+  .soon-info{padding:8px 2px 0}
+  .soon-title{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .soon-meta{font-size:11px;color:var(--text-muted);margin-top:2px;display:flex;align-items:center;gap:5px}
+  .soon-meta .countdown{color:var(--orange);font-weight:600}
+
+  /* ── SETTINGS ── */
+  .settings-layout{display:grid;grid-template-columns:200px 1fr;gap:24px;padding:28px 32px}
+  .settings-menu{display:flex;flex-direction:column;gap:4px}
+  .settings-menu-item{padding:9px 14px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;color:var(--text-muted);transition:all .2s}
+  .settings-menu-item:hover{color:white;background:var(--bg-card2)}
+  .settings-menu-item.active{color:var(--orange);background:rgba(255,107,0,.08)}
+  .settings-panel-title{font-size:20px;font-weight:800;margin-bottom:20px;font-family:'Montserrat',sans-serif}
+  .settings-card{background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border);padding:20px;margin-bottom:16px}
+  .settings-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border)}
+  .settings-row:last-child{border-bottom:none}
+  .settings-row-label{font-size:14px;font-weight:500}
+  .settings-row-desc{font-size:12px;color:var(--text-muted);margin-top:2px}
+  .toggle{width:44px;height:24px;background:var(--bg-card2);border-radius:12px;cursor:pointer;position:relative;border:1px solid var(--border);transition:background .2s;flex-shrink:0}
+  .toggle.on{background:var(--orange);border-color:var(--orange)}
+  .toggle-thumb{position:absolute;top:2px;left:2px;width:18px;height:18px;background:white;border-radius:50%;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+  .toggle.on .toggle-thumb{transform:translateX(20px)}
+  .s-section-label{font-size:11px;font-weight:700;color:var(--orange);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
+
+  /* ── SEARCH RESULTS GRID ── */
+  .search-results-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:16px;padding:28px 32px}
+
+  /* ── NOTIFICATIONS ── */
+  .notif-panel{position:fixed;top:60px;right:20px;width:320px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;overflow:hidden;z-index:200;display:none;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+  .notif-panel.open{display:block}
+  .notif-header{padding:14px 16px;border-bottom:1px solid var(--border);font-size:14px;font-weight:700}
+  .notif-item{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;gap:10px;cursor:pointer;transition:background .2s}
+  .notif-item:hover{background:var(--bg-card2)}
+  .notif-item:last-child{border-bottom:none}
+  .notif-icon{width:36px;height:36px;border-radius:8px;background:rgba(255,107,0,.15);display:flex;align-items:center;justify-content:center;color:var(--orange);flex-shrink:0}
+  .notif-text{font-size:12px;color:var(--text-muted);line-height:1.5}
+  .notif-text strong{color:white;font-weight:600}
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:900px){.sidebar{transform:translateX(-240px)}.sidebar.open{transform:translateX(0)}.main{margin-left:0}.hero-title{font-size:48px}.stats-bar{flex-wrap:wrap}.settings-layout{grid-template-columns:1fr}}
+  ::-webkit-scrollbar{width:5px;height:5px}
+  ::-webkit-scrollbar-track{background:transparent}
+  ::-webkit-scrollbar-thumb{background:var(--text-dim);border-radius:3px}
+  ::-webkit-scrollbar-thumb:hover{background:var(--orange)}
+  .shimmer{background:linear-gradient(90deg,var(--bg-card2) 25%,#2a2a2a 50%,var(--bg-card2) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite}
+  @keyframes shimmer{to{background-position:-200% 0}}
+  .toast{position:fixed;bottom:24px;right:24px;background:var(--bg-card);border:1px solid var(--border-orange);padding:12px 18px;border-radius:10px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;z-index:9999;transform:translateY(80px);opacity:0;transition:all .3s;box-shadow:0 8px 24px rgba(0,0,0,.4);color:white}
+  .toast.show{transform:translateY(0);opacity:1}
+  .toast-dot{width:8px;height:8px;border-radius:50%;background:var(--orange)}
+  .powered-btn{display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;text-decoration:none;transition:all .2s;border:1px solid var(--border-orange);color:var(--orange-light);background:rgba(255,107,0,.06)}
+  .powered-btn:hover{background:rgba(255,107,0,.15);border-color:var(--orange);color:var(--white)}
+  .genre-scroll{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:24px;scrollbar-width:none}
+  .genre-scroll::-webkit-scrollbar{display:none}
+  .genre-pill{flex-shrink:0;padding:7px 18px;border-radius:20px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid var(--border);color:var(--text-muted);background:transparent;transition:all .2s;font-family:'Inter',sans-serif}
+  .genre-pill:hover{color:var(--white);border-color:rgba(255,255,255,.3)}
+  .genre-pill.active{background:var(--orange);color:white;border-color:var(--orange)}
 </style>
 </head>
 <body>
 
-<!-- SIDEBAR -->
+<!-- ══ AUTH SCREEN ══ -->
+<div id="authScreen">
+  <div class="auth-box">
+    <div class="auth-logo">
+      <div class="auth-logo-icon">🎬</div>
+      <div class="auth-logo-text">Crumb<span>Stream</span></div>
+    </div>
+    <div class="auth-tabs">
+      <div class="auth-tab active" id="tabSignIn" onclick="switchAuthTab('signin')">Sign In</div>
+      <div class="auth-tab" id="tabSignUp" onclick="switchAuthTab('signup')">Sign Up</div>
+    </div>
+    <div id="authError" class="auth-error"></div>
+
+    <!-- SIGN IN -->
+    <div id="formSignIn">
+      <div class="auth-field"><label>Username or Email</label><input id="siUser" type="text" placeholder="Enter your username or email" autocomplete="username"></div>
+      <div class="auth-field"><label>Password</label><input id="siPass" type="password" placeholder="Enter your password" autocomplete="current-password"></div>
+      <button class="auth-btn" onclick="doSignIn()">Sign In →</button>
+      <div class="auth-divider">or</div>
+      <button class="auth-guest-btn" onclick="enterAsGuest()">👁 Watch Without an Account</button>
+      <div class="auth-guest-note">No account needed — just browse and watch. Profile &amp; watchlist won't be saved.</div>
+    </div>
+
+    <!-- SIGN UP -->
+    <div id="formSignUp" style="display:none">
+      <div class="auth-field"><label>Display Name</label><input id="suName" type="text" placeholder="Choose a display name"></div>
+      <div class="auth-field"><label>Email</label><input id="suEmail" type="email" placeholder="Your email address" autocomplete="email"></div>
+      <div class="auth-field"><label>Password</label><input id="suPass" type="password" placeholder="Create a password" autocomplete="new-password"></div>
+      <button class="auth-btn" onclick="doSignUp()">Create Account →</button>
+      <div class="auth-divider">or</div>
+      <button class="auth-guest-btn" onclick="enterAsGuest()">👁 Watch Without an Account</button>
+      <div class="auth-guest-note">No account needed — just browse and watch. Profile &amp; watchlist won't be saved.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PROFILE MODAL ══ -->
+<div id="profileModal">
+  <div class="profile-box">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+      <div style="font-size:20px;font-weight:800;font-family:'Montserrat',sans-serif">My <span style="color:var(--orange)">Profile</span></div>
+      <button class="close-btn" onclick="closeProfile()">✕</button>
+    </div>
+    <div class="profile-avatar-wrap">
+      <div class="profile-avatar-big" id="profileAvatarBig">CS</div>
+      <div style="font-size:12px;color:var(--text-muted)">Choose an avatar emoji</div>
+      <div class="avatar-emojis" id="avatarEmojis">
+        🎬 🎭 🦁 🐉 🦊 🌙 ⚡ 🔥 🎮 🎵 🌊 🚀 💀 🦋 🎯 🍕
+      </div>
+    </div>
+    <div class="profile-field"><label>Display Name</label><input id="profileName" type="text" placeholder="Your display name" oninput="profileChanged()"></div>
+    <div class="profile-field"><label>Bio</label><input id="profileBio" type="text" placeholder="A short bio about yourself" oninput="profileChanged()"></div>
+    <div class="profile-field"><label>Favorite Genre</label>
+      <select id="profileGenre" onchange="profileChanged()">
+        <option>Action</option><option>Horror</option><option>Sci-Fi</option><option>Drama</option><option>Comedy</option><option>Thriller</option><option>Animation</option><option>Fantasy</option><option>Romance</option><option>Documentary</option>
+      </select>
+    </div>
+    <div class="profile-field">
+      <label>Profile Accent Color</label>
+      <div class="profile-color-row" id="profileColors">
+        <div class="profile-color active" style="background:#FF6B00" data-c="orange" onclick="setProfileColor(this,'orange')"></div>
+        <div class="profile-color" style="background:#00B4FF" data-c="blue" onclick="setProfileColor(this,'blue')"></div>
+        <div class="profile-color" style="background:#9B5DFF" data-c="purple" onclick="setProfileColor(this,'purple')"></div>
+        <div class="profile-color" style="background:#00D26A" data-c="green" onclick="setProfileColor(this,'green')"></div>
+        <div class="profile-color" style="background:#FF3B3B" data-c="red" onclick="setProfileColor(this,'red')"></div>
+        <div class="profile-color" style="background:#FF3CAC" data-c="pink" onclick="setProfileColor(this,'pink')"></div>
+        <div class="profile-color" style="background:#FFB800" data-c="gold" onclick="setProfileColor(this,'gold')"></div>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;margin-top:8px">
+      <button class="auth-btn" style="flex:1" onclick="saveProfile()">Save Profile</button>
+      <button class="auth-btn" style="flex:1;background:rgba(255,60,60,.2);color:#ff6b6b;border:1px solid rgba(255,60,60,.3)" onclick="doSignOut()">Sign Out</button>
+    </div>
+    <div style="font-size:12px;color:var(--text-muted);text-align:center;margin-top:12px">
+      <span id="profileStatsLine">Watchlist: 0 items</span>
+    </div>
+  </div>
+</div>
+
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-logo">
     <div class="logo-icon">🎬</div>
@@ -1084,7 +1220,7 @@
       New Releases
     </div>
     <div class="nav-item" onclick="goPage('comingsoon',this)">
-      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M12 14v3M10.5 16.5h3"/></svg>
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
       Coming Soon
     </div>
     <div class="nav-item" onclick="goPage('settings',this)">
@@ -1094,14 +1230,12 @@
   </nav>
 
   <div class="sidebar-bottom">
-    <a href="https://stary.base44.app" target="_blank" class="powered-btn">
-      <span class="pb-icon">⭐</span>
-      Powered with Starify
-    </a>
-    <a href="https://www.tiktok.com/@devofficialv" target="_blank" class="powered-btn">
-      <span class="pb-icon">🎵</span>
-      DreamCore
-    </a>
+    <div class="nav-item" id="sidebarProfileBtn" onclick="openProfile()" style="border-radius:8px;border:1px solid var(--border-orange);background:rgba(255,107,0,.06);color:var(--orange-light);margin-bottom:4px">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span id="sidebarProfileName">Sign In</span>
+    </div>
+    <a href="https://stary.base44.app" target="_blank" class="powered-btn"><span>⭐</span> Powered with Starify</a>
+    <a href="https://www.tiktok.com/@devofficialv" target="_blank" class="powered-btn"><span>🎵</span> DreamCore</a>
   </div>
 </aside>
 
@@ -1123,7 +1257,7 @@
       <div class="topbar-icon" onclick="goPage('watchlist')">
         <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
       </div>
-      <div class="avatar" onclick="goPage('settings')">CS</div>
+      <div class="avatar" id="topbarAvatar" onclick="openProfile()" title="Profile">CS</div>
     </div>
   </header>
 
@@ -1258,12 +1392,11 @@
           <button class="see-all" onclick="goPage('comingsoon')">See All →</button>
         </div>
         <div class="scroll-row-wrap">
-          <button class="scroll-arrow left" onclick="scrollRow('coming-soon',-1)">‹</button>
-          <div class="scroll-row" id="coming-soon"></div>
-          <button class="scroll-arrow right" onclick="scrollRow('coming-soon',1)">›</button>
+          <button class="scroll-arrow left" onclick="scrollRow('home-soon',-1)">‹</button>
+          <div class="scroll-row" id="home-soon"></div>
+          <button class="scroll-arrow right" onclick="scrollRow('home-soon',1)">›</button>
         </div>
       </div>
-
 
       <!-- TOP 10 THIS WEEK -->
       <div class="section">
@@ -1332,18 +1465,56 @@
 
     <!-- MOVIES PAGE -->
     <div class="page-panel" id="page-movies">
-      <div class="page-header">
-        <h1>All <span>Movies</span></h1>
-        <p>Browse our full collection of movies</p>
+      <div class="page-header"><h1>All <span>Movies</span></h1><p id="movies-count">Browse our full movie collection</p></div>
+      <div style="padding:0 32px 18px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+        <div class="genre-scroll" id="movies-genre-bar" style="flex:1;margin-bottom:0">
+          <button class="genre-pill active" onclick="filterMoviesPage(this,'All')">All</button>
+          <button class="genre-pill" onclick="filterMoviesPage(this,'Action')">Action</button>
+          <button class="genre-pill" onclick="filterMoviesPage(this,'Horror')">Horror</button>
+          <button class="genre-pill" onclick="filterMoviesPage(this,'Comedy')">Comedy</button>
+          <button class="genre-pill" onclick="filterMoviesPage(this,'Drama')">Drama</button>
+          <button class="genre-pill" onclick="filterMoviesPage(this,'Sci-Fi')">Sci-Fi</button>
+          <button class="genre-pill" onclick="filterMoviesPage(this,'Thriller')">Thriller</button>
+          <button class="genre-pill" onclick="filterMoviesPage(this,'Animation')">Animation</button>
+          <button class="genre-pill" onclick="filterMoviesPage(this,'Fantasy')">Fantasy</button>
+          <button class="genre-pill" onclick="filterMoviesPage(this,'History')">History</button>
+          <button class="genre-pill" onclick="filterMoviesPage(this,'Romance')">Romance</button>
+          <button class="genre-pill" onclick="filterMoviesPage(this,'Adventure')">Adventure</button>
+        </div>
+        <select id="movies-sort" onchange="renderMoviesPage()" style="background:var(--bg-card2);color:var(--white);border:1px solid var(--border);border-radius:8px;padding:7px 12px;font-size:13px;font-family:'Inter',sans-serif;outline:none;flex-shrink:0">
+          <option value="rating">Top Rated</option>
+          <option value="year-new">Newest First</option>
+          <option value="year-old">Oldest First</option>
+          <option value="az">A–Z</option>
+          <option value="za">Z–A</option>
+        </select>
       </div>
       <div class="search-results-grid" id="movies-grid"></div>
     </div>
 
     <!-- TV SHOWS PAGE -->
     <div class="page-panel" id="page-tvshows">
-      <div class="page-header">
-        <h1>TV <span>Shows</span></h1>
-        <p>Binge your favorite series</p>
+      <div class="page-header"><h1>TV <span>Shows</span></h1><p id="tv-count">Binge your favorite series</p></div>
+      <div style="padding:0 32px 18px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+        <div class="genre-scroll" id="tv-genre-bar" style="flex:1;margin-bottom:0">
+          <button class="genre-pill active" onclick="filterTVPage(this,'All')">All</button>
+          <button class="genre-pill" onclick="filterTVPage(this,'Drama')">Drama</button>
+          <button class="genre-pill" onclick="filterTVPage(this,'Thriller')">Thriller</button>
+          <button class="genre-pill" onclick="filterTVPage(this,'Comedy')">Comedy</button>
+          <button class="genre-pill" onclick="filterTVPage(this,'Sci-Fi')">Sci-Fi</button>
+          <button class="genre-pill" onclick="filterTVPage(this,'Horror')">Horror</button>
+          <button class="genre-pill" onclick="filterTVPage(this,'Fantasy')">Fantasy</button>
+          <button class="genre-pill" onclick="filterTVPage(this,'Action')">Action</button>
+          <button class="genre-pill" onclick="filterTVPage(this,'Animation')">Animation</button>
+          <button class="genre-pill" onclick="filterTVPage(this,'History')">History</button>
+        </div>
+        <select id="tv-sort" onchange="renderTVPage()" style="background:var(--bg-card2);color:var(--white);border:1px solid var(--border);border-radius:8px;padding:7px 12px;font-size:13px;font-family:'Inter',sans-serif;outline:none;flex-shrink:0">
+          <option value="rating">Top Rated</option>
+          <option value="year-new">Newest First</option>
+          <option value="year-old">Oldest First</option>
+          <option value="az">A–Z</option>
+          <option value="za">Z–A</option>
+        </select>
       </div>
       <div class="search-results-grid" id="tv-grid"></div>
     </div>
@@ -1374,96 +1545,39 @@
 
     <!-- NEW RELEASES PAGE -->
     <div class="page-panel" id="page-newreleases">
-      <div class="page-header">
-        <h1>New <span>Releases</span></h1>
-        <p>The latest movies and shows added this week</p>
-      </div>
+      <div class="page-header"><h1>New <span>Releases</span></h1><p>The latest movies and shows added this week</p></div>
       <div class="search-results-grid" id="new-grid"></div>
     </div>
 
     <!-- COMING SOON PAGE -->
     <div class="page-panel" id="page-comingsoon">
-      <div class="page-header">
-        <h1>Coming <span>Soon</span></h1>
-        <p>Upcoming 2026 movies — set a reminder so you don't miss them</p>
-      </div>
-      <div class="search-results-grid soon-grid" id="comingsoon-grid"></div>
+      <div class="page-header"><h1>Coming <span>Soon</span></h1><p>Upcoming 2026 releases — tap to set a reminder</p></div>
+      <div class="search-results-grid" id="comingsoon-grid" style="grid-template-columns:repeat(auto-fill,minmax(175px,1fr))"></div>
     </div>
 
     <!-- SEARCH RESULTS PAGE -->
     <div class="page-panel" id="page-search">
-      <div class="page-header">
-        <h1>Search <span>Results</span></h1>
-        <p id="search-query-label">Searching...</p>
-      </div>
+      <div class="page-header"><h1>Search <span>Results</span></h1><p id="search-query-label">Searching...</p></div>
       <div class="search-results-grid" id="search-grid"></div>
     </div>
 
     <!-- SETTINGS PAGE -->
     <div class="page-panel" id="page-settings">
-      <div class="page-header">
-        <h1>⚙️ <span>Settings</span></h1>
-        <p>Customize your CrumbStream experience</p>
-      </div>
+      <div class="page-header"><h1>⚙️ <span>Settings</span></h1><p>Customize your CrumbStream experience</p></div>
       <div class="settings-layout">
         <div>
           <div class="settings-menu">
-            <div class="settings-menu-item active" onclick="setSettingsTab(this,'general')">General</div>
-            <div class="settings-menu-item" onclick="setSettingsTab(this,'playback')">Playback</div>
-            <div class="settings-menu-item" onclick="setSettingsTab(this,'appearance')">Appearance</div>
-            <div class="settings-menu-item" onclick="setSettingsTab(this,'notifications')">Notifications</div>
-            <div class="settings-menu-item" onclick="setSettingsTab(this,'about')">About</div>
+            <div class="settings-menu-item active" onclick="setSettingsTab(this,'general')">🏠 General</div>
+            <div class="settings-menu-item" onclick="setSettingsTab(this,'playback')">▶️ Playback</div>
+            <div class="settings-menu-item" onclick="setSettingsTab(this,'appearance')">🎨 Appearance</div>
+            <div class="settings-menu-item" onclick="setSettingsTab(this,'notifications')">🔔 Notifications</div>
+            <div class="settings-menu-item" onclick="setSettingsTab(this,'privacy')">🔒 Privacy</div>
+            <div class="settings-menu-item" onclick="setSettingsTab(this,'language')">🌐 Language</div>
+            <div class="settings-menu-item" onclick="setSettingsTab(this,'accessibility')">♿ Accessibility</div>
+            <div class="settings-menu-item" onclick="setSettingsTab(this,'about')">ℹ️ About</div>
           </div>
         </div>
-        <div id="settings-content">
-          <div class="settings-panel-title">General Settings</div>
-          <div class="settings-card">
-            <div class="settings-row">
-              <div><div class="settings-row-label">Autoplay Next Episode</div><div class="settings-row-desc">Automatically play the next episode when finished</div></div>
-              <div class="toggle on" onclick="toggleSwitch(this)"><div class="toggle-thumb"></div></div>
-            </div>
-            <div class="settings-row">
-              <div><div class="settings-row-label">Continue Watching</div><div class="settings-row-desc">Save your progress across sessions</div></div>
-              <div class="toggle on" onclick="toggleSwitch(this)"><div class="toggle-thumb"></div></div>
-            </div>
-            <div class="settings-row">
-              <div><div class="settings-row-label">Adult Content Filter</div><div class="settings-row-desc">Filter out adult-rated content</div></div>
-              <div class="toggle" onclick="toggleSwitch(this)"><div class="toggle-thumb"></div></div>
-            </div>
-            <div class="settings-row">
-              <div><div class="settings-row-label">Show Spoilers</div><div class="settings-row-desc">Show plot details in previews</div></div>
-              <div class="toggle" onclick="toggleSwitch(this)"><div class="toggle-thumb"></div></div>
-            </div>
-          </div>
-          <div class="settings-card">
-            <div style="font-size:13px;font-weight:700;margin-bottom:10px;color:var(--orange)">DEFAULT QUALITY</div>
-            <div style="display:flex;gap:8px;flex-wrap:wrap">
-              <button class="genre-pill active" style="border-radius:8px">4K Ultra HD</button>
-              <button class="genre-pill" style="border-radius:8px">1080p FHD</button>
-              <button class="genre-pill" style="border-radius:8px">720p HD</button>
-              <button class="genre-pill" style="border-radius:8px">480p</button>
-              <button class="genre-pill" style="border-radius:8px">Auto</button>
-            </div>
-          </div>
-          <div class="settings-card">
-            <div style="font-size:13px;font-weight:700;margin-bottom:10px;color:var(--orange)">SUBTITLE LANGUAGE</div>
-            <select style="background:var(--bg-card2);color:white;border:1px solid var(--border);border-radius:8px;padding:9px 14px;font-size:13px;font-family:Inter,sans-serif;width:200px;outline:none;">
-              <option>English</option>
-              <option>Spanish</option>
-              <option>French</option>
-              <option>German</option>
-              <option>Japanese</option>
-              <option>Off</option>
-            </select>
-          </div>
-          <div style="margin-top:24px;padding:20px;background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-orange)">
-            <div style="font-size:12px;color:var(--text-muted);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px;font-weight:700">Powered By</div>
-            <div style="display:flex;gap:10px;flex-wrap:wrap">
-              <a href="https://stary.base44.app" target="_blank" class="powered-btn" style="flex:1;justify-content:center">⭐ Powered with Starify</a>
-              <a href="https://www.tiktok.com/@devofficialv" target="_blank" class="powered-btn" style="flex:1;justify-content:center">🎵 DreamCore</a>
-            </div>
-          </div>
-        </div>
+        <div id="settings-content"><!-- rendered by JS --></div>
       </div>
     </div>
 
@@ -1499,6 +1613,13 @@
           <button class="btn btn-download btn-sm" id="dlBtn">⬇ Download</button>
           <button class="btn btn-ghost btn-sm" onclick="addWatchlist(document.getElementById('modalTitle').textContent)">+ Watchlist</button>
           <button class="btn btn-ghost btn-sm">↗ Share</button>
+        </div>
+        <!-- EPISODE PICKER (shown only for TV) -->
+        <div id="ep-picker" class="ep-picker" style="display:none">
+          <div class="ep-picker-title">📺 Select Episode</div>
+          <div class="ep-row" id="ep-seasons"></div>
+          <div class="ep-row" id="ep-nums"></div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:4px" id="ep-label">S1 · E1</div>
         </div>
       </div>
 
@@ -1549,210 +1670,267 @@
 <div class="toast" id="toast"><div class="toast-dot"></div><span id="toast-msg">Added to watchlist</span></div>
 
 <script>
-// ─── DATA ───────────────────────────────────────
+// ═══ AUTH ═══════════════════════════════════════
+let currentUser = null;
+let USERS_DB = {};
+try { USERS_DB = JSON.parse(localStorage.getItem('cs_users')||'{}'); } catch(e){}
+
+function switchAuthTab(tab) {
+  document.getElementById('tabSignIn').classList.toggle('active', tab==='signin');
+  document.getElementById('tabSignUp').classList.toggle('active', tab==='signup');
+  document.getElementById('formSignIn').style.display = tab==='signin' ? '' : 'none';
+  document.getElementById('formSignUp').style.display = tab==='signup' ? '' : 'none';
+  document.getElementById('authError').style.display = 'none';
+}
+function showAuthError(msg){ const e=document.getElementById('authError'); e.textContent=msg; e.style.display='block'; }
+function doSignIn(){
+  const u=document.getElementById('siUser').value.trim();
+  const p=document.getElementById('siPass').value;
+  if(!u||!p){showAuthError('Please fill in all fields.');return;}
+  const key=u.toLowerCase().replace(/\s+/g,'_');
+  const rec=USERS_DB[key]||USERS_DB[Object.keys(USERS_DB).find(k=>USERS_DB[k]&&USERS_DB[k].email===u.toLowerCase())||''];
+  if(!rec||rec.password!==p){showAuthError('Incorrect username or password.');return;}
+  currentUser=rec; enterApp();
+}
+function doSignUp(){
+  const name=document.getElementById('suName').value.trim();
+  const email=document.getElementById('suEmail').value.trim().toLowerCase();
+  const pass=document.getElementById('suPass').value;
+  if(!name||!email||!pass){showAuthError('Please fill in all fields.');return;}
+  if(pass.length<6){showAuthError('Password must be at least 6 characters.');return;}
+  const key=name.toLowerCase().replace(/\s+/g,'_');
+  if(USERS_DB[key]){showAuthError('Username already taken. Try another name.');return;}
+  const rec={name,email,password:pass,emoji:'🎬',accent:'orange',bio:'',genre:'Action',watchlist:[],history:[]};
+  USERS_DB[key]=rec; localStorage.setItem('cs_users',JSON.stringify(USERS_DB));
+  currentUser=rec; enterApp();
+}
+function enterAsGuest(){ currentUser=null; enterApp(); }
+function enterApp(){
+  document.getElementById('authScreen').style.display='none';
+  updateAvatarUI(); initRows();
+  renderSettingsContent('general');
+}
+function doSignOut(){
+  currentUser=null; closeProfile(); updateAvatarUI();
+  watchlist=[]; renderWatchlist();
+  document.getElementById('authScreen').style.display='flex';
+  switchAuthTab('signin'); showToast('Signed out.');
+}
+function saveCurrentUser(){
+  if(!currentUser)return;
+  const key=currentUser.name.toLowerCase().replace(/\s+/g,'_');
+  USERS_DB[key]=currentUser; localStorage.setItem('cs_users',JSON.stringify(USERS_DB));
+}
+function updateAvatarUI(){
+  const av=document.getElementById('topbarAvatar');
+  const sn=document.getElementById('sidebarProfileName');
+  if(currentUser){
+    av.textContent=currentUser.emoji||currentUser.name.slice(0,2).toUpperCase();
+    av.style.fontSize='20px'; sn.textContent=currentUser.name;
+    watchlist=[...(currentUser.watchlist||[])]; renderWatchlist();
+  } else {
+    av.textContent='CS'; av.style.fontSize='13px'; sn.textContent='Sign In';
+  }
+}
+
+// ═══ PROFILE ════════════════════════════════════
+function openProfile(){
+  if(!currentUser){ document.getElementById('authScreen').style.display='flex'; switchAuthTab('signin'); return; }
+  document.getElementById('profileName').value=currentUser.name||'';
+  document.getElementById('profileBio').value=currentUser.bio||'';
+  document.getElementById('profileGenre').value=currentUser.genre||'Action';
+  document.getElementById('profileAvatarBig').textContent=currentUser.emoji||'🎬';
+  document.querySelectorAll('.profile-color').forEach(c=>c.classList.toggle('active',c.dataset.c===currentUser.accent));
+  document.getElementById('profileStatsLine').textContent=`Watchlist: ${(currentUser.watchlist||[]).length} · Watched: ${(currentUser.history||[]).length}`;
+  const emojis=['🎬','🎭','🦁','🐉','🦊','🌙','⚡','🔥','🎮','🎵','🌊','🚀','💀','🦋','🎯','🍕'];
+  document.getElementById('avatarEmojis').innerHTML=emojis.map(e=>`<div class="avatar-emoji${currentUser.emoji===e?' active':''}" onclick="pickEmoji('${e}')">${e}</div>`).join('');
+  document.getElementById('profileModal').classList.add('open');
+}
+function closeProfile(){ document.getElementById('profileModal').classList.remove('open'); }
+function pickEmoji(e){
+  document.getElementById('profileAvatarBig').textContent=e;
+  if(currentUser) currentUser.emoji=e;
+  document.querySelectorAll('.avatar-emoji').forEach(el=>el.classList.toggle('active',el.textContent===e));
+  updateAvatarUI();
+}
+function setProfileColor(el,color){
+  document.querySelectorAll('.profile-color').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  if(currentUser) currentUser.accent=color;
+  S.accent=color; applySettings();
+}
+function saveProfile(){
+  if(!currentUser)return;
+  currentUser.name=document.getElementById('profileName').value.trim()||currentUser.name;
+  currentUser.bio=document.getElementById('profileBio').value.trim();
+  currentUser.genre=document.getElementById('profileGenre').value;
+  saveCurrentUser(); updateAvatarUI(); closeProfile(); showToast('Profile saved!');
+}
+
+// ═══ DATA ═══════════════════════════════════════
 const MOVIES = [
-  {id:10995,title:'Dune: Part Two',year:2024,rating:8.5,type:'movie',poster:'https://image.tmdb.org/t/p/w500/1pdfLvkbY9ohJlCjQH2CZjjYVvJ.jpg',backdrop:'https://image.tmdb.org/t/p/original/b0PlSFdDwbyK0cf5RxwDpaOJQvQ.jpg',genre:['Sci-Fi','Adventure'],desc:'Paul Atreides unites with the Fremen and leads a holy war.'},
-  {id:872585,title:'Oppenheimer',year:2023,rating:8.9,type:'movie',poster:'https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg',backdrop:'https://image.tmdb.org/t/p/original/rLb2cwF3Pazuxaj0sRXQ037tGI1.jpg',genre:['Drama','History'],desc:'The story of the development of the atomic bomb.'},
-  {id:346698,title:'Barbie',year:2023,rating:7.0,type:'movie',poster:'https://image.tmdb.org/t/p/w500/iuFNMS8vlbRoNTnW3F2bSBcbUj3.jpg',backdrop:'https://image.tmdb.org/t/p/original/nHf61UzkfFno5X1ofILZthF1gdB.jpg',genre:['Comedy','Fantasy'],desc:'Barbie suffers a crisis and sets out to discover happiness in the real world.'},
-  {id:335977,title:'Indiana Jones 5',year:2023,rating:7.0,type:'movie',poster:'https://image.tmdb.org/t/p/w500/Af4bXE63pVsb2FtbW8uYIyPBadD.jpg',backdrop:'https://image.tmdb.org/t/p/original/4Dp6N6B6rOItE2RNDm70Xa5tVRb.jpg',genre:['Action','Adventure'],desc:'Indiana Jones races against time to retrieve a legendary dial.'},
-  {id:848326,title:'Rebel Moon',year:2023,rating:6.0,type:'movie',poster:'https://image.tmdb.org/t/p/w500/ui4DrH1cKk2vkHl0YZcwCJHVKIG.jpg',backdrop:'https://image.tmdb.org/t/p/original/4YZpsylmjHbqeWzjKpUEF8gcLNW.jpg',genre:['Sci-Fi','Action'],desc:'A peaceful colony on the edge of the galaxy finds itself threatened.'},
-  {id:603692,title:'John Wick 4',year:2023,rating:7.8,type:'movie',poster:'https://image.tmdb.org/t/p/w500/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg',backdrop:'https://image.tmdb.org/t/p/original/eo4NT7oScJqgNERZHaWVfMZP3Oh.jpg',genre:['Action','Thriller'],desc:'John Wick uncovers a path to defeating the High Table.'},
-  {id:569094,title:'Spider-Man: Across the Spider-Verse',year:2023,rating:8.6,type:'movie',poster:'https://image.tmdb.org/t/p/w500/8Vt6mWEReuy4Of61Lnj5Xj704m8.jpg',backdrop:'https://image.tmdb.org/t/p/original/4HodYYKEIsGOdinkGi2Ucz6X9i0.jpg',genre:['Animation','Action'],desc:'Miles Morales catapults across the multiverse.'},
-  {id:940551,title:'Migration',year:2023,rating:7.2,type:'movie',poster:'https://image.tmdb.org/t/p/w500/ldfCF9RhR40mppkzmftxapaHeTo.jpg',backdrop:'https://image.tmdb.org/t/p/original/4MCzm7kRHuoGJvLHyLy4qU1RYMS.jpg',genre:['Animation','Comedy'],desc:'A family of ducks shakes up their lives and risks it all.'},
-  {id:933260,title:'The Substance',year:2024,rating:7.3,type:'movie',poster:'https://image.tmdb.org/t/p/w500/lqoMzCcZYEFK729d6qzt349fB4o.jpg',backdrop:'https://image.tmdb.org/t/p/original/tpIMm15eFb0FI6HmZrLa6WwURxG.jpg',genre:['Horror','Sci-Fi'],desc:'A fading celebrity takes a drug that creates another younger self.'},
-  {id:1022789,title:'Inside Out 2',year:2024,rating:7.8,type:'movie',poster:'https://image.tmdb.org/t/p/w500/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg',backdrop:'https://image.tmdb.org/t/p/original/xg27NrXi7VXCGUr7MG75UqLl6Vg.jpg',genre:['Animation','Comedy'],desc:'Riley is suddenly hit by new emotions as she navigates the teen years.'},
-  {id:519182,title:'Despicable Me 4',year:2024,rating:6.3,type:'movie',poster:'https://image.tmdb.org/t/p/w500/wWba3TkzvM2vv8OP3PZBm83J63U.jpg',backdrop:'https://image.tmdb.org/t/p/original/b9W7GOqNyj7fUJFiF0VYSxP9rJX.jpg',genre:['Animation','Comedy'],desc:'Gru and his family are forced to go on the run.'},
-  {id:748783,title:'The Garfield Movie',year:2024,rating:6.2,type:'movie',poster:'https://image.tmdb.org/t/p/w500/xYduFGuch8NWnGrFNSNaVS93PuD.jpg',backdrop:'https://image.tmdb.org/t/p/original/o3OhbkVRcFiWi8XqRRCn8sxd7OA.jpg',genre:['Animation','Comedy'],desc:'Garfield embarks on a wild outdoor adventure.'},
-  {id:786892,title:'Furiosa: A Mad Max Saga',year:2024,rating:7.6,type:'movie',poster:'https://image.tmdb.org/t/p/w500/iADOJ8Zymht2JPMoy3R7xceZprc.jpg',backdrop:'https://image.tmdb.org/t/p/original/zRMmJ0Cl4xKQQFq5kRYUSqfb86b.jpg',genre:['Action','Sci-Fi'],desc:'Young Furiosa is snatched from the Green Place and falls into the hands of a Biker Horde.'},
-  {id:653346,title:'Kingdom of the Planet of the Apes',year:2024,rating:7.1,type:'movie',poster:'https://image.tmdb.org/t/p/w500/gKkl37BQuKTanygYQG1pyYgLVgf.jpg',backdrop:'https://image.tmdb.org/t/p/original/cBsEDYE0fhcRdYTAUZUm1Oo7E14.jpg',genre:['Sci-Fi','Action'],desc:'Many years after the reign of Caesar, a young ape goes on a journey that leads him to question what he has been taught.'},
-  {id:912649,title:'Venom: The Last Dance',year:2024,rating:6.6,type:'movie',poster:'https://image.tmdb.org/t/p/w500/aosm8NMQ3UyoBVpSxyimorCQykC.jpg',backdrop:'https://image.tmdb.org/t/p/original/3V4kLQg0kSqPLctI5ziYWabAZYF.jpg',genre:['Action','Sci-Fi'],desc:'Eddie and Venom are on the run, hunted by both their worlds, with the net closing in.'},
-  {id:558449,title:'Gladiator II',year:2024,rating:6.8,type:'movie',poster:'https://image.tmdb.org/t/p/w500/2cxhvwyEwjlIdpVnAIPHKVZkjOZ.jpg',backdrop:'https://image.tmdb.org/t/p/original/jpfBuXEFqEHsQ70RtKqQVAyM6lj.jpg',genre:['Action','Drama'],desc:'Years after witnessing the death of Maximus, Lucius is forced to enter the Colosseum.'},
-  {id:573435,title:'Bad Boys: Ride or Die',year:2024,rating:7.1,type:'movie',poster:'https://image.tmdb.org/t/p/w500/oGythE98MYauIb0kCYjB2gK9KAm.jpg',backdrop:'https://image.tmdb.org/t/p/original/wcKFYIiVDvRURrzglWyrT6D3X2Q.jpg',genre:['Action','Comedy'],desc:'Miami detectives Lowrey and Burnett investigate a conspiracy linking them to drug cartels.'},
-  {id:402431,title:'Wicked',year:2024,rating:7.6,type:'movie',poster:'https://image.tmdb.org/t/p/w500/xDGbZ0JJ3mYaGKy4Nzd9Kph6M9L.jpg',backdrop:'https://image.tmdb.org/t/p/original/xDGbZ0JJ3mYaGKy4Nzd9Kph6M9L.jpg',genre:['Fantasy','Drama'],desc:'The story of the unlikely friendship between two witches in the Land of Oz.'},
-  {id:1241982,title:'Moana 2',year:2024,rating:7.0,type:'movie',poster:'https://image.tmdb.org/t/p/w500/yh64qw9mgXBvlaWDi7Q9tpUBAvH.jpg',backdrop:'https://image.tmdb.org/t/p/original/qcCccsSURtcANgnDvDVHcSGzAxJ.jpg',genre:['Animation','Adventure'],desc:'After receiving an unexpected call from her wayfinding ancestors, Moana journeys to the far seas of Oceania.'},
-  {id:929590,title:'Civil War',year:2024,rating:7.0,type:'movie',poster:'https://image.tmdb.org/t/p/w500/sh7Rg8Er3tFcN9BpKIPOMvALgZd.jpg',backdrop:'https://image.tmdb.org/t/p/original/rktDFPbfHfUbArZ6OOOKsXcv0Bm.jpg',genre:['Action','Drama'],desc:'A journey across a dystopian future America, following a team of military-embedded journalists.'},
-  {id:1011985,title:'Kung Fu Panda 4',year:2024,rating:6.9,type:'movie',poster:'https://image.tmdb.org/t/p/w500/kDp1vUBnMpe8ak4rjgl3cLELqjU.jpg',backdrop:'https://image.tmdb.org/t/p/original/lFCk7DGJhfP1RHTYqe9HqMcMHaJ.jpg',genre:['Animation','Comedy'],desc:'Po must train a new warrior when he is chosen to become the spiritual leader.'},
-  {id:447365,title:'Guardians of the Galaxy Vol. 3',year:2023,rating:7.9,type:'movie',poster:'https://image.tmdb.org/t/p/w500/r2J02Z2OpNTctfOSN1Ydgii51I3.jpg',backdrop:'https://image.tmdb.org/t/p/original/5YZbUmjbMa3ClvSW1Wj3D6XGolb.jpg',genre:['Sci-Fi','Action'],desc:'Still reeling from the loss of Gamora, Peter Quill rallies his team to defend the universe.'},
-  {id:298618,title:'The Flash',year:2023,rating:6.7,type:'movie',poster:'https://image.tmdb.org/t/p/w500/rktDFPbfHfUbArZ6OOOKsXcv0Bm.jpg',backdrop:'https://image.tmdb.org/t/p/original/yF1eOkaYvwiORauRCPWznV9xVvi.jpg',genre:['Action','Sci-Fi'],desc:'Barry Allen uses his super speed to change the past, altering the present in unexpected ways.'},
-  {id:502356,title:'The Super Mario Bros. Movie',year:2023,rating:7.7,type:'movie',poster:'https://image.tmdb.org/t/p/w500/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg',backdrop:'https://image.tmdb.org/t/p/original/9PXZIUsSDh4alB80jheWX4fhZmy.jpg',genre:['Animation','Adventure'],desc:'A plumber named Mario travels through the Mushroom Kingdom with his brother Luigi.'},
-  {id:667538,title:'Transformers: Rise of the Beasts',year:2023,rating:7.1,type:'movie',poster:'https://image.tmdb.org/t/p/w500/gPbM0MK8CP8A174rmUwGsADNYKD.jpg',backdrop:'https://image.tmdb.org/t/p/original/sQXEHTfDtVO4F8sm5gv1trWwiM5.jpg',genre:['Action','Sci-Fi'],desc:'Optimus Prime and the Autobots take on their most powerful threat yet alongside the Maximals.'},
-
-  /* ── HORROR ── */
-  {id:507089,title:'Five Nights at Freddy\'s',year:2023,rating:7.5,type:'movie',poster:'https://image.tmdb.org/t/p/w500/A4vbrSDPNhBpMZ6N5cBjlfwfTuS.jpg',backdrop:'https://image.tmdb.org/t/p/original/dGTH8WJ4APcjMqxQzbjmCgM5Pyk.jpg',genre:['Horror','Mystery'],desc:'A troubled security guard begins working at Freddy Fazbear\'s Pizza, where horrors lurk after dark.'},
-  {id:1034541,title:'Terrifier 3',year:2024,rating:7.0,type:'movie',poster:'https://image.tmdb.org/t/p/w500/oPYupRG6gfM5y8eVQ2OukfNeq2P.jpg',backdrop:'https://image.tmdb.org/t/p/original/sBmtKqQTQqi8Cgqsk0d8aLp1nQv.jpg',genre:['Horror'],desc:'Art the Clown returns to terrorize the town of Miles County on Christmas.'},
-  {id:1064213,title:'Anora',year:2024,rating:7.5,type:'movie',poster:'https://image.tmdb.org/t/p/w500/aZ7ekgT9JZuaIDcsXkPKfVQfdNI.jpg',backdrop:'https://image.tmdb.org/t/p/original/yPCfWyVxQgC2eSnoBHKhBzPLAQu.jpg',genre:['Drama','Comedy'],desc:'A sex worker from Brooklyn gets her chance at a Cinderella story when she marries a Russian oligarch\'s son.'},
-  {id:1100988,title:'Smile 2',year:2024,rating:6.9,type:'movie',poster:'https://image.tmdb.org/t/p/w500/aQ0iIaXAYxAhJzZsy0qZsXkPGwH.jpg',backdrop:'https://image.tmdb.org/t/p/original/wRnbSpFMRz8X4VnRsiq6q3F8GfV.jpg',genre:['Horror'],desc:'About to embark on a new world tour, global pop sensation Skye Riley begins experiencing terrifying events.'},
-  {id:541671,title:'Trap',year:2024,rating:6.6,type:'movie',poster:'https://image.tmdb.org/t/p/w500/wlfòexample.jpg',backdrop:'https://image.tmdb.org/t/p/original/2yQqXZjW3Tz1QzPnYzv0pIvNkBN.jpg',genre:['Horror','Thriller'],desc:'A father and daughter attend a pop concert, only to discover it\'s a trap to catch a notorious serial killer.'},
-  {id:1241436,title:'Heretic',year:2024,rating:7.2,type:'movie',poster:'https://image.tmdb.org/t/p/w500/7Eom5OoBOznxAtwdarqfBSWA1ot.jpg',backdrop:'https://image.tmdb.org/t/p/original/y5SaPnRJ8O5RPYVqzWFvUyVeUTL.jpg',genre:['Horror','Mystery'],desc:'Two young missionaries are trapped in a deadly game of cat and mouse with a deceptively cunning man.'},
-  {id:1100782,title:'Longlegs',year:2024,rating:6.6,type:'movie',poster:'https://image.tmdb.org/t/p/w500/4XbgAjJWolPbB67TUjpQQfHJchr.jpg',backdrop:'https://image.tmdb.org/t/p/original/lcEFwtfNxq6PgvgZP0WfNGiDjUk.jpg',genre:['Horror','Thriller'],desc:'An FBI agent uncovers a series of unsolved murders linked to a satanic serial killer.'},
-  {id:466420,title:'Nosferatu',year:2024,rating:7.1,type:'movie',poster:'https://image.tmdb.org/t/p/w500/5qGIxdEfk2HUaiEPnXfNhKqHQfV.jpg',backdrop:'https://image.tmdb.org/t/p/original/wEKamuiQpA1J2K8jbnPjUv9CKuW.jpg',genre:['Horror'],desc:'A gothic tale of obsession between a haunted young woman and the terrifying vampire infatuated with her.'},
-  {id:359410,title:'It Ends With Us',year:2024,rating:7.5,type:'movie',poster:'https://image.tmdb.org/t/p/w500/AjV6jFOcfNn5sgUoPzz0ZGmKKL.jpg',backdrop:'https://image.tmdb.org/t/p/original/feSiISwgEpVzR1v3zv2n1bAprwM.jpg',genre:['Drama','Romance'],desc:'Lily overcomes a difficult childhood to embark on a new life, but old wounds resurface.'},
-  {id:507971,title:'Imaginary',year:2024,rating:6.0,type:'movie',poster:'https://image.tmdb.org/t/p/w500/q1mzAdNnEx2eWAUUtjVeoTL2nKZ.jpg',backdrop:'https://image.tmdb.org/t/p/original/4WHVgQ9bQ2rt9DiBC9CLZ9Q4XdY.jpg',genre:['Horror'],desc:'A woman returns to her childhood home only to discover the imaginary friend she left behind has taken on a life of its own.'},
-  {id:951491,title:'Saw X',year:2023,rating:7.3,type:'movie',poster:'https://image.tmdb.org/t/p/w500/zPwHv8DwAYXg2WhVbn0Sx9C5y2v.jpg',backdrop:'https://image.tmdb.org/t/p/original/uxOkTNcwlAYDoSpsAaqe22BvgEs.jpg',genre:['Horror','Mystery'],desc:'John Kramer travels to Mexico for an experimental medical procedure, only to discover the entire operation is a scam.'},
-  {id:976573,title:'A Quiet Place: Day One',year:2024,rating:6.7,type:'movie',poster:'https://image.tmdb.org/t/p/w500/lFWrhTBOOiivxs9eowYAFnIxKaN.jpg',backdrop:'https://image.tmdb.org/t/p/original/eyhEHnoB5dJUgUFVi3vS9eDQVQR.jpg',genre:['Horror','Sci-Fi'],desc:'As New York City is invaded by alien creatures who hunt by sound, one woman fights to survive.'},
-  {id:1029575,title:'Cuckoo',year:2024,rating:6.2,type:'movie',poster:'https://image.tmdb.org/t/p/w500/7AvKEEDxhrPhpw4r5jadAjg44G3.jpg',backdrop:'https://image.tmdb.org/t/p/original/bA9eGfBdEDfBh3jzCpfbZ4Vrk9z.jpg',genre:['Horror','Thriller'],desc:'While staying at a resort in the Bavarian Alps, a teenage girl experiences strange and disturbing events.'},
-  {id:1126166,title:'Speak No Evil',year:2024,rating:6.7,type:'movie',poster:'https://image.tmdb.org/t/p/w500/kBpKvpNxRzD4VxAYNwwjnHk5lwh.jpg',backdrop:'https://image.tmdb.org/t/p/original/6PV2dn2hQzhqJVYwGdJxA2NQTYx.jpg',genre:['Horror','Thriller'],desc:'An American family visiting the English countryside accept an invitation to stay with new friends, but soon discover dark intentions.'},
-  {id:1008042,title:'Talk to Me',year:2023,rating:7.1,type:'movie',poster:'https://image.tmdb.org/t/p/w500/kdPMUMJzyYAc4roD52qavX0nLIC.jpg',backdrop:'https://image.tmdb.org/t/p/original/8x6kjGEhAQfQzG2bL3pXOAyZQa1.jpg',genre:['Horror'],desc:'When a group of friends discover how to conjure spirits using an embalmed hand, they become hooked on the new thrill.'},
-
-  /* ── CLASSICS & DRAMA ── */
-  {id:13,title:'Forrest Gump',year:1994,rating:8.8,type:'movie',poster:'https://image.tmdb.org/t/p/w500/arw2vcBveWOVZr6pxd9XTd1TdQa.jpg',backdrop:'https://image.tmdb.org/t/p/original/qdIMHd4sEoajAKeGqeLqetE3FIb.jpg',genre:['Drama','Comedy'],desc:'The history of the United States unfolds through the eyes of a man from Alabama with an IQ of 75.'},
-  {id:238,title:'The Godfather',year:1972,rating:9.2,type:'movie',poster:'https://image.tmdb.org/t/p/w500/3bhkrj58Vtu7enYsLegHQr3gbFD.jpg',backdrop:'https://image.tmdb.org/t/p/original/tmU7GeKVybMWFButWEGl2M4GeiP.jpg',genre:['Drama','Thriller'],desc:'The aging patriarch of an organized crime dynasty transfers control to his reluctant son.'},
-  {id:424,title:'Schindler\'s List',year:1993,rating:9.0,type:'movie',poster:'https://image.tmdb.org/t/p/w500/sF1U4EUQS8YHUYjNl3pMGNIQyr0.jpg',backdrop:'https://image.tmdb.org/t/p/original/loRmRzQXZeqG78TqZEAsxPDKz9U.jpg',genre:['Drama','History'],desc:'Oskar Schindler saves the lives of more than a thousand Jewish refugees during the Holocaust.'},
-  {id:278,title:'The Shawshank Redemption',year:1994,rating:9.3,type:'movie',poster:'https://image.tmdb.org/t/p/w500/lyQBXzOQSuE59IsHyhrp0qIiPAz.jpg',backdrop:'https://image.tmdb.org/t/p/original/kXfqcdQKsToO0OUXHcrrNCHDBzO.jpg',genre:['Drama','Thriller'],desc:'Two imprisoned men bond over years, finding solace and eventual redemption through acts of decency.'},
-  {id:129,title:'Spirited Away',year:2001,rating:8.5,type:'movie',poster:'https://image.tmdb.org/t/p/w500/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg',backdrop:'https://image.tmdb.org/t/p/original/Ab8mkHmkYADjU7wQiOkia9BzGvS.jpg',genre:['Animation','Fantasy'],desc:'A ten-year-old girl wanders into a world ruled by gods, witches and spirits.'},
-  {id:19404,title:'Dilwale Dulhania Le Jayenge',year:1995,rating:8.0,type:'movie',poster:'https://image.tmdb.org/t/p/w500/2CAL2433ZeIihfX1Hb2139CX0pW.jpg',backdrop:'https://image.tmdb.org/t/p/original/90ez6ArvpO8bvpyIngEx9LalnzP.jpg',genre:['Drama','Romance'],desc:'A young man and woman fall in love on a European vacation, but complications arise with their families.'},
-  {id:389,title:'12 Angry Men',year:1957,rating:8.9,type:'movie',poster:'https://image.tmdb.org/t/p/w500/ow3wq89wM8qd5X7hWKxiRfsFf9C.jpg',backdrop:'https://image.tmdb.org/t/p/original/oFB2rlBFv6KQdlnj0c4iocB7yVA.jpg',genre:['Drama','Thriller'],desc:'A jury holdout attempts to prevent a miscarriage of justice by forcing his peers to reconsider the evidence.'},
-  {id:550,title:'Fight Club',year:1999,rating:8.8,type:'movie',poster:'https://image.tmdb.org/t/p/w500/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg',backdrop:'https://image.tmdb.org/t/p/original/hZkgoQYus5vegHoetLkCJzVFGFZ.jpg',genre:['Drama','Thriller'],desc:'An insomniac office worker and a soap salesman build a network of underground fight clubs.'},
-  {id:680,title:'Pulp Fiction',year:1994,rating:8.9,type:'movie',poster:'https://image.tmdb.org/t/p/w500/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg',backdrop:'https://image.tmdb.org/t/p/original/suaEOtk1N1sgg2MTM7oZd2cfVp3.jpg',genre:['Drama','Thriller'],desc:'The lives of two mob hitmen, a boxer, a gangster and his wife intertwine in four tales of violence.'},
-  {id:155,title:'The Dark Knight',year:2008,rating:9.0,type:'movie',poster:'https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg',backdrop:'https://image.tmdb.org/t/p/original/nMKdUUepR0i5zn0y1T4CejMgiGQ.jpg',genre:['Action','Thriller'],desc:'When the menace known as the Joker wreaks havoc, Batman must accept one of the greatest psychological tests.'},
-  {id:671,title:'Harry Potter and the Philosopher\'s Stone',year:2001,rating:7.9,type:'movie',poster:'https://image.tmdb.org/t/p/w500/wuMc08IPKEatf9rnMNXvIDxqP4W.jpg',backdrop:'https://image.tmdb.org/t/p/original/hziiv14OpD73u9gApdl9MjAaGa6.jpg',genre:['Fantasy','Adventure'],desc:'An eleven-year-old boy discovers he is a wizard and attends Hogwarts School of Witchcraft and Wizardry.'},
-  {id:122,title:'The Lord of the Rings: The Return of the King',year:2003,rating:9.0,type:'movie',poster:'https://image.tmdb.org/t/p/w500/rCzpDGLbOoPwLjy3OAm5NUPOTrC.jpg',backdrop:'https://image.tmdb.org/t/p/original/lXhgCODAbBXL5buk9yEmTpOoOgR.jpg',genre:['Fantasy','Adventure'],desc:'Gandalf and Aragorn lead the world of Men against Sauron\'s army while Frodo and Sam approach Mount Doom.'},
-  {id:27205,title:'Inception',year:2010,rating:8.8,type:'movie',poster:'https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg',backdrop:'https://image.tmdb.org/t/p/original/s3TBrRGB1iav7gFOCNx3H31MoES.jpg',genre:['Sci-Fi','Thriller'],desc:'A thief who steals corporate secrets through dream-sharing technology is given the inverse task.'},
-  {id:157336,title:'Interstellar',year:2014,rating:8.7,type:'movie',poster:'https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg',backdrop:'https://image.tmdb.org/t/p/original/pbrkL804c8yAv3zBZR4QPEafpAR.jpg',genre:['Sci-Fi','Adventure'],desc:'A team of explorers travel through a wormhole in space to ensure humanity\'s survival.'},
-  {id:76600,title:'Avatar: The Way of Water',year:2022,rating:7.6,type:'movie',poster:'https://image.tmdb.org/t/p/w500/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg',backdrop:'https://image.tmdb.org/t/p/original/s16H6tpK2utvwpaOffkiW1gXiJq.jpg',genre:['Sci-Fi','Adventure'],desc:'Jake Sully and his family must leave their home and explore the regions of Pandora.'},
-  {id:315162,title:'Puss in Boots: The Last Wish',year:2022,rating:7.9,type:'movie',poster:'https://image.tmdb.org/t/p/w500/kuf6dutpsT0vSVehic3EZIqkOBt.jpg',backdrop:'https://image.tmdb.org/t/p/original/mVWkTLFBkadPIVLBVAqHHfD0hIi.jpg',genre:['Animation','Adventure'],desc:'Puss in Boots discovers that his passion for adventure has taken its toll and he only has one life left.'},
-  {id:438148,title:'Minions: The Rise of Gru',year:2022,rating:6.5,type:'movie',poster:'https://image.tmdb.org/t/p/w500/wKiOkZTd6fMSPGcHGKDMFisMaVf.jpg',backdrop:'https://image.tmdb.org/t/p/original/gBBPhKL6UHgEu3KDqB2CRYFOjzU.jpg',genre:['Animation','Comedy'],desc:'The untold story of one twelve-year-old\'s dream to become the world\'s greatest supervillain.'},
-  {id:496243,title:'Parasite',year:2019,rating:8.5,type:'movie',poster:'https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg',backdrop:'https://image.tmdb.org/t/p/original/TU9NIjwzjoKPwQHoHshkFcQUCG.jpg',genre:['Drama','Thriller'],desc:'Greed and class discrimination threaten the newly formed symbiotic relationship between the wealthy Park family and the destitute Kim clan.'},
-  {id:324857,title:'Spider-Man: Into the Spider-Verse',year:2018,rating:8.4,type:'movie',poster:'https://image.tmdb.org/t/p/w500/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',backdrop:'https://image.tmdb.org/t/p/original/7du3VeuCjRMtQtaMogJMbR0BVLK.jpg',genre:['Animation','Action'],desc:'Teen Miles Morales becomes the Spider-Man of his reality and must stop a threat to all realities.'},
-  {id:299536,title:'Avengers: Infinity War',year:2018,rating:8.4,type:'movie',poster:'https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg',backdrop:'https://image.tmdb.org/t/p/original/bOGkgRGdhrBYJSLpXaxhXVstddV.jpg',genre:['Action','Sci-Fi'],desc:'The Avengers and their allies must be willing to sacrifice all in an attempt to defeat Thanos.'},
-  {id:299534,title:'Avengers: Endgame',year:2019,rating:8.4,type:'movie',poster:'https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg',backdrop:'https://image.tmdb.org/t/p/original/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg',genre:['Action','Sci-Fi'],desc:'After the devastating events of Infinity War, the universe is in ruins due to the efforts of the Mad Titan, Thanos.'},
-  {id:475557,title:'Joker',year:2019,rating:8.4,type:'movie',poster:'https://image.tmdb.org/t/p/w500/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg',backdrop:'https://image.tmdb.org/t/p/original/n6bUvigpRFqSwmPp1ZIzf9M7QXBR.jpg',genre:['Drama','Thriller'],desc:'A mentally troubled stand-up comedian embarks on a downward spiral that leads to the creation of an iconic villain.'},
-  {id:496450,title:'Red Notice',year:2021,rating:6.3,type:'movie',poster:'https://image.tmdb.org/t/p/w500/wdE6ewaKZHr62bLqCn7A2DiGShm.jpg',backdrop:'https://image.tmdb.org/t/p/original/rcvBQwmJMEFMMUVVCaFimRxGjYq.jpg',genre:['Action','Comedy'],desc:'An Interpol-issued Red Notice is a global alert to hunt and capture the world\'s most wanted.'},
-  {id:634649,title:'Spider-Man: No Way Home',year:2021,rating:7.9,type:'movie',poster:'https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg',backdrop:'https://image.tmdb.org/t/p/original/iQFcwSGbZXMkeyKrxbPnwnRo5fl.jpg',genre:['Action','Sci-Fi'],desc:'Peter Parker asks Doctor Strange to make everyone forget he is Spider-Man, which brings chaos to his world.'},
-  {id:436270,title:'Black Adam',year:2022,rating:6.7,type:'movie',poster:'https://image.tmdb.org/t/p/w500/pFlaoHTZeyNkG83vxsAJiGzfSsa.jpg',backdrop:'https://image.tmdb.org/t/p/original/bQXAqRx2Fgc46uCVWgoPz5L5Dtr.jpg',genre:['Action','Sci-Fi'],desc:'Nearly 5,000 years after he was bestowed with the almighty powers of the Egyptian gods, Black Adam is freed.'},
-  {id:315635,title:'Thor: Ragnarok',year:2017,rating:7.9,type:'movie',poster:'https://image.tmdb.org/t/p/w500/rzRwTcFvttcN1ZpX2xv4j3tSdJu.jpg',backdrop:'https://image.tmdb.org/t/p/original/kaIfm5ryEOwYg8mLbq8HkPuM9Zj.jpg',genre:['Action','Sci-Fi'],desc:'Imprisoned on Sakaar, Thor must race against time to return to Asgard and stop Ragnarök.'},
-  {id:335984,title:'Blade Runner 2049',year:2017,rating:8.0,type:'movie',poster:'https://image.tmdb.org/t/p/w500/gajva2L0rPYkEWjzgFlBXCAVBE5.jpg',backdrop:'https://image.tmdb.org/t/p/original/ilRyazdMJwN3LHZP7iBbUCdRMf.jpg',genre:['Sci-Fi','Drama'],desc:'A young blade runner discovers a long-buried secret that has the potential to plunge what\'s left of society into chaos.'},
-  {id:361743,title:'Top Gun: Maverick',year:2022,rating:8.3,type:'movie',poster:'https://image.tmdb.org/t/p/w500/62HCnUTziyWcpDaBO2i1DX17ljH.jpg',backdrop:'https://image.tmdb.org/t/p/original/odJ4hx6g6vBt4lBWKFD1tI8WS4x.jpg',genre:['Action','Drama'],desc:'After thirty years, Maverick is still pushing the envelope as a top naval aviator.'},
-  {id:370172,title:'No Time to Die',year:2021,rating:7.3,type:'movie',poster:'https://image.tmdb.org/t/p/w500/iUgygt3fscRoKWCV1d0C7FbM9TP.jpg',backdrop:'https://image.tmdb.org/t/p/original/1953j0QEbtN17WFFTnJHIm6bn6I.jpg',genre:['Action','Thriller'],desc:'James Bond has left active service when his friend Felix Leiter enlists his help with a mission.'},
-  {id:260514,title:'Cars 3',year:2017,rating:6.7,type:'movie',poster:'https://image.tmdb.org/t/p/w500/tX3HxGxj8lScWEy4EiEGVqkQEGR.jpg',backdrop:'https://image.tmdb.org/t/p/original/b8mJg7EMHZjBTVbJo4qTCGXV2gG.jpg',genre:['Animation','Comedy'],desc:'Blindsided by a new generation of blazing-fast racers, the legendary Lightning McQueen is sidelined.'},
-  {id:438631,title:'The Witch',year:2015,rating:6.9,type:'movie',poster:'https://image.tmdb.org/t/p/w500/zhMBZTFbmnjOEFPLVRpvG0QBLYT.jpg',backdrop:'https://image.tmdb.org/t/p/original/99FIBbDQ9TPJg9lAYtPuChp7KqG.jpg',genre:['Horror'],desc:'A Puritan farmer\'s daughter faces supernatural forces as her family is torn apart in colonial New England.'},
-  {id:363088,title:'Annihilation',year:2018,rating:7.5,type:'movie',poster:'https://image.tmdb.org/t/p/w500/nHgHkF1Uqmq9dD9tP73ew2jcRcI.jpg',backdrop:'https://image.tmdb.org/t/p/original/jtM7SnMYnxkoF63iT7WEQTP5MdF.jpg',genre:['Horror','Sci-Fi'],desc:'A biologist and her husband disappear into an environmental disaster zone known as "The Shimmer."'},
-  {id:346364,title:'It',year:2017,rating:7.3,type:'movie',poster:'https://image.tmdb.org/t/p/w500/9E2y5Q7WlCVHDbtB5T2a3FToNnT.jpg',backdrop:'https://image.tmdb.org/t/p/original/tcheoB7nYAFJqGHuBGtBqfMBBFT.jpg',genre:['Horror','Thriller'],desc:'In the summer of 1989, a group of bullied kids band together to destroy a shapeshifting monster.'},
-  {id:320288,title:'Midsommar',year:2019,rating:7.1,type:'movie',poster:'https://image.tmdb.org/t/p/w500/7LEI8ulZzO5gy9Ww2NVCrKmHeDZ.jpg',backdrop:'https://image.tmdb.org/t/p/original/3NQL7XHrIDcRXHRgx2rAGHRg8AB.jpg',genre:['Horror','Drama'],desc:'A couple travels to Sweden to visit a rural hometown\'s midsummer festival that quickly descends into something more sinister.'},
-  {id:394117,title:'Get Out',year:2017,rating:7.7,type:'movie',poster:'https://image.tmdb.org/t/p/w500/qyZeAbDFKIGv1En4HAfXfZKp4eE.jpg',backdrop:'https://image.tmdb.org/t/p/original/2Ax5XP8TUMd4FgMFDFNukn7h0oH.jpg',genre:['Horror','Thriller'],desc:'A young African-American visits his white girlfriend\'s parents for the weekend, where his uneasiness grows into full-blown terror.'},
-  {id:400617,title:'Hereditary',year:2018,rating:7.3,type:'movie',poster:'https://image.tmdb.org/t/p/w500/p9eAzBvLmV1IJSHRqPsLFjgL4UN.jpg',backdrop:'https://image.tmdb.org/t/p/original/fzVi0ooTEP0YhpDMwlz2rBkBdDp.jpg',genre:['Horror','Drama'],desc:'When the matriarch of the Graham family passes away, her daughter\'s family begins to unravel cryptic and terrifying secrets.'},
-  {id:458156,title:'John Wick',year:2014,rating:7.4,type:'movie',poster:'https://image.tmdb.org/t/p/w500/fZPSd91yGE9fCcCe6OoQr6E3Bev.jpg',backdrop:'https://image.tmdb.org/t/p/original/umC04Cozevu8nn3JTDJ0L1cOEYw.jpg',genre:['Action','Thriller'],desc:'An ex-hit-man comes out of retirement to track down the gangsters that took everything from him.'},
-  {id:454626,title:'Sonic the Hedgehog',year:2020,rating:6.6,type:'movie',poster:'https://image.tmdb.org/t/p/w500/aQvJ5WPzZgYVDrxLX4R6cLJCEaQ.jpg',backdrop:'https://image.tmdb.org/t/p/original/stmYfCUGd8Iy6kAMBr6AmSqIvX.jpg',genre:['Action','Comedy'],desc:'A small-town police officer and Sonic the Hedgehog team up to discover the meaning of true friendship.'},
-  {id:508943,title:'Luca',year:2021,rating:7.4,type:'movie',poster:'https://image.tmdb.org/t/p/w500/jTswp6KyDYKtvC52GbHagrZbGvD.jpg',backdrop:'https://image.tmdb.org/t/p/original/4MCzm7kRHuoGJvLHyLy4qU1RYMS.jpg',genre:['Animation','Adventure'],desc:'A young sea monster and his new best friend experience a memorable summer in a beautiful seaside town on the Italian Riviera.'},
-  {id:718789,title:'Killers of the Flower Moon',year:2023,rating:7.7,type:'movie',poster:'https://image.tmdb.org/t/p/w500/dB6Krk806zeqd1psiHaCCRukafb.jpg',backdrop:'https://image.tmdb.org/t/p/original/1X7vow16X7CnCoZ9eatbMUzASyY.jpg',genre:['Drama','History'],desc:'Members of the Osage tribe in the United States are murdered under mysterious circumstances in the 1920s.'},
-  {id:823219,title:'Flow',year:2024,rating:8.3,type:'movie',poster:'https://image.tmdb.org/t/p/w500/2YMnBRh4RP1QNPAzAHdCHjCbf1z.jpg',backdrop:'https://image.tmdb.org/t/p/original/cbKwHCEbCzZFUGPXBevMRqJKk1L.jpg',genre:['Animation','Adventure'],desc:'A cat navigates a post-human world, forming an unlikely fellowship with other animals aboard a boat.'},
-  {id:945961,title:'Alien: Romulus',year:2024,rating:7.2,type:'movie',poster:'https://image.tmdb.org/t/p/w500/b33nnKl1GSFbao4l3fZDDqsMx0F.jpg',backdrop:'https://image.tmdb.org/t/p/original/9ssEimmyRpBPxS7pTYmUBflI9j5.jpg',genre:['Horror','Sci-Fi'],desc:'A group of young people on a distant world find themselves in a confrontation with the most terrifying life form in the universe.'},
-  {id:1011985,title:'Deadpool & Wolverine',year:2024,rating:7.9,type:'movie',poster:'https://image.tmdb.org/t/p/w500/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg',backdrop:'https://image.tmdb.org/t/p/original/yDHYTfA3R0jFYba16jBB1ef8oIt.jpg',genre:['Action','Comedy'],desc:'Deadpool is recruited by the Time Variance Authority to join forces with a variant Wolverine.'},
-  {id:762509,title:'Mufasa: The Lion King',year:2024,rating:7.0,type:'movie',poster:'https://image.tmdb.org/t/p/w500/435s37pnJKNJQfQ6Bx3SXWBZJrd.jpg',backdrop:'https://image.tmdb.org/t/p/original/5BcTMJQtENq7eqpCYKHiGIBYkQG.jpg',genre:['Animation','Adventure'],desc:'Told in flashbacks, Mufasa the cub is orphaned and taken in by a lion named Obasi.'},
-  {id:1084736,title:'Twisters',year:2024,rating:7.2,type:'movie',poster:'https://image.tmdb.org/t/p/w500/pjnD08FlMAIXsfOLKQbvmO0f0MD.jpg',backdrop:'https://image.tmdb.org/t/p/original/l6KMbBqHi4bNpLCCKc2cM8pJ1q0.jpg',genre:['Action','Thriller'],desc:'Storm chasers race against time chasing deadly tornadoes across the American heartland.'},
-  {id:519182,title:'Alien',year:1979,rating:8.5,type:'movie',poster:'https://image.tmdb.org/t/p/w500/vfrQk5IPloGg1v9Rzbh2Eg3VGyM.jpg',backdrop:'https://image.tmdb.org/t/p/original/AmR3JG9CZAKAkFSRJaI95UMGFl.jpg',genre:['Horror','Sci-Fi'],desc:'After a space merchant vessel receives an unknown transmission, the crew is unaware of the terror that awaits them.'},
-  {id:694919,title:'Money Heist: The Movie',year:2023,rating:7.0,type:'movie',poster:'https://image.tmdb.org/t/p/w500/6Mo3jBbxDVQQz1TRcVmMDjFiVIZ.jpg',backdrop:'https://image.tmdb.org/t/p/original/4kFQkAF7FBrHlHHLRdJ0DOT7p5Z.jpg',genre:['Thriller','Action'],desc:'The Professor executes a heist on the Royal Mint of Spain with the help of eight thieves.'},
-  {id:773,title:'Mean Girls',year:2004,rating:7.2,type:'movie',poster:'https://image.tmdb.org/t/p/w500/fVM8jOVHHULEHRqIhsqLMGjO6dH.jpg',backdrop:'https://image.tmdb.org/t/p/original/pyBzTNMzKbmJJIIqPTh40OMEjAP.jpg',genre:['Comedy','Drama'],desc:'A teenager who has been home-schooled by her zoologist parents joins a public high school where she faces teen society.'},
-  {id:9806,title:'The Incredibles',year:2004,rating:8.0,type:'movie',poster:'https://image.tmdb.org/t/p/w500/2LqaLgk4Z226KkgPJuiOQ58ShpD.jpg',backdrop:'https://image.tmdb.org/t/p/original/2ARhDDCRbAOJkTGKO0GHZCqXlwT.jpg',genre:['Animation','Action'],desc:'A family of undercover superheroes tries to live quietly but is forced back into action by a new villain.'},
-  {id:585,title:'Monsters, Inc.',year:2001,rating:8.1,type:'movie',poster:'https://image.tmdb.org/t/p/w500/sgheSKxZkttIe8ONbw5NJFjuAyR.jpg',backdrop:'https://image.tmdb.org/t/p/original/5Y6PLFsXHLkEe2cFfMvNHvDZBqE.jpg',genre:['Animation','Comedy'],desc:'Monsters generate their city\'s power by scaring children, but that changes when a girl enters their world.'},
-  {id:37724,title:'Skyfall',year:2012,rating:7.8,type:'movie',poster:'https://image.tmdb.org/t/p/w500/xcBSVRvExBdJRZ0VKsAlNfXnHEF.jpg',backdrop:'https://image.tmdb.org/t/p/original/xFcNKQe3AnQHkqNkLXuQIqTuTVY.jpg',genre:['Action','Thriller'],desc:'Bond\'s loyalty to M is tested as her past comes back to haunt her as MI6 comes under attack.'},
-  {id:324552,title:'John Wick: Chapter 2',year:2017,rating:7.4,type:'movie',poster:'https://image.tmdb.org/t/p/w500/hXWBc0ioZP3cN4zCu6SN3YHXZVO.jpg',backdrop:'https://image.tmdb.org/t/p/original/8zCHtHFELBNDHrIl98mEhZjUFwl.jpg',genre:['Action','Thriller'],desc:'After returning to the criminal underworld to repay a debt, John Wick discovers there is a large bounty on his life.'},
-  {id:359724,title:'Ford v Ferrari',year:2019,rating:8.1,type:'movie',poster:'https://image.tmdb.org/t/p/w500/6ApDtO7xaWAfPqfi2IARXIzj8QS.jpg',backdrop:'https://image.tmdb.org/t/p/original/iCBxMQaMrHbTHiPJiurMjNTVhDx.jpg',genre:['Drama','Action'],desc:'American car designer Carroll Shelby and driver Ken Miles battle corporate interference to build a race car for Ford.'},
-  {id:530385,title:'Midsommar Director\'s Cut',year:2019,rating:7.2,type:'movie',poster:'https://image.tmdb.org/t/p/w500/7LEI8ulZzO5gy9Ww2NVCrKmHeDZ.jpg',backdrop:'https://image.tmdb.org/t/p/original/3NQL7XHrIDcRXHRgx2rAGHRg8AB.jpg',genre:['Horror','Drama'],desc:'The extended cut of the folk horror film where a couple travels to Sweden\'s midsummer celebration.'},
+  {id:10995,title:'Dune: Part Two',year:2024,rating:8.5,type:'movie',poster:'https://image.tmdb.org/t/p/w500/1pdfLvkbY9ohJlCjQH2CZjjYVvJ.jpg',backdrop:'https://image.tmdb.org/t/p/original/b0PlSFdDwbyK0cf5RxwDpaOJQvQ.jpg',genre:['Sci-Fi','Adventure'],desc:'Paul Atreides unites with the Fremen and leads a holy war against House Harkonnen.',cast:[{n:'Timothée Chalamet',r:'Paul Atreides',img:'https://image.tmdb.org/t/p/w185/BE2sdjpgsa2rNTFa66f7upkaOP.jpg'},{n:'Zendaya',r:'Chani',img:'https://image.tmdb.org/t/p/w185/yCGXFMx4GCXQlw3sH57lSHkYNSR.jpg'},{n:'Rebecca Ferguson',r:'Lady Jessica',img:'https://image.tmdb.org/t/p/w185/lJloTOheuQSirSLXNA3JHsrMNfB.jpg'},{n:'Austin Butler',r:'Feyd-Rautha',img:'https://image.tmdb.org/t/p/w185/oJRBCMj5bMBMW5GQqcyxVQOuuCD.jpg'},{n:'Florence Pugh',r:'Princess Irulan',img:'https://image.tmdb.org/t/p/w185/gQJss8tCQkSWHXg1VYnbvCjmA9a.jpg'}]},
+  {id:872585,title:'Oppenheimer',year:2023,rating:8.9,type:'movie',poster:'https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg',backdrop:'https://image.tmdb.org/t/p/original/rLb2cwF3Pazuxaj0sRXQ037tGI1.jpg',genre:['Drama','History'],desc:'The story of J. Robert Oppenheimer and the creation of the atomic bomb.',cast:[{n:'Cillian Murphy',r:'J. Robert Oppenheimer',img:'https://image.tmdb.org/t/p/w185/dm6V24NjjvjMiCtbMkc8Y2WPm2e.jpg'},{n:'Emily Blunt',r:'Kitty Oppenheimer',img:'https://image.tmdb.org/t/p/w185/vVpEOvdxVBP2aV166j5Xlvb5Cdc.jpg'},{n:'Matt Damon',r:'Leslie Groves',img:'https://image.tmdb.org/t/p/w185/1NAOM3njfEJS7Bsai1Pi3isnDMa.jpg'},{n:'Robert Downey Jr.',r:'Lewis Strauss',img:'https://image.tmdb.org/t/p/w185/5qHoazZiaLe7oFBok7xkBP1JJDg.jpg'}]},
+  {id:346698,title:'Barbie',year:2023,rating:7.0,type:'movie',poster:'https://image.tmdb.org/t/p/w500/iuFNMS8vlbRoNTnW3F2bSBcbUj3.jpg',backdrop:'https://image.tmdb.org/t/p/original/nHf61UzkfFno5X1ofILZthF1gdB.jpg',genre:['Comedy','Fantasy'],desc:'Barbie and Ken go on an extraordinary adventure in the real world.',cast:[{n:'Margot Robbie',r:'Barbie',img:'https://image.tmdb.org/t/p/w185/euDPyqLnuwaWMHajcU3oZ9uZezR.jpg'},{n:'Ryan Gosling',r:'Ken',img:'https://image.tmdb.org/t/p/w185/lyUyVARjFa8eEBBHqCzGEFpeBj5.jpg'},{n:'America Ferrera',r:'Gloria',img:'https://image.tmdb.org/t/p/w185/gX6fBWVkEXSrKLSHHvLfCbnXhqo.jpg'}]},
+  {id:603692,title:'John Wick: Chapter 4',year:2023,rating:7.8,type:'movie',poster:'https://image.tmdb.org/t/p/w500/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg',backdrop:'https://image.tmdb.org/t/p/original/eo4NT7oScJqgNERZHaWVfMZP3Oh.jpg',genre:['Action','Thriller'],desc:'John Wick uncovers a path to defeating the High Table.',cast:[{n:'Keanu Reeves',r:'John Wick',img:'https://image.tmdb.org/t/p/w185/4D0PpNI0kmP58hgrwGC3wCjxhnm.jpg'},{n:'Donnie Yen',r:'Caine',img:'https://image.tmdb.org/t/p/w185/hNqBhPzqDmgLBpQcWS3t1jMJA0i.jpg'},{n:'Bill Skarsgård',r:'Marquis de Gramont',img:'https://image.tmdb.org/t/p/w185/8ZsXYqbw5Fo6lW3WrWQiUsMnMzR.jpg'},{n:'Laurence Fishburne',r:'Bowery King',img:'https://image.tmdb.org/t/p/w185/bT2yN5abhqH5hgpgdU3NIEnNdpZ.jpg'}]},
+  {id:569094,title:'Spider-Man: Across the Spider-Verse',year:2023,rating:8.6,type:'movie',poster:'https://image.tmdb.org/t/p/w500/8Vt6mWEReuy4Of61Lnj5Xj704m8.jpg',backdrop:'https://image.tmdb.org/t/p/original/4HodYYKEIsGOdinkGi2Ucz6X9i0.jpg',genre:['Animation','Action'],desc:'Miles Morales catapults across the multiverse on an epic adventure.',cast:[{n:'Shameik Moore',r:'Miles Morales',img:'https://image.tmdb.org/t/p/w185/n3SB4IVF93TBfR1cBqnxI3Vbimv.jpg'},{n:'Hailee Steinfeld',r:'Gwen Stacy',img:'https://image.tmdb.org/t/p/w185/zV4oCfXkPVkKHVHT4Soc5bRyxbA.jpg'},{n:'Oscar Isaac',r:'Spider-Man 2099',img:'https://image.tmdb.org/t/p/w185/dW5U5yrIIPmMjRThR9KT2xH6nTu.jpg'}]},
+  {id:933260,title:'The Substance',year:2024,rating:7.3,type:'movie',poster:'https://image.tmdb.org/t/p/w500/lqoMzCcZYEFK729d6qzt349fB4o.jpg',backdrop:'https://image.tmdb.org/t/p/original/tpIMm15eFb0FI6HmZrLa6WwURxG.jpg',genre:['Horror','Sci-Fi'],desc:'A fading celebrity takes a drug that creates a younger version of herself.',cast:[{n:'Demi Moore',r:'Elisabeth Sparkle',img:'https://image.tmdb.org/t/p/w185/lTZB4cFqgJJLBGEFolVW1KZKBLY.jpg'},{n:'Margaret Qualley',r:'Sue',img:'https://image.tmdb.org/t/p/w185/9hLLnvx0UjTJEBMoEgjvF2gKpBj.jpg'},{n:'Dennis Quaid',r:'Harvey',img:'https://image.tmdb.org/t/p/w185/dHoHY6iepfXMOBrRpFRtFHAXalN.jpg'}]},
+  {id:1022789,title:'Inside Out 2',year:2024,rating:7.8,type:'movie',poster:'https://image.tmdb.org/t/p/w500/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg',backdrop:'https://image.tmdb.org/t/p/original/xg27NrXi7VXCGUr7MG75UqLl6Vg.jpg',genre:['Animation','Comedy'],desc:'Riley navigates the teen years as new emotions arrive at headquarters.',cast:[{n:'Amy Poehler',r:'Joy',img:'https://image.tmdb.org/t/p/w185/rwmvRonpluV6dCPiQissYna3d3K.jpg'},{n:'Maya Hawke',r:'Anxiety',img:'https://image.tmdb.org/t/p/w185/6qfqjxB9bljGBbNKO1m8d4bKHk3.jpg'},{n:'Phyllis Smith',r:'Sadness',img:'https://image.tmdb.org/t/p/w185/wInPkVzF4jI3BFMS3QrXi0d6SJi.jpg'}]},
+  {id:786892,title:'Furiosa: A Mad Max Saga',year:2024,rating:7.6,type:'movie',poster:'https://image.tmdb.org/t/p/w500/iADOJ8Zymht2JPMoy3R7xceZprc.jpg',backdrop:'https://image.tmdb.org/t/p/original/zRMmJ0Cl4xKQQFq5kRYUSqfb86b.jpg',genre:['Action','Sci-Fi'],desc:'Young Furiosa is snatched from the Green Place and falls into the hands of a Biker Horde.',cast:[{n:'Anya Taylor-Joy',r:'Young Furiosa',img:'https://image.tmdb.org/t/p/w185/lQMnN5tKRMN4eoNovGZl9MbCJxn.jpg'},{n:'Chris Hemsworth',r:'Dementus',img:'https://image.tmdb.org/t/p/w185/piQGGBNnFD8qSumhBQP0YcpCxpV.jpg'}]},
+  {id:558449,title:'Gladiator II',year:2024,rating:6.8,type:'movie',poster:'https://image.tmdb.org/t/p/w500/2cxhvwyEwjlIdpVnAIPHKVZkjOZ.jpg',backdrop:'https://image.tmdb.org/t/p/original/jpfBuXEFqEHsQ70RtKqQVAyM6lj.jpg',genre:['Action','Drama'],desc:'Years after witnessing the death of Maximus, Lucius is forced to enter the Colosseum.',cast:[{n:'Paul Mescal',r:'Lucius',img:'https://image.tmdb.org/t/p/w185/qNizmRyBrOOFYmFxfZaX78eSHRm.jpg'},{n:'Pedro Pascal',r:'Marcus Acacius',img:'https://image.tmdb.org/t/p/w185/a4xdgrqGCp2MOtq1KmqmCO8mLiX.jpg'},{n:'Denzel Washington',r:'Macrinus',img:'https://image.tmdb.org/t/p/w185/jj2Gcobpopokal0YstuCQW0ldZS.jpg'}]},
+  {id:533535,title:'Deadpool & Wolverine',year:2024,rating:7.9,type:'movie',poster:'https://image.tmdb.org/t/p/w500/3V4kLQg0kSqPLctI5ziYWabAZYF.jpg',backdrop:'https://image.tmdb.org/t/p/original/30YnfZdMNIV7noKAMt1FJ6CouJN.jpg',genre:['Action','Comedy'],desc:'Deadpool is recruited by the TVA to join forces with a variant Wolverine.',cast:[{n:'Ryan Reynolds',r:'Deadpool',img:'https://image.tmdb.org/t/p/w185/dhjDEMFr8lHnixBZOvHBRL10FqE.jpg'},{n:'Hugh Jackman',r:'Wolverine',img:'https://image.tmdb.org/t/p/w185/hFRDGcBLLOGgmcTlgEWGfmSwFT8.jpg'},{n:'Emma Corrin',r:'Cassandra Nova',img:'https://image.tmdb.org/t/p/w185/2Y1O3xVvdMoW50wNLlHTgqNKxoX.jpg'}]},
+  {id:945961,title:'Alien: Romulus',year:2024,rating:7.2,type:'movie',poster:'https://image.tmdb.org/t/p/w500/b33nnKl1GSFbao4l3fZDDqsMx0F.jpg',backdrop:'https://image.tmdb.org/t/p/original/9ssEimmyRpBPxS7pTYmUBflI9j5.jpg',genre:['Horror','Sci-Fi'],desc:'Young people on a distant world encounter the most terrifying life form in the universe.',cast:[{n:'Cailee Spaeny',r:'Rain',img:'https://image.tmdb.org/t/p/w185/6xBNMSbQkjkEO0bPEFPaMVjv3eL.jpg'},{n:'David Jonsson',r:'Andy',img:'https://image.tmdb.org/t/p/w185/xwJJ8zXxkUwtS4nDNmT5y2W3BOA.jpg'}]},
+  {id:822119,title:'Captain America: Brave New World',year:2025,rating:6.1,type:'movie',poster:'https://image.tmdb.org/t/p/w500/pzIddUEMWhWzfvLI3TwxUG2wGoi.jpg',backdrop:'https://image.tmdb.org/t/p/original/uEMDpLDiKs9FJDB9GCZzEiD78EP.jpg',genre:['Action','Sci-Fi'],desc:'Sam Wilson dons the Captain America mantle and is thrust into an international incident.',cast:[{n:'Anthony Mackie',r:'Sam Wilson / Captain America',img:'https://image.tmdb.org/t/p/w185/rNEtLGpIIAVmMEbC2MwwEFX6CIL.jpg'},{n:'Harrison Ford',r:'Thaddeus Ross',img:'https://image.tmdb.org/t/p/w185/5WGqzFJNOyUfJBKBHRo9a2cBGFZ.jpg'}]},
+  {id:1034541,title:'Terrifier 3',year:2024,rating:7.0,type:'movie',poster:'https://image.tmdb.org/t/p/w500/oPYupRG6gfM5y8eVQ2OukfNeq2P.jpg',backdrop:'https://image.tmdb.org/t/p/original/sBmtKqQTQqi8Cgqsk0d8aLp1nQv.jpg',genre:['Horror'],desc:'Art the Clown returns to terrorize Miles County on Christmas night.',cast:[{n:'David Howard Thornton',r:'Art the Clown',img:'https://image.tmdb.org/t/p/w185/qqP7THjgGWEFQBAfRqMqlHcG4cU.jpg'},{n:'Lauren LaVera',r:'Sienna Shaw',img:'https://image.tmdb.org/t/p/w185/hL8gLBHFxTwB3JgHXxHbWTnDQYi.jpg'}]},
+  {id:466420,title:'Nosferatu',year:2024,rating:7.1,type:'movie',poster:'https://image.tmdb.org/t/p/w500/5qGIxdEfk2HUaiEPnXfNhKqHQfV.jpg',backdrop:'https://image.tmdb.org/t/p/original/wEKamuiQpA1J2K8jbnPjUv9CKuW.jpg',genre:['Horror'],desc:'A gothic tale of obsession between a haunted young woman and a terrifying vampire.',cast:[{n:'Bill Skarsgård',r:'Count Orlok',img:'https://image.tmdb.org/t/p/w185/8ZsXYqbw5Fo6lW3WrWQiUsMnMzR.jpg'},{n:'Lily-Rose Depp',r:'Ellen Hutter',img:'https://image.tmdb.org/t/p/w185/4qQKbQVkMvx0LD7IYWlDAcqEPl2.jpg'},{n:'Nicholas Hoult',r:'Thomas Hutter',img:'https://image.tmdb.org/t/p/w185/hBuXhL3x6vJDpXHm8N2MTwU4KLW.jpg'}]},
+  {id:976573,title:'A Quiet Place: Day One',year:2024,rating:6.7,type:'movie',poster:'https://image.tmdb.org/t/p/w500/lFWrhTBOOiivxs9eowYAFnIxKaN.jpg',backdrop:'https://image.tmdb.org/t/p/original/eyhEHnoB5dJUgUFVi3vS9eDQVQR.jpg',genre:['Horror','Sci-Fi'],desc:'As New York City is invaded by alien creatures who hunt by sound, one woman fights to survive.',cast:[{n:"Lupita Nyong'o",r:'Sam',img:'https://image.tmdb.org/t/p/w185/94pCsKbfk7AlGBMGNUEOo4CTHWG.jpg'},{n:'Joseph Quinn',r:'Eric',img:'https://image.tmdb.org/t/p/w185/1b3GKb6Yreh5PfEBEQjIyHPKGEL.jpg'}]},
+  {id:1100782,title:'Longlegs',year:2024,rating:6.6,type:'movie',poster:'https://image.tmdb.org/t/p/w500/4XbgAjJWolPbB67TUjpQQfHJchr.jpg',backdrop:'https://image.tmdb.org/t/p/original/lcEFwtfNxq6PgvgZP0WfNGiDjUk.jpg',genre:['Horror','Thriller'],desc:'An FBI agent uncovers unsolved murders linked to a satanic serial killer.',cast:[{n:'Maika Monroe',r:'Lee Harker',img:'https://image.tmdb.org/t/p/w185/bRDzPUQ1JKIVGNkBBGDhiJXGJFl.jpg'},{n:'Nicolas Cage',r:'Longlegs',img:'https://image.tmdb.org/t/p/w185/ArAGMGiS3M4mhHqaGNZkuQRLHiy.jpg'}]},
+  {id:400617,title:'Hereditary',year:2018,rating:7.3,type:'movie',poster:'https://image.tmdb.org/t/p/w500/p9eAzBvLmV1IJSHRqPsLFjgL4UN.jpg',backdrop:'https://image.tmdb.org/t/p/original/fzVi0ooTEP0YhpDMwlz2rBkBdDp.jpg',genre:['Horror','Drama'],desc:"When the Graham family matriarch passes away, her daughter's family unravels terrifying secrets.",cast:[{n:'Toni Collette',r:'Annie Graham',img:'https://image.tmdb.org/t/p/w185/7EZgdPPbPAqaMLSJXDaGJLXOy4r.jpg'},{n:'Gabriel Byrne',r:'Steve Graham',img:'https://image.tmdb.org/t/p/w185/9dEGD2Hz0B23XDIr0UtNHO4MsZ3.jpg'},{n:'Alex Wolff',r:'Peter Graham',img:'https://image.tmdb.org/t/p/w185/2SXzFe8iI3fNuZ4EEfVVoJ2gmrh.jpg'}]},
+  {id:394117,title:'Get Out',year:2017,rating:7.7,type:'movie',poster:'https://image.tmdb.org/t/p/w500/qyZeAbDFKIGv1En4HAfXfZKp4eE.jpg',backdrop:'https://image.tmdb.org/t/p/original/2Ax5XP8TUMd4FgMFDFNukn7h0oH.jpg',genre:['Horror','Thriller'],desc:"A young man visits his white girlfriend's parents where his unease grows into full terror.",cast:[{n:'Daniel Kaluuya',r:'Chris Washington',img:'https://image.tmdb.org/t/p/w185/rk9EFpbqFmSFINcEJ0Ol5yIkTxg.jpg'},{n:'Allison Williams',r:'Rose Armitage',img:'https://image.tmdb.org/t/p/w185/bqXvMxZHHHKj7lfbaMNbcwnkHB6.jpg'},{n:'Bradley Whitford',r:'Dean Armitage',img:'https://image.tmdb.org/t/p/w185/5ZPPcM2sRrVHVIxhLsDKJ7bLTH1.jpg'}]},
+  {id:346364,title:'It',year:2017,rating:7.3,type:'movie',poster:'https://image.tmdb.org/t/p/w500/9E2y5Q7WlCVHDbtB5T2a3FToNnT.jpg',backdrop:'https://image.tmdb.org/t/p/original/tcheoB7nYAFJqGHuBGtBqfMBBFT.jpg',genre:['Horror','Thriller'],desc:'In 1989, a group of bullied kids band together to destroy a shapeshifting monster.',cast:[{n:'Bill Skarsgård',r:'Pennywise the Dancing Clown',img:'https://image.tmdb.org/t/p/w185/8ZsXYqbw5Fo6lW3WrWQiUsMnMzR.jpg'},{n:'Jaeden Martell',r:'Bill Denbrough',img:'https://image.tmdb.org/t/p/w185/8BPZO0Bf8TeAy8znF43z8soK3ys.jpg'},{n:'Finn Wolfhard',r:'Richie Tozier',img:'https://image.tmdb.org/t/p/w185/sNFBCNILFYnEGnWELM1NbPZqCRt.jpg'}]},
+  {id:320288,title:'Midsommar',year:2019,rating:7.1,type:'movie',poster:'https://image.tmdb.org/t/p/w500/7LEI8ulZzO5gy9Ww2NVCrKmHeDZ.jpg',backdrop:'https://image.tmdb.org/t/p/original/3NQL7XHrIDcRXHRgx2rAGHRg8AB.jpg',genre:['Horror','Drama'],desc:"A couple travels to Sweden's midsummer festival that quickly descends into something sinister.",cast:[{n:'Florence Pugh',r:'Dani',img:'https://image.tmdb.org/t/p/w185/gQJss8tCQkSWHXg1VYnbvCjmA9a.jpg'},{n:'Jack Reynor',r:'Christian',img:'https://image.tmdb.org/t/p/w185/gRTM9jHqLh3NZvbRFdlZ3jPMVg1.jpg'}]},
+  {id:951491,title:'Saw X',year:2023,rating:7.3,type:'movie',poster:'https://image.tmdb.org/t/p/w500/zPwHv8DwAYXg2WhVbn0Sx9C5y2v.jpg',backdrop:'https://image.tmdb.org/t/p/original/uxOkTNcwlAYDoSpsAaqe22BvgEs.jpg',genre:['Horror','Mystery'],desc:'John Kramer travels to Mexico for a medical procedure and discovers it is a scam targeting cancer patients.',cast:[{n:'Tobin Bell',r:'John Kramer / Jigsaw',img:'https://image.tmdb.org/t/p/w185/4CkDcYBHxUGXWlRgI0bwsBpS8kD.jpg'},{n:'Shawnee Smith',r:'Amanda Young',img:'https://image.tmdb.org/t/p/w185/w8P3fqaqH1P3KJ3z7mBqQdQzaMK.jpg'}]},
+  {id:560057,title:'M3GAN',year:2022,rating:6.4,type:'movie',poster:'https://image.tmdb.org/t/p/w500/d9nBoowhjiiYc4FBNtQkPY7c11H.jpg',backdrop:'https://image.tmdb.org/t/p/original/fm6bqynAlsj3AKQr7uqLdCkfz9n.jpg',genre:['Horror','Sci-Fi'],desc:'A robotics engineer designs a lifelike doll whose AI becomes dangerously out of control.',cast:[{n:'Allison Williams',r:'Gemma',img:'https://image.tmdb.org/t/p/w185/bqXvMxZHHHKj7lfbaMNbcwnkHB6.jpg'},{n:'Violet McGraw',r:'Cady',img:'https://image.tmdb.org/t/p/w185/tO3cRLnaxuVv7nAT1wVBqaIFCjZ.jpg'}]},
+  {id:507089,title:"Five Nights at Freddy's",year:2023,rating:7.5,type:'movie',poster:'https://image.tmdb.org/t/p/w500/A4vbrSDPNhBpMZ6N5cBjlfwfTuS.jpg',backdrop:'https://image.tmdb.org/t/p/original/dGTH8WJ4APcjMqxQzbjmCgM5Pyk.jpg',genre:['Horror','Mystery'],desc:"A troubled security guard begins working at Freddy Fazbear's Pizza, where horrors lurk after dark.",cast:[{n:'Josh Hutcherson',r:'Mike Schmidt',img:'https://image.tmdb.org/t/p/w185/7cDpqJVFBONuFrJiPIAGx0djfNE.jpg'},{n:'Elizabeth Lail',r:'Vanessa',img:'https://image.tmdb.org/t/p/w185/kVIiJpMGENm4X0UrxOTTlTcSe4a.jpg'}]},
+  {id:363088,title:'Annihilation',year:2018,rating:7.5,type:'movie',poster:'https://image.tmdb.org/t/p/w500/nHgHkF1Uqmq9dD9tP73ew2jcRcI.jpg',backdrop:'https://image.tmdb.org/t/p/original/jtM7SnMYnxkoF63iT7WEQTP5MdF.jpg',genre:['Horror','Sci-Fi'],desc:'A biologist signs up for a dangerous expedition into a zone where the laws of nature do not apply.',cast:[{n:'Natalie Portman',r:'Lena',img:'https://image.tmdb.org/t/p/w185/1tMrDVpWz5qMfBHQpbp2F5VrCLs.jpg'},{n:'Jennifer Jason Leigh',r:'Dr. Ventress',img:'https://image.tmdb.org/t/p/w185/5yMMBAPrJR98VnANJtmhz1pJiGl.jpg'}]},
+  {id:438631,title:'The Witch',year:2015,rating:6.9,type:'movie',poster:'https://image.tmdb.org/t/p/w500/zhMBZTFbmnjOEFPLVRpvG0QBLYT.jpg',backdrop:'https://image.tmdb.org/t/p/original/99FIBbDQ9TPJg9lAYtPuChp7KqG.jpg',genre:['Horror'],desc:"A Puritan farmer's family is torn apart by supernatural evil in colonial New England.",cast:[{n:'Anya Taylor-Joy',r:'Thomasin',img:'https://image.tmdb.org/t/p/w185/lQMnN5tKRMN4eoNovGZl9MbCJxn.jpg'},{n:'Ralph Ineson',r:'William',img:'https://image.tmdb.org/t/p/w185/bGLTkRJ8cJmFpjNqYBjz3qqEF4d.jpg'}]},
+  {id:503919,title:'The Invisible Man',year:2020,rating:7.1,type:'movie',poster:'https://image.tmdb.org/t/p/w500/mZRzb24bPSPKRBNQKE4V7Cw0MhF.jpg',backdrop:'https://image.tmdb.org/t/p/original/hNFMawyNDWZKTIxLqBvSou4DXRK.jpg',genre:['Horror','Thriller'],desc:"When a woman's abusive ex dies, she suspects he is terrorizing her using an invisibility suit.",cast:[{n:'Elisabeth Moss',r:'Cecilia Kass',img:'https://image.tmdb.org/t/p/w185/vyLFHBBjPCCE7PbrWxCqBJoVxTD.jpg'},{n:'Oliver Jackson-Cohen',r:'Adrian Griffin',img:'https://image.tmdb.org/t/p/w185/aeTQqGedT1P74DxkSOXoFrCW5hE.jpg'}]},
+  {id:155,title:'The Dark Knight',year:2008,rating:9.0,type:'movie',poster:'https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg',backdrop:'https://image.tmdb.org/t/p/original/nMKdUUepR0i5zn0y1T4CejMgiGQ.jpg',genre:['Action','Thriller'],desc:'When the Joker wreaks havoc on Gotham, Batman must accept one of the greatest tests of his life.',cast:[{n:'Christian Bale',r:'Bruce Wayne / Batman',img:'https://image.tmdb.org/t/p/w185/qCpZn2e3dimwbryLnqxZuI88PTi.jpg'},{n:'Heath Ledger',r:'The Joker',img:'https://image.tmdb.org/t/p/w185/6I1vOsq3AlAFQfBJKoSmrIVmWZm.jpg'},{n:'Aaron Eckhart',r:'Harvey Dent',img:'https://image.tmdb.org/t/p/w185/qk2zRLm3mCH3TyVOMEGkdPJHqOG.jpg'},{n:'Maggie Gyllenhaal',r:'Rachel Dawes',img:'https://image.tmdb.org/t/p/w185/t5L6AUYr2PxFnQd1lgz2m0gGSRA.jpg'}]},
+  {id:299534,title:'Avengers: Endgame',year:2019,rating:8.4,type:'movie',poster:'https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg',backdrop:'https://image.tmdb.org/t/p/original/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg',genre:['Action','Sci-Fi'],desc:'The Avengers assemble one last time to undo the damage caused by Thanos.',cast:[{n:'Robert Downey Jr.',r:'Tony Stark / Iron Man',img:'https://image.tmdb.org/t/p/w185/5qHoazZiaLe7oFBok7xkBP1JJDg.jpg'},{n:'Chris Evans',r:'Steve Rogers / Captain America',img:'https://image.tmdb.org/t/p/w185/3bOGNsHlrswhyW79uvIHH1V43JI.jpg'},{n:'Scarlett Johansson',r:'Natasha Romanoff',img:'https://image.tmdb.org/t/p/w185/3rGSQCODpXGWagZcEpfMGJGaIzK.jpg'},{n:'Josh Brolin',r:'Thanos',img:'https://image.tmdb.org/t/p/w185/cgoy6R5K2bp5MvNkrBRcBUVkOF4.jpg'}]},
+  {id:27205,title:'Inception',year:2010,rating:8.8,type:'movie',poster:'https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg',backdrop:'https://image.tmdb.org/t/p/original/s3TBrRGB1iav7gFOCNx3H31MoES.jpg',genre:['Sci-Fi','Thriller'],desc:'A thief who steals corporate secrets through dream-sharing is given the task of planting an idea.',cast:[{n:'Leonardo DiCaprio',r:'Dom Cobb',img:'https://image.tmdb.org/t/p/w185/wo2hJpn04vbtmh0B9utCFdsQhxM.jpg'},{n:'Joseph Gordon-Levitt',r:'Arthur',img:'https://image.tmdb.org/t/p/w185/msugFjK9v6PXi7PnTDPXEOI2Ybf.jpg'},{n:'Ken Watanabe',r:'Saito',img:'https://image.tmdb.org/t/p/w185/o3GBTzMGv4fDyNkFr0qwLUBhqVv.jpg'}]},
+  {id:157336,title:'Interstellar',year:2014,rating:8.7,type:'movie',poster:'https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg',backdrop:'https://image.tmdb.org/t/p/original/pbrkL804c8yAv3zBZR4QPEafpAR.jpg',genre:['Sci-Fi','Adventure'],desc:"A team of explorers travel through a wormhole to ensure humanity's survival.",cast:[{n:'Matthew McConaughey',r:'Cooper',img:'https://image.tmdb.org/t/p/w185/wJiGedOCZhwMx9DezY8uwbNxmAY.jpg'},{n:'Anne Hathaway',r:'Brand',img:'https://image.tmdb.org/t/p/w185/tLelKoPNiyJCSEBB5ODHB1kOHf5.jpg'},{n:'Jessica Chastain',r:'Murph (adult)',img:'https://image.tmdb.org/t/p/w185/MhAEVLgmCkFuXBxr1HqJMDBqRMs.jpg'}]},
+  {id:680,title:'Pulp Fiction',year:1994,rating:8.9,type:'movie',poster:'https://image.tmdb.org/t/p/w500/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg',backdrop:'https://image.tmdb.org/t/p/original/suaEOtk1N1sgg2MTM7oZd2cfVp3.jpg',genre:['Drama','Thriller'],desc:'The lives of two mob hitmen, a boxer, and a gangster intertwine in four tales of violence.',cast:[{n:'John Travolta',r:'Vincent Vega',img:'https://image.tmdb.org/t/p/w185/mqKA7jJm0TNLM97NTiJJO3RXJTS.jpg'},{n:'Samuel L. Jackson',r:'Jules Winnfield',img:'https://image.tmdb.org/t/p/w185/NpEK9HMR7CjLoHjv50PfhSJbpSJ.jpg'},{n:'Uma Thurman',r:'Mia Wallace',img:'https://image.tmdb.org/t/p/w185/x2BKW24EMcPxFLMJjFnj1FkiLJ1.jpg'}]},
+  {id:278,title:'The Shawshank Redemption',year:1994,rating:9.3,type:'movie',poster:'https://image.tmdb.org/t/p/w500/lyQBXzOQSuE59IsHyhrp0qIiPAz.jpg',backdrop:'https://image.tmdb.org/t/p/original/kXfqcdQKsToO0OUXHcrrNCHDBzO.jpg',genre:['Drama'],desc:'Two imprisoned men bond over years, finding redemption through acts of common decency.',cast:[{n:'Tim Robbins',r:'Andy Dufresne',img:'https://image.tmdb.org/t/p/w185/qZMMn0mepCh0rFiNBfBIcI5Z1jX.jpg'},{n:'Morgan Freeman',r:'Ellis Boyd "Red" Redding',img:'https://image.tmdb.org/t/p/w185/jPsLqiYGSofU4jTsVGKWMfDSfhM.jpg'},{n:'Bob Gunton',r:'Warden Samuel Norton',img:'https://image.tmdb.org/t/p/w185/b4LKXYKXzSm2Q2kZ7A0rT6B5r1h.jpg'}]},
+  {id:361743,title:'Top Gun: Maverick',year:2022,rating:8.3,type:'movie',poster:'https://image.tmdb.org/t/p/w500/62HCnUTziyWcpDaBO2i1DX17ljH.jpg',backdrop:'https://image.tmdb.org/t/p/original/odJ4hx6g6vBt4lBWKFD1tI8WS4x.jpg',genre:['Action','Drama'],desc:'After thirty years, Maverick is still pushing the envelope as a top naval aviator.',cast:[{n:'Tom Cruise',r:'Pete "Maverick" Mitchell',img:'https://image.tmdb.org/t/p/w185/8qBylDpUKBqjqGgOGFSMCnbGFzq.jpg'},{n:'Miles Teller',r:'Bradley "Rooster" Bradshaw',img:'https://image.tmdb.org/t/p/w185/dt3AMSRSaFc6EQSQB7hcCOhzjrP.jpg'},{n:'Jennifer Connelly',r:'Penny Benjamin',img:'https://image.tmdb.org/t/p/w185/2WlN0CQFNRXV9NKBHF1UevzxGfM.jpg'}]},
+  {id:496243,title:'Parasite',year:2019,rating:8.5,type:'movie',poster:'https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg',backdrop:'https://image.tmdb.org/t/p/original/iTkCOCqAHsszjFoFDXk0iHT5gIU.jpg',genre:['Drama','Thriller'],desc:'Greed and class discrimination threaten the relationship between a wealthy and an impoverished family.',cast:[{n:'Song Kang-ho',r:'Kim Ki-taek',img:'https://image.tmdb.org/t/p/w185/1PtHjFzSCOSWVyEaZcUPRMVE4yc.jpg'},{n:'Choi Woo-shik',r:'Kim Ki-woo',img:'https://image.tmdb.org/t/p/w185/gHXA7EfJ8yT93piiBSmjulBneSp.jpg'},{n:'Park So-dam',r:'Kim Ki-jung',img:'https://image.tmdb.org/t/p/w185/jnPnMkp0TcjnTXxlZqMR7ydqFr1.jpg'}]},
+  {id:634649,title:'Spider-Man: No Way Home',year:2021,rating:7.9,type:'movie',poster:'https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg',backdrop:'https://image.tmdb.org/t/p/original/iQFcwSGbZXMkeyKrxbPnwnRo5fl.jpg',genre:['Action','Sci-Fi'],desc:'Peter Parker asks Doctor Strange for help, bringing multiverse chaos to his world.',cast:[{n:'Tom Holland',r:'Peter Parker / Spider-Man',img:'https://image.tmdb.org/t/p/w185/bkZqfJjFOwAlkMbWpFqtx6q74Tm.jpg'},{n:'Zendaya',r:'MJ',img:'https://image.tmdb.org/t/p/w185/yCGXFMx4GCXQlw3sH57lSHkYNSR.jpg'},{n:'Benedict Cumberbatch',r:'Doctor Strange',img:'https://image.tmdb.org/t/p/w185/tIBFollFTVSRGAeWCqHqoHUJNfv.jpg'},{n:'Willem Dafoe',r:'Norman Osborn / Green Goblin',img:'https://image.tmdb.org/t/p/w185/3XYXS3GjMbqMdqFhMkqU2VfEbAh.jpg'}]},
+  {id:475557,title:'Joker',year:2019,rating:8.4,type:'movie',poster:'https://image.tmdb.org/t/p/w500/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg',backdrop:'https://image.tmdb.org/t/p/original/f5F4cRhQdUbyVbB5lTNCwXWgJCh.jpg',genre:['Drama','Thriller'],desc:"A troubled comedian's downward spiral leads to the creation of an iconic villain.",cast:[{n:'Joaquin Phoenix',r:'Arthur Fleck / Joker',img:'https://image.tmdb.org/t/p/w185/nXMzvVF6JovPlVgnBqKoYIPzCxu.jpg'},{n:'Robert De Niro',r:'Murray Franklin',img:'https://image.tmdb.org/t/p/w185/cT8htcckIuyI1Bqx4R1RcSztBPM.jpg'},{n:'Zazie Beetz',r:'Sophie Dumond',img:'https://image.tmdb.org/t/p/w185/vVL6cWCXMZdNdl9nQgmyFiTVq4r.jpg'}]},
+  {id:447365,title:'Guardians of the Galaxy Vol. 3',year:2023,rating:7.9,type:'movie',poster:'https://image.tmdb.org/t/p/w500/r2J02Z2OpNTctfOSN1Ydgii51I3.jpg',backdrop:'https://image.tmdb.org/t/p/original/5YZbUmjbMa3ClvSW1Wj3D6XGolb.jpg',genre:['Sci-Fi','Action'],desc:'Peter Quill and the Guardians rally to protect Rocket from a powerful new adversary.',cast:[{n:'Chris Pratt',r:'Peter Quill / Star-Lord',img:'https://image.tmdb.org/t/p/w185/xZkHeE6g2YcGQvPvJjkNGT5x7eN.jpg'},{n:'Zoe Saldana',r:'Gamora',img:'https://image.tmdb.org/t/p/w185/b7G16gX5dDDNqBdpBRK9p9D5hRG.jpg'},{n:'Bradley Cooper',r:'Rocket (Voice)',img:'https://image.tmdb.org/t/p/w185/Be2sdjpgsa2rNTFa66f7upkaOP.jpg'},{n:'Chukwudi Iwuji',r:'The High Evolutionary',img:'https://image.tmdb.org/t/p/w185/bEMSSAEXWm7H4L8sYhZqmicJ6ML.jpg'}]},
+  {id:315162,title:'Puss in Boots: The Last Wish',year:2022,rating:7.9,type:'movie',poster:'https://image.tmdb.org/t/p/w500/kuf6dutpsT0vSVehic3EZIqkOBt.jpg',backdrop:'https://image.tmdb.org/t/p/original/mVWkTLFBkadPIVLBVAqHHfD0hIi.jpg',genre:['Animation','Adventure'],desc:'Puss in Boots discovers he only has one life left and embarks on an epic quest.',cast:[{n:'Antonio Banderas',r:'Puss in Boots',img:'https://image.tmdb.org/t/p/w185/iKJbmSAkXeYLv4Jg2IKXRBxkPMu.jpg'},{n:'Florence Pugh',r:'Goldilocks',img:'https://image.tmdb.org/t/p/w185/gQJss8tCQkSWHXg1VYnbvCjmA9a.jpg'},{n:'Salma Hayek',r:'Kitty Softpaws',img:'https://image.tmdb.org/t/p/w185/aJCtkxnuoNnQtdvCRi91SZjm0WD.jpg'}]},
+  {id:9806,title:'The Incredibles',year:2004,rating:8.0,type:'movie',poster:'https://image.tmdb.org/t/p/w500/2LqaLgk4Z226KkgPJuiOQ58ShpD.jpg',backdrop:'https://image.tmdb.org/t/p/original/2ARhDDCRbAOJkTGKO0GHZCqXlwT.jpg',genre:['Animation','Action'],desc:'A family of undercover superheroes is forced back into action to save the world.',cast:[{n:'Craig T. Nelson',r:'Bob Parr / Mr. Incredible',img:'https://image.tmdb.org/t/p/w185/dNAkDq3iF2REkGOODGRkSRdVAbX.jpg'},{n:'Holly Hunter',r:'Helen Parr / Elastigirl',img:'https://image.tmdb.org/t/p/w185/gF97UJbIJUFnvlCeICdU5Vb97KT.jpg'},{n:'Jason Lee',r:'Syndrome',img:'https://image.tmdb.org/t/p/w185/1RI1cMilkN7CkNT2cWBRMFxSRSk.jpg'}]},
+  {id:550,title:'Fight Club',year:1999,rating:8.8,type:'movie',poster:'https://image.tmdb.org/t/p/w500/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg',backdrop:'https://image.tmdb.org/t/p/original/hZkgoQYus5vegHoetLkCJzVFGFZ.jpg',genre:['Drama','Thriller'],desc:'An insomniac office worker and a soap salesman build an underground fight club network.',cast:[{n:'Brad Pitt',r:'Tyler Durden',img:'https://image.tmdb.org/t/p/w185/cckcYc2v0yh1tc9QjRelptcOBko.jpg'},{n:'Edward Norton',r:'The Narrator',img:'https://image.tmdb.org/t/p/w185/5XBzD5WuTyVQZeS4VI25z2moMeY.jpg'},{n:'Helena Bonham Carter',r:'Marla Singer',img:'https://image.tmdb.org/t/p/w185/57SczLaEQJbHkZN9OvIQJqlAuaP.jpg'}]},
+  {id:823219,title:'Flow',year:2024,rating:8.3,type:'movie',poster:'https://image.tmdb.org/t/p/w500/2YMnBRh4RP1QNPAzAHdCHjCbf1z.jpg',backdrop:'https://image.tmdb.org/t/p/original/cbKwHCEbCzZFUGPXBevMRqJKk1L.jpg',genre:['Animation','Adventure'],desc:'A cat navigates a post-human world forming an unlikely fellowship with other animals aboard a boat.',cast:[]},
+  {id:762509,title:'Mufasa: The Lion King',year:2024,rating:7.0,type:'movie',poster:'https://image.tmdb.org/t/p/w500/435s37pnJKNJQfQ6Bx3SXWBZJrd.jpg',backdrop:'https://image.tmdb.org/t/p/original/5BcTMJQtENq7eqpCYKHiGIBYkQG.jpg',genre:['Animation','Adventure'],desc:'The origin story of Mufasa the cub, orphaned and taken under the wing of a lion named Obasi.',cast:[{n:'Aaron Pierre',r:'Young Mufasa',img:'https://image.tmdb.org/t/p/w185/jNiJMxRJ4mfU91HKh6mwrPCvYmX.jpg'},{n:'Kelvin Harrison Jr.',r:'Young Taka / Scar',img:'https://image.tmdb.org/t/p/w185/oQRNiJvLgm6yU2dZeT2YZBU5BID.jpg'}]},
+  {id:718789,title:'Killers of the Flower Moon',year:2023,rating:7.7,type:'movie',poster:'https://image.tmdb.org/t/p/w500/dB6Krk806zeqd1psiHaCCRukafb.jpg',backdrop:'https://image.tmdb.org/t/p/original/1X7vow16X7CnCoZ9eatbMUzASyY.jpg',genre:['Drama','History'],desc:'Members of the Osage Nation are murdered under mysterious circumstances in the 1920s.',cast:[{n:'Leonardo DiCaprio',r:'Ernest Burkhart',img:'https://image.tmdb.org/t/p/w185/wo2hJpn04vbtmh0B9utCFdsQhxM.jpg'},{n:'Robert De Niro',r:'William King Hale',img:'https://image.tmdb.org/t/p/w185/cT8htcckIuyI1Bqx4R1RcSztBPM.jpg'},{n:'Lily Gladstone',r:'Mollie Burkhart',img:'https://image.tmdb.org/t/p/w185/1RLGJWiGjE8K2BFNQefm9VFCjnl.jpg'}]},
+  {id:1243638,title:'Backrooms Obsession',year:2026,rating:7.4,type:'movie',poster:'https://image.tmdb.org/t/p/w500/lqoMzCcZYEFK729d6qzt349fB4o.jpg',backdrop:'https://image.tmdb.org/t/p/original/tpIMm15eFb0FI6HmZrLa6WwURxG.jpg',genre:['Horror','Thriller'],desc:'A group of urban explorers accidentally clip through reality and find themselves trapped in the Backrooms — an infinite network of eerie liminal spaces stalked by unspeakable entities. With no map, no exits, and sanity slipping, they must survive long enough to find a way back.',cast:[{n:'Cailee Spaeny',r:'Mara',img:'https://image.tmdb.org/t/p/w185/6xBNMSbQkjkEO0bPEFPaMVjv3eL.jpg'},{n:'David Jonsson',r:'Ellis',img:'https://image.tmdb.org/t/p/w185/xwJJ8zXxkUwtS4nDNmT5y2W3BOA.jpg'},{n:'Maika Monroe',r:'Jade',img:'https://image.tmdb.org/t/p/w185/bRDzPUQ1JKIVGNkBBGDhiJXGJFl.jpg'},{n:'Joseph Quinn',r:'Russ',img:'https://image.tmdb.org/t/p/w185/1b3GKb6Yreh5PfEBEQjIyHPKGEL.jpg'}]},
+  {id:1083381,title:'Backrooms',year:2026,rating:7.8,type:'movie',poster:'https://image.tmdb.org/t/p/w500/qd7TLuQSA2ZEj4FEqjODRijGfL8.jpg',backdrop:'https://image.tmdb.org/t/p/original/nfxoECBXHuaJqfcMkMDqwvt4RRY.jpg',genre:['Horror','Sci-Fi'],desc:'A24\'s adaptation of Kane Parsons\' viral YouTube phenomenon. A man finds himself trapped inside the Backrooms — millions of square miles of empty, harshly-lit office space where the sound design is heavy, the dread is unrelenting, and something is always lurking just beyond the next hallway. Directed by Kane Parsons.',cast:[{n:'Chiwetel Ejiofor',r:'Clark',img:'https://image.tmdb.org/t/p/w185/7TtDK3KTBHhVTkFRCjIKPJqBjXI.jpg'},{n:'Renate Reinsve',r:'Mary',img:'https://image.tmdb.org/t/p/w185/6o5c0pBLCnNopLFN8MR4LgQKqbz.jpg'},{n:'Mark Duplass',r:'Phil',img:'https://image.tmdb.org/t/p/w185/4pMMTJvBqwR7HnRFRQu6RfGiJXt.jpg'},{n:'Finn Bennett',r:'Bobby',img:'https://image.tmdb.org/t/p/w185/1b3GKb6Yreh5PfEBEQjIyHPKGEL.jpg'},{n:'Lukita Maxwell',r:'Kat',img:'https://image.tmdb.org/t/p/w185/tO3cRLnaxuVv7nAT1wVBqaIFCjZ.jpg'},{n:'Avan Jogia',r:'Naren Warne',img:'https://image.tmdb.org/t/p/w185/6NZnbWCxPRQ5FNQ1MtLBBlCMlWU.jpg'}]},
+  {id:1299876,title:'Storm Chasers',year:2026,rating:7.1,type:'movie',poster:'https://image.tmdb.org/t/p/w500/pjnD08FlMAIXsfOLKQbvmO0f0MD.jpg',backdrop:'https://image.tmdb.org/t/p/original/l6KMbBqHi4bNpLCCKc2cM8pJ1q0.jpg',genre:['Action','Thriller'],desc:'Elite storm chasers race to stop an unprecedented series of supercell tornadoes threatening the American Midwest.',cast:[]},
+  {id:129,title:'Spirited Away',year:2001,rating:8.5,type:'movie',poster:'https://image.tmdb.org/t/p/w500/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg',backdrop:'https://image.tmdb.org/t/p/original/Ab8mkHmkYADjU7wQiOkia9BzGvS.jpg',genre:['Animation','Fantasy'],desc:'A ten-year-old girl wanders into a world ruled by gods, witches, and spirits.',cast:[{n:'Daveigh Chase',r:'Chihiro (English dub)',img:'https://image.tmdb.org/t/p/w185/mlYcVT4l4IBTV6fQUPbqAfSJGjZ.jpg'}]},
+  {id:653346,title:'Kingdom of the Planet of the Apes',year:2024,rating:7.1,type:'movie',poster:'https://image.tmdb.org/t/p/w500/gKkl37BQuKTanygYQG1pyYgLVgf.jpg',backdrop:'https://image.tmdb.org/t/p/original/cBsEDYE0fhcRdYTAUZUm1Oo7E14.jpg',genre:['Sci-Fi','Action'],desc:'Many years after the reign of Caesar, a young ape goes on a journey questioning everything he knows.',cast:[{n:'Owen Teague',r:'Noa',img:'https://image.tmdb.org/t/p/w185/qW7BBmBZqKPRlMYGUMGpkfFJFPX.jpg'},{n:'Freya Allan',r:'Mae',img:'https://image.tmdb.org/t/p/w185/zVnHagUvXkR2StdOtquEtmNPqnZ.jpg'}]},
+  {id:573435,title:'Bad Boys: Ride or Die',year:2024,rating:7.1,type:'movie',poster:'https://image.tmdb.org/t/p/w500/oGythE98MYauIb0kCYjB2gK9KAm.jpg',backdrop:'https://image.tmdb.org/t/p/original/wcKFYIiVDvRURrzglWyrT6D3X2Q.jpg',genre:['Action','Comedy'],desc:'Miami detectives Lowrey and Burnett become fugitives after being linked to a drug cartel.',cast:[{n:'Will Smith',r:'Mike Lowrey',img:'https://image.tmdb.org/t/p/w185/nfQoV67g73pHAthxaHkzC4NXJY8.jpg'},{n:'Martin Lawrence',r:'Marcus Burnett',img:'https://image.tmdb.org/t/p/w185/l8hBQXJBGLawoW2SFLGk3M0cLFQ.jpg'}]},
 ];
 
 const TV_SHOWS = [
-  {id:1396,title:'Breaking Bad',year:2008,rating:9.5,type:'tv',poster:'https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg',backdrop:'https://image.tmdb.org/t/p/original/tsRy63Mu5cu8etL1X7ZLyf7UP1M.jpg',genre:['Drama','Thriller'],desc:'A high school chemistry teacher turns to manufacturing methamphetamine.'},
-  {id:94997,title:'House of the Dragon',year:2022,rating:8.4,type:'tv',poster:'https://image.tmdb.org/t/p/w500/z2yahl2uefxDCl0nogcRBstwruJ.jpg',backdrop:'https://image.tmdb.org/t/p/original/etj8E2o0Bud0HkONVQPjyCkIvpv.jpg',genre:['Fantasy','Drama'],desc:'The story of House Targaryen, set 200 years before Game of Thrones.'},
-  {id:100,title:'The Bear',year:2022,rating:8.6,type:'tv',poster:'https://image.tmdb.org/t/p/w500/reEMJA1uzscCbkpeRJeTT2bjqUp.jpg',backdrop:'https://image.tmdb.org/t/p/original/xEHQFz7nOA4DpCo62v5nCwLfbRu.jpg',genre:['Drama','Comedy'],desc:'A young chef transforms a family sandwich shop into a fine-dining restaurant.'},
-  {id:61889,title:'Wednesday',year:2022,rating:8.1,type:'tv',poster:'https://image.tmdb.org/t/p/w500/jeGtaMwGxPmQN5xM4ClnwPQcNQG.jpg',backdrop:'https://image.tmdb.org/t/p/original/9PqD3wSIjntyJDBzMNuxuKHgLThB.jpg',genre:['Horror','Comedy'],desc:'Wednesday Addams solves supernatural mysteries at Nevermore Academy.'},
-  {id:202555,title:'The Last of Us',year:2023,rating:8.8,type:'tv',poster:'https://image.tmdb.org/t/p/w500/uKvVjHNqB5VmOrdxqAt2F7J78ED.jpg',backdrop:'https://image.tmdb.org/t/p/original/9Gtg2DzBhmYamXBS1hKAhiwbBKS.jpg',genre:['Drama','Sci-Fi'],desc:'Joel smuggles a girl across a post-apocalyptic US.'},
-  {id:90803,title:'Squid Game',year:2021,rating:8.0,type:'tv',poster:'https://image.tmdb.org/t/p/w500/dDlEmu3EZ0Pgg93K2SVNLCjCSvE.jpg',backdrop:'https://image.tmdb.org/t/p/original/qw3J9cNeLioOLoR68WX7z79aCdK.jpg',genre:['Thriller','Drama'],desc:'Hundreds of cash-strapped players compete in deadly children\'s games.'},
-  {id:63174,title:'Loki',year:2021,rating:8.2,type:'tv',poster:'https://image.tmdb.org/t/p/w500/voHUmluYkKpnM0qZQMHoF0UcaT7.jpg',backdrop:'https://image.tmdb.org/t/p/original/nO1OSEMezLbTBpRIbhQkBrEKBMH.jpg',genre:['Sci-Fi','Action'],desc:'The God of Mischief steps out of his brother\'s shadow.'},
-  {id:84773,title:'The Lord of the Rings: The Rings of Power',year:2022,rating:7.0,type:'tv',poster:'https://image.tmdb.org/t/p/w500/mYLOqiStMxDK3fYZFirgrMt8z5d.jpg',backdrop:'https://image.tmdb.org/t/p/original/5OmKRxaaCm2tkRvSJDnRfYRLCmY.jpg',genre:['Fantasy','Drama'],desc:'Epic tales set during the Age of Numenor in Middle-earth.'},
-  {id:1399,title:'Game of Thrones',year:2011,rating:9.2,type:'tv',poster:'https://image.tmdb.org/t/p/w500/1XS1oqL89opfnbLl8WnZY1O1uJx.jpg',backdrop:'https://image.tmdb.org/t/p/original/suopoADq0k8YZr4dQXcU6pToj6s.jpg',genre:['Fantasy','Drama'],desc:'Seven noble families fight for control of the mythical land of Westeros while an ancient enemy returns.'},
-  {id:1402,title:'The Walking Dead',year:2010,rating:8.1,type:'tv',poster:'https://image.tmdb.org/t/p/w500/n7PO4AGzAl3OZSrQ7tB9JQxfCQy.jpg',backdrop:'https://image.tmdb.org/t/p/original/pwCJnMWLniE4lMFcWdRIMkdVfJQ.jpg',genre:['Horror','Drama'],desc:'Sheriff Deputy Rick Grimes leads a group of survivors in a zombie apocalypse.'},
-  {id:66732,title:'Stranger Things',year:2016,rating:8.7,type:'tv',poster:'https://image.tmdb.org/t/p/w500/49WJfeN0moxb9IPfGn8AIqMGskD.jpg',backdrop:'https://image.tmdb.org/t/p/original/56v2KjBlU4XaOv9rVYEQypROD7P.jpg',genre:['Sci-Fi','Horror'],desc:'When a boy disappears, his friends, family and local police discover a series of extraordinary mysteries.'},
-  {id:87108,title:'Chernobyl',year:2019,rating:9.4,type:'tv',poster:'https://image.tmdb.org/t/p/w500/hlLXt2tOPT6RRnjiUmoxyG1LTFi.jpg',backdrop:'https://image.tmdb.org/t/p/original/suopoADq0k8YZr4dQXcU6pToj6s.jpg',genre:['Drama','History'],desc:'In April 1986, an explosion at the Chernobyl nuclear power plant in the USSR becomes one of the world\'s worst disasters.'},
-  {id:1418,title:'The Big Bang Theory',year:2007,rating:7.8,type:'tv',poster:'https://image.tmdb.org/t/p/w500/ooBGRQBdbGzBxAVfExiO8r7kloA.jpg',backdrop:'https://image.tmdb.org/t/p/original/nGsNruW3W27V6r4gkyMYPvHn9Yw.jpg',genre:['Comedy'],desc:'A group of socially awkward friends navigate life, love and the universe.'},
-  {id:1100,title:'How I Met Your Mother',year:2005,rating:7.8,type:'tv',poster:'https://image.tmdb.org/t/p/w500/b34jPzmB0wZy7EjUZoleXOl2RRI.jpg',backdrop:'https://image.tmdb.org/t/p/original/jvP2UlQHFVaKf8OMZ6xMb77HjDD.jpg',genre:['Comedy','Romance'],desc:'Ted Mosby recounts to his kids the story of how he met their mother.'},
-  {id:2190,title:'South Park',year:1997,rating:8.7,type:'tv',poster:'https://image.tmdb.org/t/p/w500/vxuoMW6YBt6UsxvMfRNwRl9LtWS.jpg',backdrop:'https://image.tmdb.org/t/p/original/5qPOQtVDHWBOgJXEaX9pHBnQFTR.jpg',genre:['Animation','Comedy'],desc:'Follows the exploits of four irreverent grade-schoolers in the quiet, dysfunctional mountain town of South Park, Colorado.'},
-  {id:46952,title:'Black Mirror',year:2011,rating:8.3,type:'tv',poster:'https://image.tmdb.org/t/p/w500/7PRddO7z7mcPi21nZTCMGShAyy1.jpg',backdrop:'https://image.tmdb.org/t/p/original/9VXbRMkLqxJSPdC6LTWJ0XBYTM4.jpg',genre:['Sci-Fi','Drama'],desc:'An anthology series exploring a twisted, high-tech multiverse where humanity\'s greatest innovations and darkest instincts collide.'},
-  {id:44217,title:'The Crown',year:2016,rating:8.2,type:'tv',poster:'https://image.tmdb.org/t/p/w500/aBjZHzKVmMRVkTqBIpqnxAcVHTy.jpg',backdrop:'https://image.tmdb.org/t/p/original/x1s6ykDEDI5GfCxMVS1Lm0wC7qP.jpg',genre:['Drama','History'],desc:'This drama follows the political rivalries and romance of Queen Elizabeth II\'s reign.'},
-  {id:83097,title:'The Boys',year:2019,rating:8.7,type:'tv',poster:'https://image.tmdb.org/t/p/w500/stTEycfG9928HYGEISBFaG1ngjM.jpg',backdrop:'https://image.tmdb.org/t/p/original/mY7SeH4HFFxW1hiI6cWuwCRKptN.jpg',genre:['Action','Drama'],desc:'A group of vigilantes set out to take down corrupt superheroes who abuse their powers.'},
-  {id:71446,title:'Money Heist',year:2017,rating:8.2,type:'tv',poster:'https://image.tmdb.org/t/p/w500/reEMJA1uzscCbkpeRJeTT2bjqUp.jpg',backdrop:'https://image.tmdb.org/t/p/original/xGexTKCJDkl61E1KVRS3GBgjAqT.jpg',genre:['Thriller','Drama'],desc:'A criminal mastermind who goes by "The Professor" recruits eight thieves with specific skills to carry out an elaborate heist.'},
-  {id:37854,title:'One Piece',year:1999,rating:8.9,type:'tv',poster:'https://image.tmdb.org/t/p/w500/fcfVMBMf0dVQHAMk5bxbmMJVbbC.jpg',backdrop:'https://image.tmdb.org/t/p/original/2IwouEQCMqTQk7LO4La5Qpmj8JT.jpg',genre:['Animation','Action'],desc:'Follows the adventures of Monkey D. Luffy and his pirate crew in search of the greatest treasure, the One Piece.'},
-  {id:60625,title:'Rick and Morty',year:2013,rating:9.2,type:'tv',poster:'https://image.tmdb.org/t/p/w500/gdIrmf2DdY5mgN6ycVP0XlzKzbE.jpg',backdrop:'https://image.tmdb.org/t/p/original/gxGCbJVcqSAkQiZlJnkU7P2pj0w.jpg',genre:['Animation','Sci-Fi'],desc:'An animated series that follows the exploits of a super scientist and his not-so-bright grandson.'},
-  {id:153313,title:'Avatar: The Last Airbender',year:2024,rating:8.4,type:'tv',poster:'https://image.tmdb.org/t/p/w500/xuiHEFfhJiJMoEgRHRz5pZSjPiX.jpg',backdrop:'https://image.tmdb.org/t/p/original/vttDq3gYtf1qrjSJIBkXWpbEAlR.jpg',genre:['Fantasy','Action'],desc:'Aang, a young successor to a long line of Avatars, must master all four elements and stop the Fire Nation.'},
-  {id:85552,title:'Euphoria',year:2019,rating:8.4,type:'tv',poster:'https://image.tmdb.org/t/p/w500/3Q0hd3heuWwDWpwcDkhQOA6TYWI.jpg',backdrop:'https://image.tmdb.org/t/p/original/jtnfNzqZwN4E32FGGxx1YZaBWWf.jpg',genre:['Drama','Thriller'],desc:'A look at life for a group of high school students as they grapple with issues of drugs, sex and violence.'},
-  {id:57243,title:'Doctor Who',year:2005,rating:8.3,type:'tv',poster:'https://image.tmdb.org/t/p/w500/4edFyasCrkH4MKs6H4mHqlrxA6b.jpg',backdrop:'https://image.tmdb.org/t/p/original/bDJsWfp95hIMJoHVDNJHkd7in7h.jpg',genre:['Sci-Fi','Adventure'],desc:'The further adventures of the time traveling alien doctor and his companions from planet Earth.'},
-  {id:75006,title:'The Mandalorian',year:2019,rating:8.6,type:'tv',poster:'https://image.tmdb.org/t/p/w500/eU1i6eHXlzMqZen0Hm60AE7DXhq.jpg',backdrop:'https://image.tmdb.org/t/p/original/9ijMGlJKqcslswWUzTEwScm82Gs.jpg',genre:['Sci-Fi','Action'],desc:'A lone bounty hunter in the outer reaches of the galaxy, far from the authority of the New Republic.'},
-  {id:1668,title:'Friends',year:1994,rating:8.9,type:'tv',poster:'https://image.tmdb.org/t/p/w500/f496cm9enuEsZkSPzCwnTESEK5s.jpg',backdrop:'https://image.tmdb.org/t/p/original/l0qVZIpXtIo7km9Saturn.jpg',genre:['Comedy','Romance'],desc:'Follows the lives of six friends living in Manhattan navigating love, relationships and the pursuit of fame.'},
-  {id:48866,title:'The Office',year:2005,rating:8.9,type:'tv',poster:'https://image.tmdb.org/t/p/w500/qWnJzyZhyy74gjpSjIXWmuk0ifX.jpg',backdrop:'https://image.tmdb.org/t/p/original/vNpuAxGTl9HsUbHqam3E9CzqCvX.jpg',genre:['Comedy'],desc:'A mockumentary on a group of typical office workers, where the workday consists of ego clashes, inappropriate behavior and tedium.'},
-  {id:31917,title:'Pretty Little Liars',year:2010,rating:7.4,type:'tv',poster:'https://image.tmdb.org/t/p/w500/2iwBMtJYQ9LcCyaJDG1O3TbMjd3.jpg',backdrop:'https://image.tmdb.org/t/p/original/wXPNKPWIkTUGbLqTU4ChRvxbwSS.jpg',genre:['Thriller','Drama'],desc:'Four friends band together against an anonymous foe who threatens to reveal their darkest secrets.'},
-  {id:67419,title:'Victoria',year:2016,rating:7.8,type:'tv',poster:'https://image.tmdb.org/t/p/w500/5Pgmm1nNFiUCtyEnx79F7wOdJeE.jpg',backdrop:'https://image.tmdb.org/t/p/original/2NbeFsPNImAtMJNqpnkMwYNLDWf.jpg',genre:['Drama','History'],desc:'A dramatized account of the early life of Queen Victoria.'},
-  {id:93405,title:'Squid Game S2',year:2024,rating:7.5,type:'tv',poster:'https://image.tmdb.org/t/p/w500/dDlEmu3EZ0Pgg93K2SVNLCjCSvE.jpg',backdrop:'https://image.tmdb.org/t/p/original/qw3J9cNeLioOLoR68WX7z79aCdK.jpg',genre:['Thriller','Drama'],desc:'Gi-hun returns to the Squid Game, determined to find the people behind it and put an end to the deadly competition.'},
-  {id:100757,title:'The Diplomat',year:2023,rating:7.7,type:'tv',poster:'https://image.tmdb.org/t/p/w500/1KYz1akLkFJnTYNXIqTAlgkiJdN.jpg',backdrop:'https://image.tmdb.org/t/p/original/mVaGNMaISnqB0QZOS7KRwnlb5QH.jpg',genre:['Drama','Thriller'],desc:'A career diplomat is thrust into a high-profile ambassadorial role in London during an international crisis.'},
-  {id:136315,title:'Yellowjackets',year:2021,rating:7.8,type:'tv',poster:'https://image.tmdb.org/t/p/w500/fLbww3y8hKRFKmWWSnZEMZGfYi6.jpg',backdrop:'https://image.tmdb.org/t/p/original/2kI4tDVmeyPHnEFhbE0mS7PvImM.jpg',genre:['Horror','Drama'],desc:'A team of teenage girl soccer players survives a plane crash in the remote northern wilderness and must fend for themselves.'},
+  {id:1396,title:'Breaking Bad',year:2008,rating:9.5,type:'tv',seasons:5,episodesPerSeason:[7,13,13,13,16],poster:'https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg',backdrop:'https://image.tmdb.org/t/p/original/tsRy63Mu5cu8etL1X7ZLyf7UP1M.jpg',genre:['Drama','Thriller'],desc:'A high school chemistry teacher turns to manufacturing methamphetamine to secure his family.',cast:[{n:'Bryan Cranston',r:'Walter White',img:'https://image.tmdb.org/t/p/w185/7Jahy5LZX2Fo8fGJltMreAI49hC.jpg'},{n:'Aaron Paul',r:'Jesse Pinkman',img:'https://image.tmdb.org/t/p/w185/8wAlQTFpFBh0Vl0kQvH26gSYXBo.jpg'},{n:'Anna Gunn',r:'Skyler White',img:'https://image.tmdb.org/t/p/w185/a4xdgrqGCp2MOtq1KmqmCO8mLiX.jpg'},{n:'Dean Norris',r:'Hank Schrader',img:'https://image.tmdb.org/t/p/w185/cMtVuJfMB0XBJhXMrfDhY1i3Qzr.jpg'}]},
+  {id:94997,title:'House of the Dragon',year:2022,rating:8.4,type:'tv',seasons:2,episodesPerSeason:[10,8],poster:'https://image.tmdb.org/t/p/w500/z2yahl2uefxDCl0nogcRBstwruJ.jpg',backdrop:'https://image.tmdb.org/t/p/original/etj8E2o0Bud0HkONVQPjyCkIvpv.jpg',genre:['Fantasy','Drama'],desc:'The story of House Targaryen, set 200 years before Game of Thrones.',cast:[{n:'Emma D\'Arcy',r:'Rhaenyra Targaryen',img:'https://image.tmdb.org/t/p/w185/xPMBSnW1RTkAVjsVXqMiYW2VJ2j.jpg'},{n:'Matt Smith',r:'Daemon Targaryen',img:'https://image.tmdb.org/t/p/w185/iyLGR2ow7fxrOyqhTGRDRPyR6pR.jpg'},{n:'Olivia Cooke',r:'Alicent Hightower',img:'https://image.tmdb.org/t/p/w185/e5n5vVSxDpkgQoVCzFBCmgAjkRM.jpg'}]},
+  {id:136315,title:'The Bear',year:2022,rating:8.6,type:'tv',seasons:3,episodesPerSeason:[8,10,10],poster:'https://image.tmdb.org/t/p/w500/reEMJA1uzscCbkpeRJeTT2bjqUp.jpg',backdrop:'https://image.tmdb.org/t/p/original/xEHQFz7nOA4DpCo62v5nCwLfbRu.jpg',genre:['Drama','Comedy'],desc:'A young chef transforms a family sandwich shop into a fine-dining restaurant.',cast:[{n:'Jeremy Allen White',r:'Carmen "Carmy" Berzatto',img:'https://image.tmdb.org/t/p/w185/KVvRPcBxbJ4mHqvUoifBDYIniD.jpg'},{n:'Ebon Moss-Bachrach',r:'Richard "Richie" Jerimovich',img:'https://image.tmdb.org/t/p/w185/p7bB71tDkqk4NRPVB6Zg6vLmFe0.jpg'},{n:'Ayo Edebiri',r:'Sydney Adamu',img:'https://image.tmdb.org/t/p/w185/5kcqvdBVAEJ0F9Sp52hLv9M7LQR.jpg'}]},
+  {id:61889,title:'Wednesday',year:2022,rating:8.1,type:'tv',seasons:2,episodesPerSeason:[8,8],poster:'https://image.tmdb.org/t/p/w500/jeGtaMwGxPmQN5xM4ClnwPQcNQG.jpg',backdrop:'https://image.tmdb.org/t/p/original/9PqD3wSIjntyJDBzMNuxuKHgLThB.jpg',genre:['Horror','Comedy'],desc:'Wednesday Addams investigates supernatural mysteries at Nevermore Academy.',cast:[{n:'Jenna Ortega',r:'Wednesday Addams',img:'https://image.tmdb.org/t/p/w185/uSBzdQKN6bXC0JxjUFfEKKkzFSp.jpg'},{n:'Gwendoline Christie',r:'Larissa Weems',img:'https://image.tmdb.org/t/p/w185/aqiIJ3tBLUmPPW6YRQjDMqkG7d.jpg'},{n:'Emma Myers',r:'Enid Sinclair',img:'https://image.tmdb.org/t/p/w185/3SuOjsqReDf47lMWGT6oKvZfPLD.jpg'}]},
+  {id:202555,title:'The Last of Us',year:2023,rating:8.8,type:'tv',seasons:2,episodesPerSeason:[9,7],poster:'https://image.tmdb.org/t/p/w500/uKvVjHNqB5VmOrdxqAt2F7J78ED.jpg',backdrop:'https://image.tmdb.org/t/p/original/9Gtg2DzBhmYamXBS1hKAhiwbBKS.jpg',genre:['Drama','Sci-Fi'],desc:'Joel smuggles a girl across a post-apocalyptic US in exchange for weapons.',cast:[{n:'Pedro Pascal',r:'Joel Miller',img:'https://image.tmdb.org/t/p/w185/a4xdgrqGCp2MOtq1KmqmCO8mLiX.jpg'},{n:'Bella Ramsey',r:'Ellie Williams',img:'https://image.tmdb.org/t/p/w185/6AEOKZeGTlrq3YGaTkR5tFNAbWX.jpg'},{n:'Gabriel Luna',r:'Tommy Miller',img:'https://image.tmdb.org/t/p/w185/Z5gKPSBQPAzFi1aHiRvI0h5XYg.jpg'}]},
+  {id:90803,title:'Squid Game',year:2021,rating:8.0,type:'tv',seasons:2,episodesPerSeason:[9,7],poster:'https://image.tmdb.org/t/p/w500/dDlEmu3EZ0Pgg93K2SVNLCjCSvE.jpg',backdrop:'https://image.tmdb.org/t/p/original/qw3J9cNeLioOLoR68WX7z79aCdK.jpg',genre:['Thriller','Drama'],desc:'Hundreds of cash-strapped players compete in deadly children\'s games for a massive prize.',cast:[{n:'Lee Jung-jae',r:'Seong Gi-hun (Player 456)',img:'https://image.tmdb.org/t/p/w185/UiCXgBCDRLhJJMFNGh1LjUXn6M.jpg'},{n:'Park Hae-soo',r:'Cho Sang-woo (Player 218)',img:'https://image.tmdb.org/t/p/w185/bPf7IbxoSy16j0sTbv5sOzeFQOT.jpg'},{n:'O Yeong-su',r:'Oh Il-nam (Player 001)',img:'https://image.tmdb.org/t/p/w185/q4oNsT3ZMVoVxJuQb3RNBsAGNW4.jpg'}]},
+  {id:66732,title:'Stranger Things',year:2016,rating:8.7,type:'tv',seasons:4,episodesPerSeason:[8,9,8,9],poster:'https://image.tmdb.org/t/p/w500/49WJfeN0moxb9IPfGn8AIqMGskD.jpg',backdrop:'https://image.tmdb.org/t/p/original/56v2KjBlU4XaOv9rVYEQypROD7P.jpg',genre:['Sci-Fi','Horror'],desc:'When a boy disappears, his friends and local police discover extraordinary mysteries.',cast:[{n:'Millie Bobby Brown',r:'Eleven',img:'https://image.tmdb.org/t/p/w185/2cF7yOFaP0NV71BVTL4rJuHMsOv.jpg'},{n:'Finn Wolfhard',r:'Mike Wheeler',img:'https://image.tmdb.org/t/p/w185/sNFBCNILFYnEGnWELM1NbPZqCRt.jpg'},{n:'David Harbour',r:'Jim Hopper',img:'https://image.tmdb.org/t/p/w185/n1dzGCizfY7eegiGQ9gNjEVtDMH.jpg'},{n:'Winona Ryder',r:'Joyce Byers',img:'https://image.tmdb.org/t/p/w185/bVP29VmqoLMTLgDWXlhK1jqGlSm.jpg'}]},
+  {id:1399,title:'Game of Thrones',year:2011,rating:9.2,type:'tv',seasons:8,episodesPerSeason:[10,10,10,10,10,10,7,6],poster:'https://image.tmdb.org/t/p/w500/1XS1oqL89opfnbLl8WnZY1O1uJx.jpg',backdrop:'https://image.tmdb.org/t/p/original/suopoADq0k8YZr4dQXcU6pToj6s.jpg',genre:['Fantasy','Drama'],desc:'Seven noble families fight for control of Westeros while an ancient enemy returns.',cast:[{n:'Emilia Clarke',r:'Daenerys Targaryen',img:'https://image.tmdb.org/t/p/w185/XML9C6mV4nCzBiB7HQgJi3UBxbU.jpg'},{n:'Kit Harington',r:'Jon Snow',img:'https://image.tmdb.org/t/p/w185/1GdmE3wDl8tJmgbME9I5VBl7VcT.jpg'},{n:'Peter Dinklage',r:'Tyrion Lannister',img:'https://image.tmdb.org/t/p/w185/9fCScxHNHDJbOjMeNbq4dPpSdRv.jpg'},{n:'Lena Headey',r:'Cersei Lannister',img:'https://image.tmdb.org/t/p/w185/8hFOBKHMzVvOvCiUWvBL7Xl3Cdi.jpg'}]},
+  {id:87108,title:'Chernobyl',year:2019,rating:9.4,type:'tv',seasons:1,episodesPerSeason:[5],poster:'https://image.tmdb.org/t/p/w500/hlLXt2tOPT6RRnjiUmoxyG1LTFi.jpg',backdrop:'https://image.tmdb.org/t/p/original/suopoADq0k8YZr4dQXcU6pToj6s.jpg',genre:['Drama','History'],desc:'In April 1986, an explosion at Chernobyl becomes one of the world\'s worst nuclear disasters.',cast:[{n:'Jared Harris',r:'Valery Legasov',img:'https://image.tmdb.org/t/p/w185/r44GBBWEHRa6V7RNCF3hIE8JwBl.jpg'},{n:'Stellan Skarsgård',r:'Boris Shcherbina',img:'https://image.tmdb.org/t/p/w185/fNmVgXqSoBq3KFpXJLFEoxjFXAZ.jpg'},{n:'Emily Watson',r:'Ulana Khomyuk',img:'https://image.tmdb.org/t/p/w185/fcCTHsX5R1rJfFpOeXHiHMsVLMa.jpg'}]},
+  {id:83097,title:'The Boys',year:2019,rating:8.7,type:'tv',seasons:4,episodesPerSeason:[8,8,8,8],poster:'https://image.tmdb.org/t/p/w500/stTEycfG9928HYGEISBFaG1ngjM.jpg',backdrop:'https://image.tmdb.org/t/p/original/mY7SeH4HFFxW1hiI6cWuwCRKptN.jpg',genre:['Action','Drama'],desc:'Vigilantes set out to take down corrupt superheroes who abuse their powers.',cast:[{n:'Karl Urban',r:'Billy Butcher',img:'https://image.tmdb.org/t/p/w185/3Ag32ETCAEWM9oUQMiB0IqLbSQP.jpg'},{n:'Jack Quaid',r:'Hughie Campbell',img:'https://image.tmdb.org/t/p/w185/sCa7UIBV39dLqxJixiWmkOi14rp.jpg'},{n:'Antony Starr',r:'Homelander',img:'https://image.tmdb.org/t/p/w185/sVaAZFYWCJYEaFTYHpCFaHmzPMW.jpg'}]},
+  {id:60625,title:'Rick and Morty',year:2013,rating:9.2,type:'tv',seasons:7,episodesPerSeason:[11,10,10,10,10,10,10],poster:'https://image.tmdb.org/t/p/w500/gdIrmf2DdY5mgN6ycVP0XlzKzbE.jpg',backdrop:'https://image.tmdb.org/t/p/original/gxGCbJVcqSAkQiZlJnkU7P2pj0w.jpg',genre:['Animation','Sci-Fi'],desc:'Animated series following the exploits of a super scientist and his not-so-bright grandson.',cast:[{n:'Justin Roiland',r:'Rick Sanchez / Morty Smith (Voice)',img:'https://image.tmdb.org/t/p/w185/gdIrmf2DdY5mgN6ycVP0XlzKzbE.jpg'},{n:'Chris Parnell',r:'Jerry Smith (Voice)',img:'https://image.tmdb.org/t/p/w185/4pMMTJvBqwR7HnRFRQu6RfGiJXt.jpg'}]},
+  {id:85552,title:'Euphoria',year:2019,rating:8.4,type:'tv',seasons:2,episodesPerSeason:[8,8],poster:'https://image.tmdb.org/t/p/w500/3Q0hd3heuWwDWpwcDkhQOA6TYWI.jpg',backdrop:'https://image.tmdb.org/t/p/original/jtnfNzqZwN4E32FGGxx1YZaBWWf.jpg',genre:['Drama','Thriller'],desc:'High school students grapple with issues of drugs, sex, and violence.',cast:[{n:'Zendaya',r:'Rue Bennett',img:'https://image.tmdb.org/t/p/w185/yCGXFMx4GCXQlw3sH57lSHkYNSR.jpg'},{n:'Hunter Schafer',r:'Jules Vaughn',img:'https://image.tmdb.org/t/p/w185/6NZnbWCxPRQ5FNQ1MtLBBlCMlWU.jpg'},{n:'Sydney Sweeney',r:'Cassie Howard',img:'https://image.tmdb.org/t/p/w185/qSvHhiCeFLbhB1RazmJLkGCQ5Fp.jpg'}]},
+  {id:1402,title:'The Walking Dead',year:2010,rating:8.1,type:'tv',seasons:11,episodesPerSeason:[6,13,16,16,16,16,16,16,16,22,24],poster:'https://image.tmdb.org/t/p/w500/n7PO4AGzAl3OZSrQ7tB9JQxfCQy.jpg',backdrop:'https://image.tmdb.org/t/p/original/pwCJnMWLniE4lMFcWdRIMkdVfJQ.jpg',genre:['Horror','Drama'],desc:'Rick Grimes leads a group of survivors through a zombie apocalypse.',cast:[{n:'Andrew Lincoln',r:'Rick Grimes',img:'https://image.tmdb.org/t/p/w185/gUjnJxO5J41BnFJLx5hPdJXRLH1.jpg'},{n:'Norman Reedus',r:'Daryl Dixon',img:'https://image.tmdb.org/t/p/w185/y7UkijJLWdGqlYnkM6G0t9RFBOP.jpg'},{n:'Melissa McBride',r:'Carol Peletier',img:'https://image.tmdb.org/t/p/w185/eYqTgYcj8KsaW5RGOjQcFsJxdMV.jpg'}]},
+  {id:1668,title:'Friends',year:1994,rating:8.9,type:'tv',seasons:10,episodesPerSeason:[24,24,25,24,24,25,24,24,23,18],poster:'https://image.tmdb.org/t/p/w500/f496cm9enuEsZkSPzCwnTESEK5s.jpg',backdrop:'https://image.tmdb.org/t/p/original/l0qVZIpXtIo7km9Saturn.jpg',genre:['Comedy','Romance'],desc:'Six friends navigate life, love, and careers in Manhattan.',cast:[{n:'Jennifer Aniston',r:'Rachel Green',img:'https://image.tmdb.org/t/p/w185/1nGBWQKAnBMhAUxNUKvQZm3ylIt.jpg'},{n:'Courteney Cox',r:'Monica Geller',img:'https://image.tmdb.org/t/p/w185/yW3IBNEPxNMWAGnCuMaTbFqe3K4.jpg'},{n:'Matt LeBlanc',r:'Joey Tribbiani',img:'https://image.tmdb.org/t/p/w185/6rKC5TAFNZ5QJRR62MYWN5IQYNX.jpg'},{n:'Matthew Perry',r:'Chandler Bing',img:'https://image.tmdb.org/t/p/w185/mZ0OoHBXi4qVeEBVm8nkQTELa04.jpg'}]},
+  {id:48866,title:'The Office',year:2005,rating:8.9,type:'tv',seasons:9,episodesPerSeason:[6,22,23,14,28,26,26,24,25],poster:'https://image.tmdb.org/t/p/w500/qWnJzyZhyy74gjpSjIXWmuk0ifX.jpg',backdrop:'https://image.tmdb.org/t/p/original/vNpuAxGTl9HsUbHqam3E9CzqCvX.jpg',genre:['Comedy'],desc:'A mockumentary about office workers at the Dunder Mifflin Paper Company in Scranton, PA.',cast:[{n:'Steve Carell',r:'Michael Scott',img:'https://image.tmdb.org/t/p/w185/mPIrvF3aRuWiH7VzaqXzSlimfJF.jpg'},{n:'John Krasinski',r:'Jim Halpert',img:'https://image.tmdb.org/t/p/w185/hkFVF8Hnkl0VDjt2eBHvjkEDkQQ.jpg'},{n:'Rainn Wilson',r:'Dwight Schrute',img:'https://image.tmdb.org/t/p/w185/hgS13oc0CmsBHOcaEFi4E6pT6ue.jpg'}]},
+  {id:46952,title:'Black Mirror',year:2011,rating:8.3,type:'tv',seasons:6,episodesPerSeason:[3,4,3,6,3,6],poster:'https://image.tmdb.org/t/p/w500/7PRddO7z7mcPi21nZTCMGShAyy1.jpg',backdrop:'https://image.tmdb.org/t/p/original/9VXbRMkLqxJSPdC6LTWJ0XBYTM4.jpg',genre:['Sci-Fi','Drama'],desc:"Anthology series exploring a twisted world where humanity's innovations meet its darkest instincts.",cast:[]},
+  {id:75006,title:'The Mandalorian',year:2019,rating:8.6,type:'tv',seasons:3,episodesPerSeason:[8,8,8],poster:'https://image.tmdb.org/t/p/w500/eU1i6eHXlzMqZen0Hm60AE7DXhq.jpg',backdrop:'https://image.tmdb.org/t/p/original/9ijMGlJKqcslswWUzTEwScm82Gs.jpg',genre:['Sci-Fi','Action'],desc:'A lone bounty hunter protects a mysterious foundling across the outer reaches of the galaxy.',cast:[{n:'Pedro Pascal',r:'Din Djarin / The Mandalorian',img:'https://image.tmdb.org/t/p/w185/a4xdgrqGCp2MOtq1KmqmCO8mLiX.jpg'},{n:'Giancarlo Esposito',r:'Moff Gideon',img:'https://image.tmdb.org/t/p/w185/eRKNDgJRGSmrgSQk3UKnr3CtmRf.jpg'}]},
+  {id:63174,title:'Loki',year:2021,rating:8.2,type:'tv',seasons:2,episodesPerSeason:[6,6],poster:'https://image.tmdb.org/t/p/w500/voHUmluYkKpnM0qZQMHoF0UcaT7.jpg',backdrop:'https://image.tmdb.org/t/p/original/nO1OSEMezLbTBpRIbhQkBrEKBMH.jpg',genre:['Sci-Fi','Action'],desc:"The God of Mischief steps out of his brother's shadow in his own Marvel adventure.",cast:[{n:'Tom Hiddleston',r:'Loki',img:'https://image.tmdb.org/t/p/w185/toY09Ypf8BVmYpRHQR0fETxiDxI.jpg'},{n:'Sophia Di Martino',r:'Sylvie',img:'https://image.tmdb.org/t/p/w185/t80ZcsTiuNNOJi4RBStKBYINFnV.jpg'},{n:'Owen Wilson',r:'Mobius M. Mobius',img:'https://image.tmdb.org/t/p/w185/4XYNxLJ2uCRblI0J1hQIcQoAKEU.jpg'}]},
+  {id:71446,title:'Money Heist',year:2017,rating:8.2,type:'tv',seasons:5,episodesPerSeason:[9,6,8,10,5],poster:'https://image.tmdb.org/t/p/w500/reEMJA1uzscCbkpeRJeTT2bjqUp.jpg',backdrop:'https://image.tmdb.org/t/p/original/xGexTKCJDkl61E1KVRS3GBgjAqT.jpg',genre:['Thriller','Drama'],desc:'"The Professor" recruits eight thieves to carry out an elaborate heist on the Royal Mint of Spain.',cast:[{n:'Álvaro Morte',r:'Sergio Marquina / El Profesor',img:'https://image.tmdb.org/t/p/w185/b0f0BzUDCfQaImvRQCmlQrSMdaC.jpg'},{n:'Úrsula Corberó',r:'Silene Oliveira / Tokyo',img:'https://image.tmdb.org/t/p/w185/6o5c0pBLCnNopLFN8MR4LgQKqbz.jpg'}]},
+  {id:100757,title:'The Diplomat',year:2023,rating:7.7,type:'tv',seasons:2,episodesPerSeason:[8,6],poster:'https://image.tmdb.org/t/p/w500/1KYz1akLkFJnTYNXIqTAlgkiJdN.jpg',backdrop:'https://image.tmdb.org/t/p/original/mVaGNMaISnqB0QZOS7KRwnlb5QH.jpg',genre:['Drama','Thriller'],desc:'A career diplomat is thrust into a high-profile ambassadorial role in London during an international crisis.',cast:[{n:'Keri Russell',r:'Kate Wyler',img:'https://image.tmdb.org/t/p/w185/8eADjJrCB0lmm0HHfGzWY9eiA4j.jpg'},{n:'Rufus Sewell',r:'Hal Wyler',img:'https://image.tmdb.org/t/p/w185/uI4I7Bi6XCn1vRaQv9XUBHF1gXC.jpg'}]},
+  {id:114461,title:'Yellowjackets',year:2021,rating:7.8,type:'tv',seasons:3,episodesPerSeason:[10,10,8],poster:'https://image.tmdb.org/t/p/w500/fLbww3y8hKRFKmWWSnZEMZGfYi6.jpg',backdrop:'https://image.tmdb.org/t/p/original/2kI4tDVmeyPHnEFhbE0mS7PvImM.jpg',genre:['Horror','Drama'],desc:'A teen girl soccer team survives a plane crash in the wilderness and must fend for themselves.',cast:[{n:'Melanie Lynskey',r:'Adult Shauna',img:'https://image.tmdb.org/t/p/w185/fGxkZs9TYx8ZfRV9Pn3Ywf1ypSM.jpg'},{n:'Tawny Cypress',r:'Adult Taissa',img:'https://image.tmdb.org/t/p/w185/wVKkrxdFgf8abZzlPnz5QBUFN7h.jpg'}]},
+  {id:2190,title:'South Park',year:1997,rating:8.7,type:'tv',seasons:26,episodesPerSeason:[13,18,17,17,14,17,15,14,14,14,14,14,10,14,14,14,10,10,10,10,6,6,6,6,6,6],poster:'https://image.tmdb.org/t/p/w500/vxuoMW6YBt6UsxvMfRNwRl9LtWS.jpg',backdrop:'https://image.tmdb.org/t/p/original/5qPOQtVDHWBOgJXEaX9pHBnQFTR.jpg',genre:['Animation','Comedy'],desc:'The irreverent exploits of four grade-schoolers in the mountain town of South Park, Colorado.',cast:[{n:'Trey Parker',r:'Cartman / Randy / Stan (Voice)',img:'https://image.tmdb.org/t/p/w185/vxuoMW6YBt6UsxvMfRNwRl9LtWS.jpg'},{n:'Matt Stone',r:'Kyle / Kenny (Voice)',img:'https://image.tmdb.org/t/p/w185/vxuoMW6YBt6UsxvMfRNwRl9LtWS.jpg'}]},
+];
+
+const COMING_SOON = [
+  {id:2000001,title:'Avatar 3',releaseDate:'2026-12-19',genre:['Sci-Fi','Adventure'],poster:'https://image.tmdb.org/t/p/w500/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg',desc:"Jake Sully and Neytiri explore a new region of Pandora in the most visually stunning Avatar yet."},
+  {id:2000002,title:'Mission: Impossible — The Final Reckoning',releaseDate:'2026-05-23',genre:['Action','Thriller'],poster:'https://image.tmdb.org/t/p/w500/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg',desc:'Ethan Hunt faces his most dangerous mission yet in the final chapter of the Impossible saga.'},
+  {id:2000003,title:'The Fantastic Four: First Steps',releaseDate:'2026-07-25',genre:['Sci-Fi','Action'],poster:'https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg',desc:"Marvel's first family returns in a retro-futuristic adventure set in the 1960s."},
+  {id:1083381,title:'Backrooms',releaseDate:'2026-05-29',genre:['Horror','Sci-Fi'],poster:'https://image.tmdb.org/t/p/w500/7LEI8ulZzO5gy9Ww2NVCrKmHeDZ.jpg',desc:"A24's adaptation of Kane Parsons' viral YouTube phenomenon starring Chiwetel Ejiofor and Renate Reinsve. Directed by Kane Parsons himself — the teenage creator whose videos amassed nearly 100 million views."},
+  {id:2000005,title:'Storm Chasers',releaseDate:'2026-06-13',genre:['Action','Thriller'],poster:'https://image.tmdb.org/t/p/w500/pjnD08FlMAIXsfOLKQbvmO0f0MD.jpg',desc:'Elite storm chasers race to stop an unprecedented series of supercell tornadoes threatening the American Midwest.'},
+  {id:2000006,title:'Wicked: For Good',releaseDate:'2026-11-20',genre:['Fantasy','Drama'],poster:'https://image.tmdb.org/t/p/w500/iuFNMS8vlbRoNTnW3F2bSBcbUj3.jpg',desc:"Glinda and Elphaba's friendship is put to the ultimate test as the Wizard tightens his grip on Oz."},
+  {id:2000007,title:'Stranger Things: Season 5',releaseDate:'2026-07-04',genre:['Sci-Fi','Horror'],poster:'https://image.tmdb.org/t/p/w500/49WJfeN0moxb9IPfGn8AIqMGskD.jpg',desc:"The final chapter of Hawkins' battle against the Upside Down — one last stand for Eleven and her friends."},
+  {id:2000008,title:'Avengers: Doomsday',releaseDate:'2026-05-01',genre:['Action','Sci-Fi'],poster:'https://image.tmdb.org/t/p/w500/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg',desc:'The Avengers face the most catastrophic threat ever — Doctor Doom.'},
+  {id:2000009,title:'The Nun 3',releaseDate:'2026-09-05',genre:['Horror'],poster:'https://image.tmdb.org/t/p/w500/oPYupRG6gfM5y8eVQ2OukfNeq2P.jpg',desc:"Valak returns in the terrifying third chapter of the Conjuring universe's most frightening franchise."},
+  {id:2000010,title:'Joker: Folie à Deux 2',releaseDate:'2026-10-03',genre:['Drama','Thriller'],poster:'https://image.tmdb.org/t/p/w500/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg',desc:"Arthur Fleck faces an unexpected turn of events that reshapes Gotham's underworld once more."},
+  {id:2000011,title:'Untitled Jurassic World',releaseDate:'2026-07-02',genre:['Action','Sci-Fi'],poster:'https://image.tmdb.org/t/p/w500/gKkl37BQuKTanygYQG1pyYgLVgf.jpg',desc:'The next Jurassic chapter redefines the boundaries between humans and prehistoric creatures.'},
+  {id:2000012,title:'The Conjuring 4',releaseDate:'2026-09-18',genre:['Horror'],poster:'https://image.tmdb.org/t/p/w500/p9eAzBvLmV1IJSHRqPsLFjgL4UN.jpg',desc:'Ed and Lorraine Warren investigate a new case that challenges everything they know about the supernatural.'},
 ];
 
 const ACTORS = [
-  {name:'Timothée Chalamet',role:'Paul Atreides',img:'https://image.tmdb.org/t/p/w185/BE2sdjpgsa2rNTFa66f7upkaOP.jpg'},
-  {name:'Zendaya',role:'Chani',img:'https://image.tmdb.org/t/p/w185/yCGXFMx4GCXQlw3sH57lSHkYNSR.jpg'},
-  {name:'Cillian Murphy',role:'Oppenheimer',img:'https://image.tmdb.org/t/p/w185/dm6V24NjjvjMiCtbMkc8Y2WPm2e.jpg'},
-  {name:'Margot Robbie',role:'Barbie',img:'https://image.tmdb.org/t/p/w185/euDPyqLnuwaWMHajcU3oZ9uZezR.jpg'},
-  {name:'Keanu Reeves',role:'John Wick',img:'https://image.tmdb.org/t/p/w185/4D0PpNI0kmP58hgrwGC3wCjxhnm.jpg'},
-  {name:'Demi Moore',role:'Elisabeth',img:'https://image.tmdb.org/t/p/w185/lTZB4cFqgJJLBGEFolVW1KZKBLY.jpg'},
-  {name:'Shameik Moore',role:'Miles Morales',img:'https://image.tmdb.org/t/p/w185/n3SB4IVF93TBfR1cBqnxI3Vbimv.jpg'},
-  {name:'Amy Poehler',role:'Joy (Voice)',img:'https://image.tmdb.org/t/p/w185/rwmvRonpluV6dCPiQissYna3d3K.jpg'},
-  {name:'Bryan Cranston',role:'Walter White',img:'https://image.tmdb.org/t/p/w185/7Jahy5LZX2Fo8fGJltMreAI49hC.jpg'},
-  {name:'Pedro Pascal',role:'Joel Miller',img:'https://image.tmdb.org/t/p/w185/a4xdgrqGCp2MOtq1KmqmCO8mLiX.jpg'},
-  {name:'Jenna Ortega',role:'Wednesday',img:'https://image.tmdb.org/t/p/w185/uSBzdQKN6bXC0JxjUFfEKKkzFSp.jpg'},
-  {name:'Tom Hiddleston',role:'Loki',img:'https://image.tmdb.org/t/p/w185/toY09Ypf8BVmYpRHQR0fETxiDxI.jpg'},
+  {name:'Timothée Chalamet',role:'Actor',img:'https://image.tmdb.org/t/p/w185/BE2sdjpgsa2rNTFa66f7upkaOP.jpg'},
+  {name:'Zendaya',role:'Actress',img:'https://image.tmdb.org/t/p/w185/yCGXFMx4GCXQlw3sH57lSHkYNSR.jpg'},
+  {name:'Cillian Murphy',role:'Actor',img:'https://image.tmdb.org/t/p/w185/dm6V24NjjvjMiCtbMkc8Y2WPm2e.jpg'},
+  {name:'Margot Robbie',role:'Actress',img:'https://image.tmdb.org/t/p/w185/euDPyqLnuwaWMHajcU3oZ9uZezR.jpg'},
+  {name:'Keanu Reeves',role:'Actor',img:'https://image.tmdb.org/t/p/w185/4D0PpNI0kmP58hgrwGC3wCjxhnm.jpg'},
+  {name:'Pedro Pascal',role:'Actor',img:'https://image.tmdb.org/t/p/w185/a4xdgrqGCp2MOtq1KmqmCO8mLiX.jpg'},
+  {name:'Jenna Ortega',role:'Actress',img:'https://image.tmdb.org/t/p/w185/uSBzdQKN6bXC0JxjUFfEKKkzFSp.jpg'},
+  {name:'Florence Pugh',role:'Actress',img:'https://image.tmdb.org/t/p/w185/gQJss8tCQkSWHXg1VYnbvCjmA9a.jpg'},
+  {name:'Tom Holland',role:'Actor',img:'https://image.tmdb.org/t/p/w185/bkZqfJjFOwAlkMbWpFqtx6q74Tm.jpg'},
+  {name:'Anya Taylor-Joy',role:'Actress',img:'https://image.tmdb.org/t/p/w185/lQMnN5tKRMN4eoNovGZl9MbCJxn.jpg'},
+  {name:'Ryan Reynolds',role:'Actor',img:'https://image.tmdb.org/t/p/w185/dhjDEMFr8lHnixBZOvHBRL10FqE.jpg'},
+  {name:"Lupita Nyong'o",role:'Actress',img:'https://image.tmdb.org/t/p/w185/94pCsKbfk7AlGBMGNUEOo4CTHWG.jpg'},
 ];
 
 const CLIPS_DATA = [
   {title:'Opening Scene',dur:'2:34',thumb:'https://image.tmdb.org/t/p/w300/b0PlSFdDwbyK0cf5RxwDpaOJQvQ.jpg'},
-  {title:'Battle in the Desert',dur:'4:12',thumb:'https://image.tmdb.org/t/p/w300/rLb2cwF3Pazuxaj0sRXQ037tGI1.jpg'},
-  {title:'Featurette: Behind the Scenes',dur:'6:48',thumb:'https://image.tmdb.org/t/p/w300/nHf61UzkfFno5X1ofILZthF1gdB.jpg'},
+  {title:'Battle Sequence',dur:'4:12',thumb:'https://image.tmdb.org/t/p/w300/rLb2cwF3Pazuxaj0sRXQ037tGI1.jpg'},
+  {title:'Behind the Scenes',dur:'6:48',thumb:'https://image.tmdb.org/t/p/w300/nHf61UzkfFno5X1ofILZthF1gdB.jpg'},
   {title:'Deleted Scene',dur:'1:52',thumb:'https://image.tmdb.org/t/p/w300/4Dp6N6B6rOItE2RNDm70Xa5tVRb.jpg'},
 ];
 
-// ─── HERO CYCLE ────────────────────────────────
+// ═══ HERO ════════════════════════════════════════
 const heroItems = [
   {id:10995,type:'movie',bg:'https://image.tmdb.org/t/p/original/b0PlSFdDwbyK0cf5RxwDpaOJQvQ.jpg',title:'Dune: Part Two',desc:'Paul Atreides unites with the Fremen to wage war against House Harkonnen.'},
-  {id:872585,type:'movie',bg:'https://image.tmdb.org/t/p/original/rLb2cwF3Pazuxaj0sRXQ037tGI1.jpg',title:'Oppenheimer',desc:'The triumphant and tragic story behind the creation of the atomic bomb.'},
+  {id:872585,type:'movie',bg:'https://image.tmdb.org/t/p/original/rLb2cwF3Pazuxaj0sRXQ037tGI1.jpg',title:'Oppenheimer',desc:'The triumphant and tragic story of the creation of the atomic bomb.'},
   {id:94997,type:'tv',bg:'https://image.tmdb.org/t/p/original/etj8E2o0Bud0HkONVQPjyCkIvpv.jpg',title:'House of the Dragon',desc:'The story of House Targaryen, 200 years before Game of Thrones.'},
   {id:569094,type:'movie',bg:'https://image.tmdb.org/t/p/original/4HodYYKEIsGOdinkGi2Ucz6X9i0.jpg',title:'Spider-Man: Across the Spider-Verse',desc:'Miles Morales catapults across the multiverse on an epic adventure.'},
 ];
-let heroIdx = 0;
-function cycleHero(i) {
-  heroIdx = (i !== undefined) ? i : (heroIdx+1) % heroItems.length;
-  const h = heroItems[heroIdx];
-  document.getElementById('heroBg').style.backgroundImage = `url('${h.bg}')`;
-  document.getElementById('heroTitle').textContent = h.title;
-  document.getElementById('heroDesc').textContent = h.desc;
-  document.querySelectorAll('.hero-dot').forEach((d,j) => d.classList.toggle('active', j===heroIdx));
+let heroIdx=0, heroTimer=null;
+function cycleHero(idx){
+  heroIdx=idx!==undefined?idx:(heroIdx+1)%heroItems.length;
+  const h=heroItems[heroIdx];
+  document.getElementById('heroBg').style.backgroundImage=`url('${h.bg}')`;
+  document.getElementById('heroTitle').textContent=h.title;
+  document.getElementById('heroDesc').textContent=h.desc;
+  document.querySelectorAll('.hero-dot').forEach((d,i)=>d.classList.toggle('active',i===heroIdx));
 }
-setInterval(cycleHero, 7000);
+function startHeroTimer(){if(S.animatedHero&&!heroTimer)heroTimer=setInterval(cycleHero,7000);}
+function stopHeroTimer(){if(heroTimer){clearInterval(heroTimer);heroTimer=null;}}
 
-// ─── RENDER CARDS ───────────────────────────────
-function movieCard(m) {
-  return `<div class="card" onclick="openPlayer(${m.id},'${m.type}','${m.title.replace(/'/g,"\\'")}',false)">
+// ═══ CARDS ═══════════════════════════════════════
+function movieCard(m){
+  const t=m.title.replace(/'/g,"\\'").replace(/"/g,'&quot;');
+  const isTV=m.type==='tv';
+  return `<div class="card" onclick="openPlayer(${m.id},'${m.type}','${t}',${isTV})">
     <div class="card-poster">
-      <img src="${m.poster}" loading="lazy" alt="${m.title}">
+      <img src="${m.poster}" loading="lazy" alt="${m.title}" onerror="this.src='https://via.placeholder.com/155x230/141414/555?text=No+Image'">
       <div class="card-rating-badge">★ ${m.rating}</div>
       <div class="card-hd-badge">4K</div>
       <div class="card-overlay">
-        <div class="card-play" onclick="event.stopPropagation();openPlayer(${m.id},'${m.type}','${m.title.replace(/'/g,"\\'")}',false)">▶</div>
+        <div class="card-play" onclick="event.stopPropagation();openPlayer(${m.id},'${m.type}','${t}',${isTV})">▶</div>
         <div class="card-mini-btns">
-          <div class="card-mini-btn" onclick="event.stopPropagation();openTrailer('${m.title.replace(/'/g,"\\'")}')">🎬</div>
+          <div class="card-mini-btn" onclick="event.stopPropagation();openTrailer('${t}')">🎬</div>
           <div class="card-mini-btn dl" onclick="event.stopPropagation();downloadMovie(${m.id},'${m.type}')">⬇</div>
-          <div class="card-mini-btn" onclick="event.stopPropagation();addWatchlist('${m.title.replace(/'/g,"\\'")}')">+</div>
+          <div class="card-mini-btn" onclick="event.stopPropagation();addWatchlist('${t}')">+</div>
         </div>
       </div>
     </div>
     <div class="card-info">
       <div class="card-title">${m.title}</div>
-      <div class="card-year">${m.year} · ${m.type==='tv'?'TV':'Movie'}</div>
+      <div class="card-year">${m.year} · ${isTV?'TV':'Movie'}</div>
     </div>
   </div>`;
 }
-
-function landscapeCard(m) {
-  return `<div class="card-land" onclick="openPlayer(${m.id},'${m.type}','${m.title.replace(/'/g,"\\'")}',false)">
+function landscapeCard(m){
+  const t=m.title.replace(/'/g,"\\'");
+  const isTV=m.type==='tv';
+  return `<div class="card-land" onclick="openPlayer(${m.id},'${m.type}','${t}',${isTV})">
     <div class="card-land-img">
-      <img src="${m.backdrop||m.poster}" loading="lazy" alt="${m.title}">
+      <img src="${m.backdrop||m.poster}" loading="lazy">
       <div class="card-land-overlay"><div class="land-play">▶</div></div>
     </div>
     <div class="card-land-info">
@@ -1761,283 +1939,482 @@ function landscapeCard(m) {
     </div>
   </div>`;
 }
-
-function top10Card(m, rank) {
-  return `<div class="top10-card" onclick="openPlayer(${m.id},'${m.type}','${m.title.replace(/'/g,"\\'")}',false)">
+function top10Card(m,rank){
+  const t=m.title.replace(/'/g,"\\'");
+  return `<div class="top10-card" onclick="openPlayer(${m.id},'${m.type}','${t}',${m.type==='tv'})">
     <div class="top10-num">${rank}</div>
-    <div class="top10-img"><img src="${m.poster}" loading="lazy" alt="${m.title}"></div>
+    <div class="top10-img"><img src="${m.poster}" loading="lazy"></div>
     <div class="top10-title">${m.title}</div>
   </div>`;
 }
-
-function featuredCard(m) {
+function featuredCard(m){
+  const t=m.title.replace(/'/g,"\\'");
+  const isTV=m.type==='tv';
   return `<div class="featured-card">
-    <img src="${m.backdrop||m.poster}" loading="lazy" alt="${m.title}">
+    <img src="${m.backdrop||m.poster}" loading="lazy">
     <div class="featured-card-body">
       <div class="featured-card-title">${m.title}</div>
-      <div class="featured-card-desc">${m.desc}</div>
+      <div class="featured-card-desc">${m.desc||''}</div>
       <div class="featured-card-footer">
-        <button class="btn btn-primary btn-sm" onclick="openPlayer(${m.id},'${m.type}','${m.title.replace(/'/g,"\\'")}',false)">▶ Watch</button>
-        <button class="btn btn-download btn-sm" onclick="downloadMovie(${m.id},'${m.type}')">⬇ Download</button>
-        <button class="btn btn-ghost btn-sm" onclick="openTrailer('${m.title.replace(/'/g,"\\'")}')">🎬 Trailer</button>
+        <button class="btn btn-primary btn-sm" onclick="openPlayer(${m.id},'${m.type}','${t}',${isTV})">▶ Watch</button>
+        <button class="btn btn-ghost btn-sm" onclick="openTrailer('${t}')">🎬 Trailer</button>
       </div>
     </div>
   </div>`;
 }
-
-function actorCard(a) {
-  return `<div class="actor-card">
-    <div class="actor-img"><img src="${a.img}" loading="lazy" alt="${a.name}"></div>
-    <div class="actor-name">${a.name}</div>
-    <div class="actor-role">${a.role}</div>
+function actorCard(a){
+  return `<div class="actor-card"><div class="actor-img"><img src="${a.img}" loading="lazy" onerror="this.src='https://via.placeholder.com/90x90/1c1c1c/555?text=?'"></div><div class="actor-name">${a.name}</div><div class="actor-role">${a.role}</div></div>`;
+}
+function soonCard(s){
+  const d=new Date(s.releaseDate);
+  const days=Math.max(0,Math.ceil((d-new Date())/86400000));
+  const label=days===0?'Out Today!':days<7?`${days}d away`:d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+  const t=s.title.replace(/'/g,"\\'");
+  return `<div class="soon-card" onclick="showToast('${t} — ${label}')">
+    <div class="soon-poster">
+      <img src="${s.poster}" loading="lazy" onerror="this.src='https://via.placeholder.com/175x260/141414/555?text=Coming+Soon'">
+      <div class="soon-date-badge">${d.toLocaleDateString('en-US',{month:'short',year:'numeric'})}</div>
+      <div class="soon-lock-overlay">
+        <div class="soon-notify-btn" onclick="event.stopPropagation();notifySoon(this,'${t}')">🔔 Notify Me</div>
+      </div>
+    </div>
+    <div class="soon-info">
+      <div class="soon-title">${s.title}</div>
+      <div class="soon-meta"><span class="countdown">${label}</span><span>·</span><span>${(s.genre||[]).join(', ')}</span></div>
+    </div>
   </div>`;
 }
-
-// ─── INIT ROWS ──────────────────────────────────
-function initRows() {
-  const all = [...MOVIES, ...TV_SHOWS];
-
-  document.getElementById('trending-movies').innerHTML = MOVIES.map(m=>movieCard(m)).join('');
-  document.getElementById('trending-tv').innerHTML = TV_SHOWS.map(m=>movieCard(m)).join('');
-  document.getElementById('top10').innerHTML = [...MOVIES].sort((a,b)=>b.rating-a.rating).slice(0,10).map((m,i)=>top10Card(m,i+1)).join('');
-  document.getElementById('new-releases').innerHTML = [...MOVIES].slice(0,8).map(m=>landscapeCard(m)).join('');
-  document.getElementById('actors').innerHTML = ACTORS.map(a=>actorCard(a)).join('');
-  document.getElementById('featured').innerHTML = all.sort(()=>Math.random()-0.5).slice(0,8).map(m=>featuredCard(m)).join('');
-
-  document.getElementById('movies-grid').innerHTML = MOVIES.map(m=>movieCard(m)).join('');
-  document.getElementById('tv-grid').innerHTML = TV_SHOWS.map(m=>movieCard(m)).join('');
-  document.getElementById('trending-grid').innerHTML = [...all].sort((a,b)=>b.rating-a.rating).map(m=>movieCard(m)).join('');
-  document.getElementById('new-grid').innerHTML = MOVIES.map(m=>movieCard(m)).join('');
+function notifySoon(el,title){
+  el.classList.toggle('notified');
+  showToast(el.classList.contains('notified')?`🔔 You'll be notified when ${title} drops!`:`Reminder removed for ${title}`);
 }
 
-// ─── SCROLL ROWS ───────────────────────────────
-function scrollRow(id, dir) {
-  const el = document.getElementById(id);
-  if(el) el.scrollBy({left: dir*320, behavior:'smooth'});
+// ═══ FILTER / SORT ════════════════════════════════
+let moviesGenreFilter='All',tvGenreFilter='All';
+function sortItems(arr,v){
+  const a=[...arr];
+  if(v==='rating')return a.sort((x,y)=>y.rating-x.rating);
+  if(v==='year-new')return a.sort((x,y)=>y.year-x.year);
+  if(v==='year-old')return a.sort((x,y)=>x.year-y.year);
+  if(v==='az')return a.sort((x,y)=>x.title.localeCompare(y.title));
+  if(v==='za')return a.sort((x,y)=>y.title.localeCompare(x.title));
+  return a;
+}
+function filterMoviesPage(el,genre){
+  moviesGenreFilter=genre;
+  document.querySelectorAll('#movies-genre-bar .genre-pill').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');renderMoviesPage();
+}
+function renderMoviesPage(){
+  const sort=document.getElementById('movies-sort')?.value||'rating';
+  let items=moviesGenreFilter==='All'?MOVIES:MOVIES.filter(m=>(m.genre||[]).includes(moviesGenreFilter));
+  items=sortItems(items,sort);
+  const g=document.getElementById('movies-grid');
+  if(!g)return;
+  g.innerHTML=items.length?items.map(movieCard).join(''):`<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-muted)">No movies found</div>`;
+  const c=document.getElementById('movies-count');
+  if(c)c.textContent=`${items.length} movie${items.length!==1?'s':''} ${moviesGenreFilter!=='All'?'in '+moviesGenreFilter:''}`;
+}
+function filterTVPage(el,genre){
+  tvGenreFilter=genre;
+  document.querySelectorAll('#tv-genre-bar .genre-pill').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');renderTVPage();
+}
+function renderTVPage(){
+  const sort=document.getElementById('tv-sort')?.value||'rating';
+  let items=tvGenreFilter==='All'?TV_SHOWS:TV_SHOWS.filter(m=>(m.genre||[]).includes(tvGenreFilter));
+  items=sortItems(items,sort);
+  const g=document.getElementById('tv-grid');
+  if(!g)return;
+  g.innerHTML=items.length?items.map(movieCard).join(''):`<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-muted)">No shows found</div>`;
+  const c=document.getElementById('tv-count');
+  if(c)c.textContent=`${items.length} show${items.length!==1?'s':''} ${tvGenreFilter!=='All'?'in '+tvGenreFilter:''}`;
 }
 
-// ─── PLAYER ────────────────────────────────────
-let currentId = null, currentType = null;
+// ═══ SETTINGS STATE ════════════════════════════════
+const S={
+  autoplay:true,continueWatching:true,adultFilter:false,spoilers:false,showYear:true,
+  quality:'4K',subtitleLang:'English',subtitleSize:'Medium',autoSkipIntro:false,
+  theme:'dark',accent:'orange',cardDensity:'normal',fontSize:'medium',
+  roundedCards:true,showRatings:true,animatedHero:true,backgroundBlur:true,
+  notifReleases:true,notifRecommend:true,notifWatchlist:true,notifEmail:false,notifPush:false,
+  privacySearch:true,privacyWatch:true,privacyPersonalized:true,dataSaver:false,shareActivity:false,
+  lang:'English',region:'US',
+  highContrast:false,reducedMotion:false,largeText:false,screenReader:false,
+};
+function tog(key,el){
+  S[key]=!S[key]; el.classList.toggle('on',S[key]);
+  applySettings();
+  const lbl=key.replace(/([A-Z])/g,' $1').trim();
+  showToast(`${lbl.charAt(0).toUpperCase()+lbl.slice(1)} ${S[key]?'on':'off'}`);
+}
+function applySettings(){
+  document.body.classList.toggle('theme-light',S.theme==='light');
+  ['accent-blue','accent-green','accent-purple','accent-red','accent-pink','accent-gold'].forEach(c=>document.body.classList.remove(c));
+  if(S.accent!=='orange')document.body.classList.add('accent-'+S.accent);
+  document.body.classList.toggle('density-compact',S.cardDensity==='compact');
+  document.body.classList.remove('font-sm','font-lg');
+  if(S.fontSize==='small')document.body.classList.add('font-sm');
+  if(S.fontSize==='large')document.body.classList.add('font-lg');
+  document.documentElement.style.setProperty('--radius-sm',S.roundedCards?'8px':'3px');
+  stopHeroTimer(); if(S.animatedHero)startHeroTimer();
+}
+function setAccent(c){S.accent=c;applySettings();renderSettingsContent('appearance');showToast('Accent updated!');}
+function setTheme(t){S.theme=t;applySettings();renderSettingsContent('appearance');showToast(t+' theme applied!');}
+function setDensity(d){S.cardDensity=d;applySettings();renderSettingsContent('appearance');showToast(d+' density!');}
+function setFontSize(f){S.fontSize=f;applySettings();renderSettingsContent('appearance');showToast('Font: '+f);}
+function setQuality(q){S.quality=q;renderSettingsContent('playback');showToast('Quality: '+q);}
 
-function openPlayer(id, type, title, isTv) {
-  currentId = id; currentType = type;
-  document.getElementById('modalTitle').textContent = title;
-  document.getElementById('modalSubtitle').textContent = `${type==='tv'?'TV Series':'Movie'} · HD · CrumbStream`;
-  
-  const src = type==='tv'
-    ? `https://vidcore.net/tv/${id}/1/1?api=3a73619bbb8fc6d47742d1b5b2b707b5`
-    : `https://vidcore.net/movie/${id}?api=3a73619bbb8fc6d47742d1b5b2b707b5`;
-  document.getElementById('playerIframe').src = src;
+// ═══ SETTINGS RENDERERS ═══════════════════════════
+function togH(key,label,desc){
+  return `<div class="settings-row"><div><div class="settings-row-label">${label}</div><div class="settings-row-desc">${desc}</div></div><div class="toggle${S[key]?' on':''}" onclick="tog('${key}',this)"><div class="toggle-thumb"></div></div></div>`;
+}
+function pillsH(opts,cur,fn){
+  return `<div style="display:flex;gap:8px;flex-wrap:wrap">${opts.map(o=>`<button class="genre-pill${cur===o?' active':''}" style="border-radius:8px;padding:6px 14px" onclick="${fn}('${o}')">${o}</button>`).join('')}</div>`;
+}
+function selH(opts,cur,fn){
+  return `<select onchange="${fn}(this.value)" style="background:var(--bg-card2);color:var(--white);border:1px solid var(--border);border-radius:8px;padding:9px 14px;font-size:13px;font-family:'Inter',sans-serif;outline:none;min-width:180px">${opts.map(o=>`<option${cur===o?' selected':''}>${o}</option>`).join('')}</select>`;
+}
 
-  const dlUrl = type==='tv' ? `https://vidvault.ru/tv/${id}/1/1` : `https://vidvault.ru/movie/${id}`;
-  document.getElementById('dlBtn').onclick = () => window.open(dlUrl,'_blank');
+const STABS={
+general:()=>`<div class="settings-panel-title">🏠 General</div>
+<div class="settings-card">
+  ${togH('autoplay','Autoplay Next Episode','Automatically play the next episode when one ends')}
+  ${togH('continueWatching','Continue Watching','Save progress and resume where you left off')}
+  ${togH('adultFilter','Adult Content Filter','Hide content rated R/18+ from browse pages')}
+  ${togH('spoilers','Show Spoiler Descriptions','Display plot details in card previews')}
+  ${togH('showYear','Show Release Year','Display year below movie and show titles')}
+</div>
+<div class="settings-card">
+  <div class="s-section-label" style="margin-bottom:12px">Default Stream Quality</div>
+  ${pillsH(['4K','1080p','720p','480p','Auto'],S.quality,'setQuality')}
+</div>
+<div class="settings-card">
+  <div class="settings-row">
+    <div><div class="settings-row-label">Subtitle Language</div><div class="settings-row-desc">Default subtitle language for all playback</div></div>
+    ${selH(['English','Spanish','French','German','Portuguese','Japanese','Korean','Arabic','Off'],S.subtitleLang,"(v)=>{S.subtitleLang=v;showToast('Subtitles: '+v)}")}
+  </div>
+</div>`,
 
+playback:()=>`<div class="settings-panel-title">▶️ Playback</div>
+<div class="settings-card">
+  ${togH('autoSkipIntro','Auto-Skip Intros','Automatically skip opening credits and recaps')}
+  ${togH('dataSaver','Data Saver Mode','Reduce video quality to save mobile data')}
+  ${togH('backgroundBlur','Background Blur Effects','Blur effects on modals and overlays')}
+</div>
+<div class="settings-card">
+  <div class="s-section-label" style="margin-bottom:12px">Default Quality</div>
+  ${pillsH(['4K','1080p','720p','480p','Auto'],S.quality,'setQuality')}
+</div>
+<div class="settings-card">
+  <div class="s-section-label" style="margin-bottom:12px">Subtitle Size</div>
+  ${pillsH(['Small','Medium','Large'],S.subtitleSize,"(v)=>{S.subtitleSize=v;renderSettingsContent('playback');showToast('Subtitle size: '+v)}")}
+</div>`,
+
+appearance:()=>`<div class="settings-panel-title">🎨 Appearance</div>
+<div class="settings-card">
+  <div class="s-section-label" style="margin-bottom:14px">Theme</div>
+  <div style="display:flex;gap:12px">
+    <div onclick="setTheme('dark')" style="cursor:pointer;border-radius:10px;overflow:hidden;border:2px solid ${S.theme==='dark'?'var(--orange)':'var(--border)'};flex:1;transition:border-color .2s">
+      <div style="background:#0A0A0A;padding:16px 12px;text-align:center"><div style="width:40px;height:22px;background:#1C1C1C;border-radius:4px;margin:0 auto 8px"></div><div style="font-size:12px;font-weight:700;color:#fff">Dark</div></div>
+    </div>
+    <div onclick="setTheme('light')" style="cursor:pointer;border-radius:10px;overflow:hidden;border:2px solid ${S.theme==='light'?'var(--orange)':'var(--border)'};flex:1;transition:border-color .2s">
+      <div style="background:#F2F2F0;padding:16px 12px;text-align:center"><div style="width:40px;height:22px;background:#ECECE8;border-radius:4px;margin:0 auto 8px"></div><div style="font-size:12px;font-weight:700;color:#333">Light</div></div>
+    </div>
+  </div>
+</div>
+<div class="settings-card">
+  <div class="s-section-label" style="margin-bottom:14px">Accent Color</div>
+  <div style="display:flex;gap:14px;flex-wrap:wrap">
+    ${[['orange','#FF6B00','Orange'],['blue','#00B4FF','Blue'],['green','#00D26A','Green'],['purple','#9B5DFF','Purple'],['red','#FF3B3B','Red'],['pink','#FF3CAC','Pink'],['gold','#FFB800','Gold']].map(([k,c,l])=>`<div onclick="setAccent('${k}')" style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px"><div style="width:36px;height:36px;border-radius:50%;background:${c};border:3px solid ${S.accent===k?'white':'transparent'};box-shadow:${S.accent===k?'0 0 0 2px '+c:'none'};transition:all .2s"></div><span style="font-size:10px;color:var(--text-muted)">${l}</span></div>`).join('')}
+  </div>
+</div>
+<div class="settings-card">
+  <div class="s-section-label" style="margin-bottom:12px">Card Density</div>
+  ${pillsH(['normal','compact'],S.cardDensity,'setDensity')}
+  <div style="margin-top:16px" class="s-section-label">Font Size</div>
+  <div style="margin-top:10px">${pillsH(['small','medium','large'],S.fontSize,'setFontSize')}</div>
+</div>
+<div class="settings-card">
+  ${togH('roundedCards','Rounded Card Corners','Soft rounded corners on cards and posters')}
+  ${togH('showRatings','Show Star Ratings','Display rating badges on movie and show cards')}
+  ${togH('animatedHero','Auto-Rotate Hero Banner','Cycle homepage hero every 7 seconds')}
+  ${togH('backgroundBlur','Background Blur','Blur effects on modals and panels')}
+</div>`,
+
+notifications:()=>`<div class="settings-panel-title">🔔 Notifications</div>
+<div class="settings-card">
+  ${togH('notifReleases','New Releases','Get notified when new movies and shows drop')}
+  ${togH('notifRecommend','Personalized Picks','Suggestions based on your watch history')}
+  ${togH('notifWatchlist','Watchlist Updates','Notify when a saved title gets a new season')}
+  ${togH('notifEmail','Email Digest','Weekly summary of new content to your email')}
+  ${togH('notifPush','Push Notifications','Browser push notifications for new content')}
+</div>`,
+
+privacy:()=>`<div class="settings-panel-title">🔒 Privacy</div>
+<div class="settings-card">
+  ${togH('privacySearch','Save Search History','Store recent searches for quicker access')}
+  ${togH('privacyWatch','Save Watch History','Track watched content to power recommendations')}
+  ${togH('privacyPersonalized','Personalized Content','Use history to personalize the homepage')}
+  ${togH('shareActivity','Share Watch Activity','Let friends see what you are watching')}
+</div>
+<div class="settings-card">
+  <div class="settings-row" style="border:none"><div><div class="settings-row-label" style="color:#ff6b6b">Clear Watch History</div><div class="settings-row-desc">Remove all titles from watch history</div></div><button class="btn btn-ghost btn-sm" onclick="showToast('Watch history cleared!')">Clear</button></div>
+  <div class="settings-row" style="border:none;margin-top:4px"><div><div class="settings-row-label" style="color:#ff6b6b">Clear Search History</div><div class="settings-row-desc">Remove all recent search queries</div></div><button class="btn btn-ghost btn-sm" onclick="showToast('Search history cleared!')">Clear</button></div>
+</div>`,
+
+language:()=>`<div class="settings-panel-title">🌐 Language & Region</div>
+<div class="settings-card">
+  <div class="settings-row"><div><div class="settings-row-label">Interface Language</div><div class="settings-row-desc">Language for menus and labels</div></div>${selH(['English','Spanish','French','German','Portuguese','Japanese','Korean','Arabic','Hindi'],S.lang,"(v)=>{S.lang=v;showToast('Language: '+v)}")}</div>
+  <div class="settings-row"><div><div class="settings-row-label">Content Region</div><div class="settings-row-desc">Affects trending and regional content</div></div>${selH(['US','UK','Canada','Australia','India','Japan','South Korea','Brazil','France'],S.region,"(v)=>{S.region=v;showToast('Region: '+v)}")}</div>
+  <div class="settings-row"><div><div class="settings-row-label">Subtitle Language</div><div class="settings-row-desc">Default subtitle language</div></div>${selH(['English','Spanish','French','German','Japanese','Korean','Arabic','Off'],S.subtitleLang,"(v)=>{S.subtitleLang=v;showToast('Subtitles: '+v)}")}</div>
+</div>`,
+
+accessibility:()=>`<div class="settings-panel-title">♿ Accessibility</div>
+<div class="settings-card">
+  ${togH('highContrast','High Contrast Mode','Increases color contrast for better readability')}
+  ${togH('reducedMotion','Reduce Motion','Minimizes animations and transitions')}
+  ${togH('largeText','Large Text Mode','Increases base font size across the app')}
+  ${togH('screenReader','Screen Reader Support','Optimize interface for assistive technologies')}
+</div>
+<div class="settings-card">
+  <div class="s-section-label" style="margin-bottom:12px">Text Size</div>
+  ${pillsH(['small','medium','large'],S.fontSize,'setFontSize')}
+</div>`,
+
+about:()=>`<div class="settings-panel-title">ℹ️ About CrumbStream</div>
+<div class="settings-card">
+  <div class="settings-row"><div class="settings-row-label">Version</div><div style="color:var(--orange);font-weight:700">3.0.0</div></div>
+  <div class="settings-row"><div class="settings-row-label">Build Date</div><div style="color:var(--text-muted);font-size:13px">June 2026</div></div>
+  <div class="settings-row"><div class="settings-row-label">Movies in Library</div><div style="color:var(--orange);font-weight:700">${MOVIES.length}+ titles</div></div>
+  <div class="settings-row"><div class="settings-row-label">TV Shows in Library</div><div style="color:var(--orange);font-weight:700">${TV_SHOWS.length}+ series</div></div>
+  <div class="settings-row"><div class="settings-row-label">Coming Soon</div><div style="color:var(--orange);font-weight:700">${COMING_SOON.length} upcoming titles</div></div>
+  <div class="settings-row"><div class="settings-row-label">Max Quality</div><div style="color:var(--orange);font-weight:700">4K Ultra HD · HDR10+</div></div>
+</div>
+<div class="settings-card">
+  <div class="settings-row" style="border:none">
+    <div><div class="settings-row-label">Reset All Settings</div><div class="settings-row-desc">Restore defaults (does not delete your account)</div></div>
+    <button class="btn btn-ghost btn-sm" onclick="Object.assign(S,{autoplay:true,continueWatching:true,adultFilter:false,spoilers:false,showYear:true,quality:'4K',subtitleLang:'English',subtitleSize:'Medium',autoSkipIntro:false,theme:'dark',accent:'orange',cardDensity:'normal',fontSize:'medium',roundedCards:true,showRatings:true,animatedHero:true,backgroundBlur:true,notifReleases:true,notifRecommend:true,notifWatchlist:true,notifEmail:false,notifPush:false,privacySearch:true,privacyWatch:true,privacyPersonalized:true,dataSaver:false,shareActivity:false,lang:'English',region:'US',highContrast:false,reducedMotion:false,largeText:false,screenReader:false});applySettings();renderSettingsContent('about');showToast('Settings reset!')">Reset</button>
+  </div>
+</div>
+<div style="margin-top:16px;padding:20px;background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-orange)">
+  <div style="font-size:11px;color:var(--text-muted);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px;font-weight:700">Powered By</div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap">
+    <a href="https://stary.base44.app" target="_blank" class="powered-btn" style="flex:1;justify-content:center">⭐ Powered with Starify</a>
+    <a href="https://www.tiktok.com/@devofficialv" target="_blank" class="powered-btn" style="flex:1;justify-content:center">🎵 DreamCore</a>
+  </div>
+</div>`,
+};
+
+let currentSettingsTab='general';
+function renderSettingsContent(tab){
+  currentSettingsTab=tab;
+  const c=document.getElementById('settings-content');
+  if(!c)return;
+  c.innerHTML=(STABS[tab]||STABS.general)();
+}
+function setSettingsTab(el,tab){
+  document.querySelectorAll('.settings-menu-item').forEach(i=>i.classList.remove('active'));
+  if(el)el.classList.add('active');
+  renderSettingsContent(tab);
+}
+function toggleSwitch(el){el.classList.toggle('on');}
+
+// ═══ INIT ════════════════════════════════════════
+function initRows(){
+  const all=[...MOVIES,...TV_SHOWS];
+  document.getElementById('trending-movies').innerHTML=MOVIES.map(movieCard).join('');
+  document.getElementById('trending-tv').innerHTML=TV_SHOWS.map(movieCard).join('');
+  document.getElementById('top10').innerHTML=[...MOVIES].sort((a,b)=>b.rating-a.rating).slice(0,10).map((m,i)=>top10Card(m,i+1)).join('');
+  document.getElementById('new-releases').innerHTML=[...MOVIES].sort((a,b)=>b.year-a.year).slice(0,10).map(landscapeCard).join('');
+  document.getElementById('actors').innerHTML=ACTORS.map(actorCard).join('');
+  document.getElementById('featured').innerHTML=[...all].sort(()=>Math.random()-.5).slice(0,8).map(featuredCard).join('');
+  document.getElementById('home-soon').innerHTML=COMING_SOON.slice(0,8).map(soonCard).join('');
+  renderMoviesPage(); renderTVPage();
+  document.getElementById('trending-grid').innerHTML=[...all].sort((a,b)=>b.rating-a.rating).map(movieCard).join('');
+  document.getElementById('new-grid').innerHTML=[...MOVIES].sort((a,b)=>b.year-a.year).map(movieCard).join('');
+  document.getElementById('comingsoon-grid').innerHTML=COMING_SOON.map(soonCard).join('');
+  applySettings(); renderSettingsContent('general'); startHeroTimer();
+}
+
+// ═══ SCROLL ══════════════════════════════════════
+function scrollRow(id,dir){
+  const el=document.getElementById(id);
+  if(el)el.scrollBy({left:dir*320,behavior:'smooth'});
+}
+
+// ═══ PLAYER ══════════════════════════════════════
+let currentId=null,currentType=null,currentIsTv=false,epSeason=1,epNum=1;
+
+function openPlayer(id,type,title,isTv){
+  currentId=id;currentType=type;currentIsTv=isTv;epSeason=1;epNum=1;
+  document.getElementById('modalTitle').textContent=title;
+  document.getElementById('modalSubtitle').textContent=`${isTv?'TV Series':'Movie'} · 4K · CrumbStream`;
+  loadStream();
+  document.getElementById('dlBtn').onclick=()=>window.open(isTv?`https://vidvault.ru/tv/${id}/1/1`:`https://vidvault.ru/movie/${id}`,'_blank');
+  populateCast(id,type);
   populateClips(title);
-  populateScreenshots();
-  populateCast();
-  populateDownload(id, type);
-
+  populateScreenshots(id);
+  populateDownload(id,type);
+  const picker=document.getElementById('ep-picker');
+  if(isTv){picker.style.display='block';renderEpPicker(id);}
+  else picker.style.display='none';
   switchTab(null,'watch');
   document.getElementById('playerModal').classList.add('open');
   document.body.style.overflow='hidden';
+  if(currentUser){
+    if(!currentUser.history)currentUser.history=[];
+    if(!currentUser.history.find(h=>h.id===id)){currentUser.history.unshift({id,title,type});if(currentUser.history.length>50)currentUser.history.pop();}
+    saveCurrentUser();
+  }
 }
 
-function openTrailer(title) {
+function loadStream(){
+  const src=currentIsTv
+    ?`https://vidcore.net/tv/${currentId}/${epSeason}/${epNum}?api=3a73619bbb8fc6d47742d1b5b2b707b5`
+    :`https://vidcore.net/movie/${currentId}?api=3a73619bbb8fc6d47742d1b5b2b707b5`;
+  document.getElementById('playerIframe').src=src;
+}
+
+function renderEpPicker(id){
+  const show=TV_SHOWS.find(s=>s.id===id);
+  const seasons=show?show.seasons:4;
+  const eps=show?.episodesPerSeason||[];
+  document.getElementById('ep-seasons').innerHTML=
+    Array.from({length:seasons},(_,i)=>`<button class="ep-season-btn${epSeason===i+1?' active':''}" onclick="selectSeason(${i+1},${id})">S${i+1}</button>`).join('');
+  const numEps=eps[epSeason-1]||12;
+  document.getElementById('ep-nums').innerHTML=
+    Array.from({length:Math.min(numEps,30)},(_,i)=>`<button class="ep-num-btn${epNum===i+1?' active':''}" onclick="selectEp(${i+1},${id})">E${i+1}</button>`).join('');
+  const lbl=document.getElementById('ep-label');
+  if(lbl)lbl.textContent=`Season ${epSeason} · Episode ${epNum}`;
+}
+function selectSeason(s,id){epSeason=s;epNum=1;renderEpPicker(id);loadStream();}
+function selectEp(e,id){epNum=e;renderEpPicker(id);loadStream();showToast(`Playing S${epSeason} · E${epNum}`);}
+
+function openTrailer(title){
   document.getElementById('playerModal').classList.add('open');
   document.body.style.overflow='hidden';
-  document.getElementById('modalTitle').textContent = title + ' — Trailer';
-  document.getElementById('trailerIframe').src = `https://www.youtube.com/embed?search=${encodeURIComponent(title+' official trailer')}&autoplay=1`;
+  document.getElementById('modalTitle').textContent=title+' — Trailer';
+  document.getElementById('trailerIframe').src=`https://www.youtube.com/embed?search=${encodeURIComponent(title+' official trailer')}&autoplay=1`;
   switchTab(null,'trailer');
 }
-
-function closePlayer() {
+function closePlayer(){
   document.getElementById('playerModal').classList.remove('open');
   document.body.style.overflow='';
   document.getElementById('playerIframe').src='';
   document.getElementById('trailerIframe').src='';
 }
-
-function switchTab(btn, tab) {
+function switchTab(btn,tab){
   document.querySelectorAll('.player-tab').forEach(t=>t.classList.remove('active'));
-  if(btn) btn.classList.add('active');
-  else document.querySelectorAll('.player-tab').forEach(t=>{ if(t.textContent.toLowerCase().includes(tab)) t.classList.add('active'); });
-
-  document.querySelectorAll('.player-info-panel, .download-panel').forEach(p=>p.classList.remove('active'));
-  const panel = document.getElementById('tab-'+tab);
-  if(panel) panel.classList.add('active');
+  if(btn)btn.classList.add('active');
+  else document.querySelectorAll('.player-tab').forEach(t=>{if(t.textContent.toLowerCase().includes(tab.toLowerCase()))t.classList.add('active');});
+  document.querySelectorAll('.player-info-panel,.download-panel').forEach(p=>p.classList.remove('active'));
+  const panel=document.getElementById('tab-'+tab);
+  if(panel)panel.classList.add('active');
 }
 
-// ─── POPULATE PANELS ───────────────────────────
-function populateClips(title) {
-  document.getElementById('clips-list').innerHTML = CLIPS_DATA.map(c=>`
-    <div class="clip-item" onclick="showToast('Playing: ${c.title}')">
-      <div class="clip-thumb">
-        <img src="${c.thumb}" loading="lazy">
-        <div class="clip-play-icon">▶</div>
-      </div>
-      <div class="clip-info">
-        <div class="clip-title">${c.title}</div>
-        <div class="clip-dur">${c.dur} · Official Clip</div>
-      </div>
-    </div>`).join('');
+// ═══ PANELS ══════════════════════════════════════
+function populateCast(id,type){
+  const arr=type==='tv'?TV_SHOWS:MOVIES;
+  const item=arr.find(m=>m.id===id);
+  const cast=item?.cast;
+  const grid=document.getElementById('cast-grid');
+  if(!grid)return;
+  if(!cast||!cast.length){grid.innerHTML='<div style="color:var(--text-muted);font-size:13px">Cast info unavailable for this title.</div>';return;}
+  grid.innerHTML=cast.map(a=>`<div class="actor-grid-card"><div class="actor-grid-img"><img src="${a.img}" loading="lazy" onerror="this.src='https://via.placeholder.com/72x72/1c1c1c/555?text=?'" alt="${a.n}"></div><div class="actor-grid-name">${a.n}</div><div class="actor-grid-role">${a.r}</div></div>`).join('');
+}
+function populateClips(title){
+  const t=title.replace(/'/g,"\\'");
+  document.getElementById('clips-list').innerHTML=CLIPS_DATA.map(c=>`<div class="clip-item" onclick="showToast('Playing: ${c.title}')"><div class="clip-thumb"><img src="${c.thumb}" loading="lazy"><div class="clip-play-icon">▶</div></div><div class="clip-info"><div class="clip-title">${c.title} — ${t}</div><div class="clip-dur">${c.dur} · Official Clip</div></div></div>`).join('');
+}
+function populateScreenshots(id){
+  const m=[...MOVIES,...TV_SHOWS].find(x=>x.id===id);
+  const imgs=m?[m.backdrop||m.poster,m.poster,m.backdrop||m.poster]:['https://image.tmdb.org/t/p/w500/b0PlSFdDwbyK0cf5RxwDpaOJQvQ.jpg','https://image.tmdb.org/t/p/w500/rLb2cwF3Pazuxaj0sRXQ037tGI1.jpg','https://image.tmdb.org/t/p/w500/nHf61UzkfFno5X1ofILZthF1gdB.jpg'];
+  document.getElementById('screenshots-grid').innerHTML=imgs.map(src=>`<div class="screenshot-img" onclick="showToast('Screenshot saved!')"><img src="${src}" loading="lazy"></div>`).join('');
+}
+function populateDownload(id,type){
+  const base=type==='tv'?`https://vidvault.ru/tv/${id}/1/1`:`https://vidvault.ru/movie/${id}`;
+  const qs=[{q:'4K Ultra HD',s:'~12 GB'},{q:'1080p Full HD',s:'~4.2 GB'},{q:'720p HD',s:'~1.8 GB'},{q:'480p SD',s:'~700 MB'}];
+  document.getElementById('download-options').innerHTML=qs.map(x=>`<div class="download-option"><div><div class="dl-quality">${x.q}</div><div class="dl-size">${x.s} · H.264</div></div><a href="${base}" target="_blank" class="btn btn-download btn-sm">⬇ Download</a></div>`).join('');
 }
 
-function populateScreenshots() {
-  const imgs = [
-    'https://image.tmdb.org/t/p/w500/b0PlSFdDwbyK0cf5RxwDpaOJQvQ.jpg',
-    'https://image.tmdb.org/t/p/w500/rLb2cwF3Pazuxaj0sRXQ037tGI1.jpg',
-    'https://image.tmdb.org/t/p/w500/nHf61UzkfFno5X1ofILZthF1gdB.jpg',
-    'https://image.tmdb.org/t/p/w500/4Dp6N6B6rOItE2RNDm70Xa5tVRb.jpg',
-    'https://image.tmdb.org/t/p/w500/4YZpsylmjHbqeWzjKpUEF8gcLNW.jpg',
-    'https://image.tmdb.org/t/p/w500/eo4NT7oScJqgNERZHaWVfMZP3Oh.jpg',
-  ];
-  document.getElementById('screenshots-grid').innerHTML = imgs.map(src=>`
-    <div class="screenshot-img" onclick="showToast('Screenshot saved!')">
-      <img src="${src}" loading="lazy">
-    </div>`).join('');
-}
-
-function populateCast() {
-  document.getElementById('cast-grid').innerHTML = ACTORS.slice(0,8).map(a=>`
-    <div class="actor-grid-card">
-      <div class="actor-grid-img"><img src="${a.img}" loading="lazy" alt="${a.name}"></div>
-      <div class="actor-grid-name">${a.name}</div>
-      <div class="actor-grid-role">${a.role}</div>
-    </div>`).join('');
-}
-
-function populateDownload(id, type) {
-  const baseUrl = type==='tv' ? `https://vidvault.ru/tv/${id}/1/1` : `https://vidvault.ru/movie/${id}`;
-  const qualities = [
-    {q:'4K Ultra HD',res:'2160p',size:'~12 GB',fmt:'H.265/HEVC'},
-    {q:'1080p Full HD',res:'1080p',size:'~4.2 GB',fmt:'H.264'},
-    {q:'720p HD',res:'720p',size:'~1.8 GB',fmt:'H.264'},
-    {q:'480p SD',res:'480p',size:'~700 MB',fmt:'H.264'},
-  ];
-  document.getElementById('download-options').innerHTML = qualities.map(q=>`
-    <div class="download-option">
-      <div>
-        <div class="dl-quality">${q.q}</div>
-        <div class="dl-size">${q.res} · ${q.size} · ${q.fmt}</div>
-      </div>
-      <a href="${baseUrl}" target="_blank" class="btn btn-download btn-sm">⬇ Download</a>
-    </div>`).join('');
-}
-
-// ─── DOWNLOAD ──────────────────────────────────
-function downloadMovie(id, type) {
-  const url = type==='tv' ? `https://vidvault.ru/tv/${id}/1/1` : `https://vidvault.ru/movie/${id}`;
-  window.open(url,'_blank');
+// ═══ DOWNLOAD ════════════════════════════════════
+function downloadMovie(id,type){
+  window.open(type==='tv'?`https://vidvault.ru/tv/${id}/1/1`:`https://vidvault.ru/movie/${id}`,'_blank');
   showToast('Opening download page...');
 }
 
-// ─── WATCHLIST ─────────────────────────────────
-let watchlist = [];
-function addWatchlist(title) {
-  if(!watchlist.includes(title)) {
+// ═══ WATCHLIST ═══════════════════════════════════
+let watchlist=[];
+function addWatchlist(title){
+  if(!watchlist.includes(title)){
     watchlist.push(title);
+    if(currentUser){currentUser.watchlist=[...watchlist];saveCurrentUser();}
     showToast(`Added "${title}" to watchlist`);
     renderWatchlist();
-  } else { showToast(`Already in watchlist!`); }
+  } else showToast('Already in watchlist!');
 }
-function renderWatchlist() {
-  const el = document.getElementById('watchlist-grid');
-  const items = MOVIES.filter(m=>watchlist.includes(m.title)).concat(TV_SHOWS.filter(m=>watchlist.includes(m.title)));
-  if(items.length) el.innerHTML = items.map(m=>movieCard(m)).join('');
-  else el.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 0;color:var(--text-muted);"><div style="font-size:48px;margin-bottom:12px">🎬</div><div style="font-size:16px;font-weight:600;color:var(--white);margin-bottom:8px">Your watchlist is empty</div></div>';
+function renderWatchlist(){
+  const el=document.getElementById('watchlist-grid');
+  if(!el)return;
+  const items=[...MOVIES,...TV_SHOWS].filter(m=>watchlist.includes(m.title));
+  if(items.length)el.innerHTML=items.map(movieCard).join('');
+  else el.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:60px 0;color:var(--text-muted)"><div style="font-size:48px;margin-bottom:12px">🎬</div><div style="font-size:16px;font-weight:600;color:var(--white);margin-bottom:8px">Your watchlist is empty</div><div>Add movies and shows to keep track</div></div>';
 }
 
-// ─── SEARCH ────────────────────────────────────
+// ═══ SEARCH ══════════════════════════════════════
 let searchTimeout;
-function handleSearch(val) {
+function handleSearch(val){
   clearTimeout(searchTimeout);
-  if(!val.trim()) { goPage('home'); return; }
-  searchTimeout = setTimeout(()=>{
-    const q = val.toLowerCase();
-    const results = [...MOVIES,...TV_SHOWS].filter(m=>
-      m.title.toLowerCase().includes(q) || (m.genre||[]).some(g=>g.toLowerCase().includes(q))
-    );
-    document.getElementById('search-query-label').textContent = `${results.length} results for "${val}"`;
-    document.getElementById('search-grid').innerHTML = results.length
-      ? results.map(m=>movieCard(m)).join('')
-      : `<div style="grid-column:1/-1;text-align:center;padding:60px 0;color:var(--text-muted);">No results found for "<strong style="color:white">${val}</strong>"</div>`;
+  if(!val.trim()){goPage('home');return;}
+  searchTimeout=setTimeout(()=>{
+    const q=val.toLowerCase();
+    const results=[...MOVIES,...TV_SHOWS].filter(m=>m.title.toLowerCase().includes(q)||(m.genre||[]).some(g=>g.toLowerCase().includes(q)));
+    document.getElementById('search-query-label').textContent=`${results.length} results for "${val}"`;
+    document.getElementById('search-grid').innerHTML=results.length?results.map(movieCard).join(''):`<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-muted)">No results for "<strong style="color:white">${val}</strong>"</div>`;
     goPage('search');
-  }, 300);
+  },300);
 }
 
-// ─── NAVIGATION ────────────────────────────────
-function goPage(page, navEl) {
+// ═══ NAVIGATION ══════════════════════════════════
+function goPage(page,navEl){
   document.querySelectorAll('.page-panel').forEach(p=>p.classList.remove('active-page'));
-  const panel = document.getElementById('page-'+page);
-  if(panel) panel.classList.add('active-page');
+  const panel=document.getElementById('page-'+page);
+  if(panel)panel.classList.add('active-page');
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-  if(navEl) navEl.classList.add('active');
-  document.querySelectorAll('.topbar-pill').forEach(p=>p.classList.remove('active'));
+  if(navEl)navEl.classList.add('active');
   window.scrollTo(0,0);
 }
-
-function filterGenre(genre) {
-  const results = [...MOVIES,...TV_SHOWS].filter(m=>(m.genre||[]).some(g=>g===genre));
-  document.getElementById('search-query-label').textContent = `${results.length} results in "${genre}"`;
-  document.getElementById('search-grid').innerHTML = results.map(m=>movieCard(m)).join('');
+function filterGenre(genre){
+  const results=[...MOVIES,...TV_SHOWS].filter(m=>(m.genre||[]).includes(genre));
+  document.getElementById('search-query-label').textContent=`${results.length} results in "${genre}"`;
+  document.getElementById('search-grid').innerHTML=results.map(movieCard).join('');
   goPage('search');
 }
-
-function setGenre(el, genre) {
-  document.querySelectorAll('.genre-pill').forEach(p=>p.classList.remove('active'));
+function setGenre(el,genre){
+  document.querySelectorAll('#genreScroll .genre-pill').forEach(p=>p.classList.remove('active'));
   el.classList.add('active');
-  if(genre==='All') {
-    document.getElementById('trending-movies').innerHTML = MOVIES.map(m=>movieCard(m)).join('');
-  } else {
-    const filtered = MOVIES.filter(m=>(m.genre||[]).some(g=>g===genre));
-    document.getElementById('trending-movies').innerHTML = filtered.length
-      ? filtered.map(m=>movieCard(m)).join('')
-      : '<div style="color:var(--text-muted);padding:20px;font-size:13px">No movies in this genre</div>';
-  }
+  document.getElementById('trending-movies').innerHTML=(genre==='All'?MOVIES:MOVIES.filter(m=>(m.genre||[]).includes(genre))).map(movieCard).join('');
 }
 
-// ─── SETTINGS ──────────────────────────────────
-function setSettingsTab(el, tab) {
-  document.querySelectorAll('.settings-menu-item').forEach(i=>i.classList.remove('active'));
-  el.classList.add('active');
-  const tabs = {
-    general: `<div class="settings-panel-title">General Settings</div>
-      <div class="settings-card"><div class="settings-row"><div><div class="settings-row-label">Autoplay Next Episode</div><div class="settings-row-desc">Automatically play the next episode</div></div><div class="toggle on" onclick="toggleSwitch(this)"><div class="toggle-thumb"></div></div></div><div class="settings-row"><div><div class="settings-row-label">Continue Watching</div><div class="settings-row-desc">Save your progress</div></div><div class="toggle on" onclick="toggleSwitch(this)"><div class="toggle-thumb"></div></div></div></div>`,
-    playback: `<div class="settings-panel-title">Playback</div><div class="settings-card"><div class="settings-row"><div><div class="settings-row-label">Default Quality</div><div class="settings-row-desc">Choose stream quality</div></div><select style="background:var(--bg-card2);color:white;border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-family:Inter,sans-serif;outline:none"><option>4K Ultra HD</option><option>1080p</option><option>720p</option><option>Auto</option></select></div><div class="settings-row"><div><div class="settings-row-label">Subtitles</div><div class="settings-row-desc">Show subtitles by default</div></div><div class="toggle" onclick="toggleSwitch(this)"><div class="toggle-thumb"></div></div></div></div>`,
-    appearance: `<div class="settings-panel-title">Appearance</div><div class="settings-card"><div class="settings-row"><div><div class="settings-row-label">Theme</div><div class="settings-row-desc">Dark theme active</div></div><div style="color:var(--orange);font-size:13px;font-weight:600">Dark</div></div><div class="settings-row"><div><div class="settings-row-label">Accent Color</div></div><div style="display:flex;gap:6px"><div style="width:20px;height:20px;border-radius:50%;background:#FF6B00;border:2px solid white;cursor:pointer"></div><div style="width:20px;height:20px;border-radius:50%;background:#00B4FF;cursor:pointer"></div><div style="width:20px;height:20px;border-radius:50%;background:#00FF88;cursor:pointer"></div></div></div></div>`,
-    notifications: `<div class="settings-panel-title">Notifications</div><div class="settings-card"><div class="settings-row"><div><div class="settings-row-label">New Releases</div><div class="settings-row-desc">Get notified when new content drops</div></div><div class="toggle on" onclick="toggleSwitch(this)"><div class="toggle-thumb"></div></div></div><div class="settings-row"><div><div class="settings-row-label">Recommendations</div><div class="settings-row-desc">Personalized suggestions</div></div><div class="toggle on" onclick="toggleSwitch(this)"><div class="toggle-thumb"></div></div></div></div>`,
-    about: `<div class="settings-panel-title">About CrumbStream</div><div class="settings-card"><div class="settings-row"><div class="settings-row-label">Version</div><div style="color:var(--orange);font-weight:600">1.0.0</div></div><div class="settings-row"><div class="settings-row-label">Content API</div><div style="color:var(--text-muted);font-size:13px">VidCore + VidVault</div></div><div class="settings-row"><div class="settings-row-label">Total Content</div><div style="color:var(--orange);font-weight:600">50,000+ titles</div></div></div>`,
-  };
-  const poweredHtml = `<div style="margin-top:24px;padding:20px;background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-orange)"><div style="font-size:12px;color:var(--text-muted);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px;font-weight:700">Powered By</div><div style="display:flex;gap:10px;flex-wrap:wrap"><a href="https://stary.base44.app" target="_blank" class="powered-btn" style="flex:1;justify-content:center">⭐ Powered with Starify</a><a href="https://www.tiktok.com/@devofficialv" target="_blank" class="powered-btn" style="flex:1;justify-content:center">🎵 DreamCore</a></div></div>`;
-  document.getElementById('settings-content').innerHTML = (tabs[tab]||'') + poweredHtml;
-}
-
-function toggleSwitch(el) { el.classList.toggle('on'); }
-
-// ─── NOTIFICATIONS ──────────────────────────────
-function toggleNotif() {
-  document.getElementById('notifPanel').classList.toggle('open');
-}
-document.addEventListener('click', e=>{
-  const p = document.getElementById('notifPanel');
-  if(p.classList.contains('open') && !p.contains(e.target) && !e.target.closest('.topbar-icon')) p.classList.remove('open');
+// ═══ NOTIFICATIONS / TOAST ═══════════════════════
+function toggleNotif(){document.getElementById('notifPanel').classList.toggle('open');}
+document.addEventListener('click',e=>{
+  const p=document.getElementById('notifPanel');
+  if(p.classList.contains('open')&&!p.contains(e.target)&&!e.target.closest('.topbar-icon'))p.classList.remove('open');
 });
-
-// ─── TOAST ─────────────────────────────────────
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  document.getElementById('toast-msg').textContent = msg;
+function showToast(msg){
+  const t=document.getElementById('toast');
+  document.getElementById('toast-msg').textContent=msg;
   t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'), 3000);
+  setTimeout(()=>t.classList.remove('show'),3000);
 }
-
-// ─── CLOSE MODAL ON BACKDROP CLICK ─────────────
-document.getElementById('playerModal').addEventListener('click', e=>{
-  if(e.target===document.getElementById('playerModal')) closePlayer();
+document.getElementById('playerModal').addEventListener('click',e=>{
+  if(e.target===document.getElementById('playerModal'))closePlayer();
 });
-
-// ─── INIT ──────────────────────────────────────
-initRows();
+document.getElementById('profileModal').addEventListener('click',e=>{
+  if(e.target===document.getElementById('profileModal'))closeProfile();
+});
 </script>
 </body>
 </html>
