@@ -1055,6 +1055,68 @@
   ::-webkit-scrollbar-thumb:hover{background:var(--orange)}
   .shimmer{background:linear-gradient(90deg,var(--bg-card2) 25%,#2a2a2a 50%,var(--bg-card2) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite}
   @keyframes shimmer{to{background-position:-200% 0}}
+  /* ── AI MOVIE ASSISTANT ── */
+  #aiPanel{
+    position:fixed;bottom:24px;right:24px;width:360px;
+    background:var(--bg-card);border:1px solid var(--border-orange);
+    border-radius:18px;z-index:8000;display:none;flex-direction:column;
+    box-shadow:0 24px 60px rgba(0,0,0,.6);overflow:hidden;
+    max-height:540px;
+  }
+  #aiPanel.open{display:flex}
+  .ai-header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 16px;background:linear-gradient(135deg,rgba(255,107,0,.15),rgba(255,107,0,.05));
+    border-bottom:1px solid var(--border);
+  }
+  .ai-header-left{display:flex;align-items:center;gap:10px}
+  .ai-avatar{
+    width:34px;height:34px;border-radius:10px;
+    background:linear-gradient(135deg,var(--orange),var(--orange-dark));
+    display:flex;align-items:center;justify-content:center;font-size:17px;
+    box-shadow:0 0 12px var(--orange-glow);flex-shrink:0;
+  }
+  .ai-title{font-size:14px;font-weight:700}
+  .ai-subtitle{font-size:11px;color:var(--text-muted);margin-top:1px}
+  .ai-close{width:28px;height:28px;border-radius:7px;border:none;background:var(--bg-card2);color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:all .2s}
+  .ai-close:hover{background:var(--border);color:var(--white)}
+  .ai-messages{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;min-height:200px;max-height:340px}
+  .ai-msg{display:flex;gap:8px;align-items:flex-start}
+  .ai-msg.user{flex-direction:row-reverse}
+  .ai-msg-bubble{
+    max-width:82%;padding:10px 13px;border-radius:14px;font-size:13px;line-height:1.5;
+    background:var(--bg-card2);color:var(--white);
+  }
+  .ai-msg.user .ai-msg-bubble{background:var(--orange);color:white;border-radius:14px 14px 4px 14px}
+  .ai-msg.bot .ai-msg-bubble{border-radius:14px 14px 14px 4px}
+  .ai-msg-icon{width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;margin-top:2px}
+  .ai-msg.bot .ai-msg-icon{background:linear-gradient(135deg,var(--orange),var(--orange-dark))}
+  .ai-msg.user .ai-msg-icon{background:var(--bg-card2);color:var(--text-muted)}
+  .ai-typing{display:flex;gap:4px;align-items:center;padding:10px 13px;background:var(--bg-card2);border-radius:14px 14px 14px 4px;width:fit-content}
+  .ai-typing span{width:6px;height:6px;border-radius:50%;background:var(--text-muted);animation:aitype .9s infinite;display:block}
+  .ai-typing span:nth-child(2){animation-delay:.15s}
+  .ai-typing span:nth-child(3){animation-delay:.3s}
+  @keyframes aitype{0%,80%,100%{transform:translateY(0);opacity:.4}40%{transform:translateY(-5px);opacity:1}}
+  .ai-suggestions{display:flex;gap:6px;flex-wrap:wrap;padding:10px 14px 0}
+  .ai-suggestion{padding:5px 11px;border-radius:20px;border:1px solid var(--border-orange);color:var(--orange-light);font-size:11px;font-weight:600;cursor:pointer;background:rgba(255,107,0,.06);transition:all .2s;white-space:nowrap}
+  .ai-suggestion:hover{background:var(--orange);color:white;border-color:var(--orange)}
+  .ai-input-row{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--border)}
+  .ai-input{
+    flex:1;background:var(--bg-card2);border:1px solid var(--border);
+    border-radius:10px;padding:9px 12px;color:var(--white);font-size:13px;
+    outline:none;font-family:'Inter',sans-serif;resize:none;height:38px;
+    transition:border-color .2s;
+  }
+  .ai-input:focus{border-color:var(--orange)}
+  .ai-send{
+    width:38px;height:38px;border-radius:10px;border:none;
+    background:var(--orange);color:white;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    font-size:16px;transition:all .2s;flex-shrink:0;
+  }
+  .ai-send:hover{background:var(--orange-light);transform:scale(1.05)}
+  .ai-send:disabled{background:var(--bg-card2);color:var(--text-dim);cursor:not-allowed;transform:none}
+
   .toast{position:fixed;bottom:24px;right:24px;background:var(--bg-card);border:1px solid var(--border-orange);padding:12px 18px;border-radius:10px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;z-index:9999;transform:translateY(80px);opacity:0;transition:all .3s;box-shadow:0 8px 24px rgba(0,0,0,.4);color:white}
   .toast.show{transform:translateY(0);opacity:1}
   .toast-dot{width:8px;height:8px;border-radius:50%;background:var(--orange)}
@@ -1251,6 +1313,10 @@
       <button class="topbar-pill" onclick="goPage('trending')">Trending</button>
     </div>
     <div class="topbar-right">
+      <div class="topbar-icon" onclick="toggleAI()" title="Ask AI about movies" id="aiBtn" style="position:relative">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2z"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <div id="aiDot" style="display:none;position:absolute;top:4px;right:4px;width:7px;height:7px;border-radius:50%;background:var(--orange);box-shadow:0 0 6px var(--orange)"></div>
+      </div>
       <div class="topbar-icon" onclick="toggleNotif()">
         <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
       </div>
@@ -1667,6 +1733,36 @@
 </div>
 
 <!-- TOAST -->
+<!-- AI MOVIE ASSISTANT PANEL -->
+<div id="aiPanel">
+  <div class="ai-header">
+    <div class="ai-header-left">
+      <div class="ai-avatar">🎬</div>
+      <div>
+        <div class="ai-title">CrumbStream AI</div>
+        <div class="ai-subtitle">Ask me anything about movies & shows</div>
+      </div>
+    </div>
+    <button class="ai-close" onclick="toggleAI()">✕</button>
+  </div>
+  <div class="ai-messages" id="aiMessages">
+    <div class="ai-msg bot">
+      <div class="ai-msg-icon">🎬</div>
+      <div class="ai-msg-bubble">Hey! I'm your CrumbStream AI. Ask me anything — recommendations, plot summaries, cast info, hidden gems, what to watch next, or anything about movies and TV! 🍿</div>
+    </div>
+  </div>
+  <div class="ai-suggestions" id="aiSuggestions">
+    <div class="ai-suggestion" onclick="aiQuickAsk(this)">What should I watch?</div>
+    <div class="ai-suggestion" onclick="aiQuickAsk(this)">Best horror movies</div>
+    <div class="ai-suggestion" onclick="aiQuickAsk(this)">Hidden gem films</div>
+    <div class="ai-suggestion" onclick="aiQuickAsk(this)">Top A24 movies</div>
+  </div>
+  <div class="ai-input-row">
+    <textarea class="ai-input" id="aiInput" placeholder="Ask about any movie or show..." rows="1" onkeydown="aiKeydown(event)"></textarea>
+    <button class="ai-send" id="aiSendBtn" onclick="aiSend()">➤</button>
+  </div>
+</div>
+
 <div class="toast" id="toast"><div class="toast-dot"></div><span id="toast-msg">Added to watchlist</span></div>
 
 <script>
@@ -1818,6 +1914,8 @@ const MOVIES = [
   {id:129,title:'Spirited Away',year:2001,rating:8.5,type:'movie',poster:'https://image.tmdb.org/t/p/w500/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg',backdrop:'https://image.tmdb.org/t/p/original/Ab8mkHmkYADjU7wQiOkia9BzGvS.jpg',genre:['Animation','Fantasy'],desc:'A ten-year-old girl wanders into a world ruled by gods, witches, and spirits.',cast:[{n:'Daveigh Chase',r:'Chihiro (English dub)',img:'https://image.tmdb.org/t/p/w185/mlYcVT4l4IBTV6fQUPbqAfSJGjZ.jpg'}]},
   {id:653346,title:'Kingdom of the Planet of the Apes',year:2024,rating:7.1,type:'movie',poster:'https://image.tmdb.org/t/p/w500/gKkl37BQuKTanygYQG1pyYgLVgf.jpg',backdrop:'https://image.tmdb.org/t/p/original/cBsEDYE0fhcRdYTAUZUm1Oo7E14.jpg',genre:['Sci-Fi','Action'],desc:'Many years after the reign of Caesar, a young ape goes on a journey questioning everything he knows.',cast:[{n:'Owen Teague',r:'Noa',img:'https://image.tmdb.org/t/p/w185/qW7BBmBZqKPRlMYGUMGpkfFJFPX.jpg'},{n:'Freya Allan',r:'Mae',img:'https://image.tmdb.org/t/p/w185/zVnHagUvXkR2StdOtquEtmNPqnZ.jpg'}]},
   {id:573435,title:'Bad Boys: Ride or Die',year:2024,rating:7.1,type:'movie',poster:'https://image.tmdb.org/t/p/w500/oGythE98MYauIb0kCYjB2gK9KAm.jpg',backdrop:'https://image.tmdb.org/t/p/original/wcKFYIiVDvRURrzglWyrT6D3X2Q.jpg',genre:['Action','Comedy'],desc:'Miami detectives Lowrey and Burnett become fugitives after being linked to a drug cartel.',cast:[{n:'Will Smith',r:'Mike Lowrey',img:'https://image.tmdb.org/t/p/w185/nfQoV67g73pHAthxaHkzC4NXJY8.jpg'},{n:'Martin Lawrence',r:'Marcus Burnett',img:'https://image.tmdb.org/t/p/w185/l8hBQXJBGLawoW2SFLGk3M0cLFQ.jpg'}]},
+  {id:1226863,title:'The Super Mario Galaxy Movie',year:2026,rating:7.0,type:'movie',poster:'https://image.tmdb.org/t/p/w500/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg',backdrop:'https://image.tmdb.org/t/p/original/9PXZIUsSDh4alB80jheWX4fhZmy.jpg',genre:['Animation','Adventure'],desc:'Having thwarted Bowser\'s previous plot to marry Princess Peach, Mario and Luigi now face a fresh threat in Bowser Jr., who is determined to liberate his father from captivity and restore the family legacy. Alongside companions new and old, the brothers travel across the stars to stop the young heir\'s crusade.',cast:[{n:'Chris Pratt',r:'Mario (voice)',img:'https://image.tmdb.org/t/p/w185/xZkHeE6g2YcGQvPvJjkNGT5x7eN.jpg'},{n:'Anya Taylor-Joy',r:'Princess Peach (voice)',img:'https://image.tmdb.org/t/p/w185/lQMnN5tKRMN4eoNovGZl9MbCJxn.jpg'},{n:'Charlie Day',r:'Luigi (voice)',img:'https://image.tmdb.org/t/p/w185/4pMMTJvBqwR7HnRFRQu6RfGiJXt.jpg'},{n:'Jack Black',r:'Bowser (voice)',img:'https://image.tmdb.org/t/p/w185/iKJbmSAkXeYLv4Jg2IKXRBxkPMu.jpg'},{n:'Keegan-Michael Key',r:'Toad (voice)',img:'https://image.tmdb.org/t/p/w185/cMtVuJfMB0XBJhXMrfDhY1i3Qzr.jpg'},{n:'Donald Glover',r:'Yoshi (voice)',img:'https://image.tmdb.org/t/p/w185/bT2yN5abhqH5hgpgdU3NIEnNdpZ.jpg'},{n:'Glen Powell',r:'Fox McCloud (voice)',img:'https://image.tmdb.org/t/p/w185/dt3AMSRSaFc6EQSQB7hcCOhzjrP.jpg'},{n:'Brie Larson',r:'Rosalina (voice)',img:'https://image.tmdb.org/t/p/w185/3rGSQCODpXGWagZcEpfMGJGaIzK.jpg'}]},
+  {id:687163,title:'Project Hail Mary',year:2026,rating:8.2,type:'movie',poster:'https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg',backdrop:'https://image.tmdb.org/t/p/original/pbrkL804c8yAv3zBZR4QPEafpAR.jpg',genre:['Sci-Fi','Adventure'],desc:'Science teacher Ryland Grace wakes up alone on a spaceship millions of miles from Earth with no memory of how he got there. As memories return in fragments, he uncovers his terrifying mission: solve the riddle of a mysterious substance draining the sun\'s energy — or humanity dies. Directed by Phil Lord & Chris Miller.',cast:[{n:'Ryan Gosling',r:'Ryland Grace',img:'https://image.tmdb.org/t/p/w185/lyUyVARjFa8eEBBHqCzGEFpeBj5.jpg'},{n:'Hasan Minhaj',r:'Rocky (voice)',img:'https://image.tmdb.org/t/p/w185/rwmvRonpluV6dCPiQissYna3d3K.jpg'},{n:'Luke Kirby',r:'Dimitri',img:'https://image.tmdb.org/t/p/w185/4pMMTJvBqwR7HnRFRQu6RfGiJXt.jpg'},{n:'Rose Byrne',r:'Dr. Lokken',img:'https://image.tmdb.org/t/p/w185/6NZnbWCxPRQ5FNQ1MtLBBlCMlWU.jpg'}]},
 ];
 
 const TV_SHOWS = [
@@ -1830,7 +1928,7 @@ const TV_SHOWS = [
   {id:66732,title:'Stranger Things',year:2016,rating:8.7,type:'tv',seasons:4,episodesPerSeason:[8,9,8,9],poster:'https://image.tmdb.org/t/p/w500/49WJfeN0moxb9IPfGn8AIqMGskD.jpg',backdrop:'https://image.tmdb.org/t/p/original/56v2KjBlU4XaOv9rVYEQypROD7P.jpg',genre:['Sci-Fi','Horror'],desc:'When a boy disappears, his friends and local police discover extraordinary mysteries.',cast:[{n:'Millie Bobby Brown',r:'Eleven',img:'https://image.tmdb.org/t/p/w185/2cF7yOFaP0NV71BVTL4rJuHMsOv.jpg'},{n:'Finn Wolfhard',r:'Mike Wheeler',img:'https://image.tmdb.org/t/p/w185/sNFBCNILFYnEGnWELM1NbPZqCRt.jpg'},{n:'David Harbour',r:'Jim Hopper',img:'https://image.tmdb.org/t/p/w185/n1dzGCizfY7eegiGQ9gNjEVtDMH.jpg'},{n:'Winona Ryder',r:'Joyce Byers',img:'https://image.tmdb.org/t/p/w185/bVP29VmqoLMTLgDWXlhK1jqGlSm.jpg'}]},
   {id:1399,title:'Game of Thrones',year:2011,rating:9.2,type:'tv',seasons:8,episodesPerSeason:[10,10,10,10,10,10,7,6],poster:'https://image.tmdb.org/t/p/w500/1XS1oqL89opfnbLl8WnZY1O1uJx.jpg',backdrop:'https://image.tmdb.org/t/p/original/suopoADq0k8YZr4dQXcU6pToj6s.jpg',genre:['Fantasy','Drama'],desc:'Seven noble families fight for control of Westeros while an ancient enemy returns.',cast:[{n:'Emilia Clarke',r:'Daenerys Targaryen',img:'https://image.tmdb.org/t/p/w185/XML9C6mV4nCzBiB7HQgJi3UBxbU.jpg'},{n:'Kit Harington',r:'Jon Snow',img:'https://image.tmdb.org/t/p/w185/1GdmE3wDl8tJmgbME9I5VBl7VcT.jpg'},{n:'Peter Dinklage',r:'Tyrion Lannister',img:'https://image.tmdb.org/t/p/w185/9fCScxHNHDJbOjMeNbq4dPpSdRv.jpg'},{n:'Lena Headey',r:'Cersei Lannister',img:'https://image.tmdb.org/t/p/w185/8hFOBKHMzVvOvCiUWvBL7Xl3Cdi.jpg'}]},
   {id:87108,title:'Chernobyl',year:2019,rating:9.4,type:'tv',seasons:1,episodesPerSeason:[5],poster:'https://image.tmdb.org/t/p/w500/hlLXt2tOPT6RRnjiUmoxyG1LTFi.jpg',backdrop:'https://image.tmdb.org/t/p/original/suopoADq0k8YZr4dQXcU6pToj6s.jpg',genre:['Drama','History'],desc:'In April 1986, an explosion at Chernobyl becomes one of the world\'s worst nuclear disasters.',cast:[{n:'Jared Harris',r:'Valery Legasov',img:'https://image.tmdb.org/t/p/w185/r44GBBWEHRa6V7RNCF3hIE8JwBl.jpg'},{n:'Stellan Skarsgård',r:'Boris Shcherbina',img:'https://image.tmdb.org/t/p/w185/fNmVgXqSoBq3KFpXJLFEoxjFXAZ.jpg'},{n:'Emily Watson',r:'Ulana Khomyuk',img:'https://image.tmdb.org/t/p/w185/fcCTHsX5R1rJfFpOeXHiHMsVLMa.jpg'}]},
-  {id:83097,title:'The Boys',year:2019,rating:8.7,type:'tv',seasons:4,episodesPerSeason:[8,8,8,8],poster:'https://image.tmdb.org/t/p/w500/stTEycfG9928HYGEISBFaG1ngjM.jpg',backdrop:'https://image.tmdb.org/t/p/original/mY7SeH4HFFxW1hiI6cWuwCRKptN.jpg',genre:['Action','Drama'],desc:'Vigilantes set out to take down corrupt superheroes who abuse their powers.',cast:[{n:'Karl Urban',r:'Billy Butcher',img:'https://image.tmdb.org/t/p/w185/3Ag32ETCAEWM9oUQMiB0IqLbSQP.jpg'},{n:'Jack Quaid',r:'Hughie Campbell',img:'https://image.tmdb.org/t/p/w185/sCa7UIBV39dLqxJixiWmkOi14rp.jpg'},{n:'Antony Starr',r:'Homelander',img:'https://image.tmdb.org/t/p/w185/sVaAZFYWCJYEaFTYHpCFaHmzPMW.jpg'}]},
+  {id:76479,title:'The Boys',year:2019,rating:8.7,type:'tv',seasons:5,episodesPerSeason:[8,8,8,8,8],poster:'https://image.tmdb.org/t/p/w500/stTEycfG9928HYGEISBFaG1ngjM.jpg',backdrop:'https://image.tmdb.org/t/p/original/mY7SeH4HFFxW1hiI6cWuwCRKptN.jpg',genre:['Action','Drama'],desc:'Vigilantes set out to take down corrupt superheroes who abuse their powers.',cast:[{n:'Karl Urban',r:'Billy Butcher',img:'https://image.tmdb.org/t/p/w185/3Ag32ETCAEWM9oUQMiB0IqLbSQP.jpg'},{n:'Jack Quaid',r:'Hughie Campbell',img:'https://image.tmdb.org/t/p/w185/sCa7UIBV39dLqxJixiWmkOi14rp.jpg'},{n:'Antony Starr',r:'Homelander',img:'https://image.tmdb.org/t/p/w185/sVaAZFYWCJYEaFTYHpCFaHmzPMW.jpg'},{n:'Erin Moriarty',r:'Annie January / Starlight',img:'https://image.tmdb.org/t/p/w185/6NZnbWCxPRQ5FNQ1MtLBBlCMlWU.jpg'},{n:'Laz Alonso',r:'Mother\'s Milk',img:'https://image.tmdb.org/t/p/w185/bT2yN5abhqH5hgpgdU3NIEnNdpZ.jpg'}]},
   {id:60625,title:'Rick and Morty',year:2013,rating:9.2,type:'tv',seasons:7,episodesPerSeason:[11,10,10,10,10,10,10],poster:'https://image.tmdb.org/t/p/w500/gdIrmf2DdY5mgN6ycVP0XlzKzbE.jpg',backdrop:'https://image.tmdb.org/t/p/original/gxGCbJVcqSAkQiZlJnkU7P2pj0w.jpg',genre:['Animation','Sci-Fi'],desc:'Animated series following the exploits of a super scientist and his not-so-bright grandson.',cast:[{n:'Justin Roiland',r:'Rick Sanchez / Morty Smith (Voice)',img:'https://image.tmdb.org/t/p/w185/gdIrmf2DdY5mgN6ycVP0XlzKzbE.jpg'},{n:'Chris Parnell',r:'Jerry Smith (Voice)',img:'https://image.tmdb.org/t/p/w185/4pMMTJvBqwR7HnRFRQu6RfGiJXt.jpg'}]},
   {id:85552,title:'Euphoria',year:2019,rating:8.4,type:'tv',seasons:2,episodesPerSeason:[8,8],poster:'https://image.tmdb.org/t/p/w500/3Q0hd3heuWwDWpwcDkhQOA6TYWI.jpg',backdrop:'https://image.tmdb.org/t/p/original/jtnfNzqZwN4E32FGGxx1YZaBWWf.jpg',genre:['Drama','Thriller'],desc:'High school students grapple with issues of drugs, sex, and violence.',cast:[{n:'Zendaya',r:'Rue Bennett',img:'https://image.tmdb.org/t/p/w185/yCGXFMx4GCXQlw3sH57lSHkYNSR.jpg'},{n:'Hunter Schafer',r:'Jules Vaughn',img:'https://image.tmdb.org/t/p/w185/6NZnbWCxPRQ5FNQ1MtLBBlCMlWU.jpg'},{n:'Sydney Sweeney',r:'Cassie Howard',img:'https://image.tmdb.org/t/p/w185/qSvHhiCeFLbhB1RazmJLkGCQ5Fp.jpg'}]},
   {id:1402,title:'The Walking Dead',year:2010,rating:8.1,type:'tv',seasons:11,episodesPerSeason:[6,13,16,16,16,16,16,16,16,22,24],poster:'https://image.tmdb.org/t/p/w500/n7PO4AGzAl3OZSrQ7tB9JQxfCQy.jpg',backdrop:'https://image.tmdb.org/t/p/original/pwCJnMWLniE4lMFcWdRIMkdVfJQ.jpg',genre:['Horror','Drama'],desc:'Rick Grimes leads a group of survivors through a zombie apocalypse.',cast:[{n:'Andrew Lincoln',r:'Rick Grimes',img:'https://image.tmdb.org/t/p/w185/gUjnJxO5J41BnFJLx5hPdJXRLH1.jpg'},{n:'Norman Reedus',r:'Daryl Dixon',img:'https://image.tmdb.org/t/p/w185/y7UkijJLWdGqlYnkM6G0t9RFBOP.jpg'},{n:'Melissa McBride',r:'Carol Peletier',img:'https://image.tmdb.org/t/p/w185/eYqTgYcj8KsaW5RGOjQcFsJxdMV.jpg'}]},
@@ -1843,21 +1941,30 @@ const TV_SHOWS = [
   {id:100757,title:'The Diplomat',year:2023,rating:7.7,type:'tv',seasons:2,episodesPerSeason:[8,6],poster:'https://image.tmdb.org/t/p/w500/1KYz1akLkFJnTYNXIqTAlgkiJdN.jpg',backdrop:'https://image.tmdb.org/t/p/original/mVaGNMaISnqB0QZOS7KRwnlb5QH.jpg',genre:['Drama','Thriller'],desc:'A career diplomat is thrust into a high-profile ambassadorial role in London during an international crisis.',cast:[{n:'Keri Russell',r:'Kate Wyler',img:'https://image.tmdb.org/t/p/w185/8eADjJrCB0lmm0HHfGzWY9eiA4j.jpg'},{n:'Rufus Sewell',r:'Hal Wyler',img:'https://image.tmdb.org/t/p/w185/uI4I7Bi6XCn1vRaQv9XUBHF1gXC.jpg'}]},
   {id:114461,title:'Yellowjackets',year:2021,rating:7.8,type:'tv',seasons:3,episodesPerSeason:[10,10,8],poster:'https://image.tmdb.org/t/p/w500/fLbww3y8hKRFKmWWSnZEMZGfYi6.jpg',backdrop:'https://image.tmdb.org/t/p/original/2kI4tDVmeyPHnEFhbE0mS7PvImM.jpg',genre:['Horror','Drama'],desc:'A teen girl soccer team survives a plane crash in the wilderness and must fend for themselves.',cast:[{n:'Melanie Lynskey',r:'Adult Shauna',img:'https://image.tmdb.org/t/p/w185/fGxkZs9TYx8ZfRV9Pn3Ywf1ypSM.jpg'},{n:'Tawny Cypress',r:'Adult Taissa',img:'https://image.tmdb.org/t/p/w185/wVKkrxdFgf8abZzlPnz5QBUFN7h.jpg'}]},
   {id:2190,title:'South Park',year:1997,rating:8.7,type:'tv',seasons:26,episodesPerSeason:[13,18,17,17,14,17,15,14,14,14,14,14,10,14,14,14,10,10,10,10,6,6,6,6,6,6],poster:'https://image.tmdb.org/t/p/w500/vxuoMW6YBt6UsxvMfRNwRl9LtWS.jpg',backdrop:'https://image.tmdb.org/t/p/original/5qPOQtVDHWBOgJXEaX9pHBnQFTR.jpg',genre:['Animation','Comedy'],desc:'The irreverent exploits of four grade-schoolers in the mountain town of South Park, Colorado.',cast:[{n:'Trey Parker',r:'Cartman / Randy / Stan (Voice)',img:'https://image.tmdb.org/t/p/w185/vxuoMW6YBt6UsxvMfRNwRl9LtWS.jpg'},{n:'Matt Stone',r:'Kyle / Kenny (Voice)',img:'https://image.tmdb.org/t/p/w185/vxuoMW6YBt6UsxvMfRNwRl9LtWS.jpg'}]},
+  {id:1405,title:'Dexter',year:2006,rating:8.6,type:'tv',seasons:8,episodesPerSeason:[12,12,12,12,12,12,12,12],poster:'https://image.tmdb.org/t/p/w500/HRrxqAkTT7NKoRCEfkHDlg9GDN.jpg',backdrop:'https://image.tmdb.org/t/p/original/tsRy63Mu5cu8etL1X7ZLyf7UP1M.jpg',genre:['Drama','Thriller'],desc:'Dexter Morgan is a blood spatter pattern analyst for the Miami Metro Police who leads a secret life as a serial killer — hunting down criminals who have slipped through the cracks of justice.',cast:[{n:'Michael C. Hall',r:'Dexter Morgan',img:'https://image.tmdb.org/t/p/w185/7Jahy5LZX2Fo8fGJltMreAI49hC.jpg'},{n:'Jennifer Carpenter',r:'Debra Morgan',img:'https://image.tmdb.org/t/p/w185/8wAlQTFpFBh0Vl0kQvH26gSYXBo.jpg'},{n:'David Zayas',r:'Angel Batista',img:'https://image.tmdb.org/t/p/w185/bT2yN5abhqH5hgpgdU3NIEnNdpZ.jpg'},{n:'James Remar',r:'Harry Morgan',img:'https://image.tmdb.org/t/p/w185/4pMMTJvBqwR7HnRFRQu6RfGiJXt.jpg'},{n:'C.S. Lee',r:'Vince Masuka',img:'https://image.tmdb.org/t/p/w185/cMtVuJfMB0XBJhXMrfDhY1i3Qzr.jpg'}]},
+  {id:131927,title:'Dexter: New Blood',year:2021,rating:8.1,type:'tv',seasons:1,episodesPerSeason:[10],poster:'https://image.tmdb.org/t/p/w500/lAv5RZOxTpMipXxBuqoODTBiwh3.jpg',backdrop:'https://image.tmdb.org/t/p/original/4bv4POhLdK8D53aOZyBGjZWjONR.jpg',genre:['Drama','Thriller'],desc:'10 years after Dexter went missing, he is living under an assumed name in the small town of Iron Lake, New York. When his Dark Passenger beckons again, his past comes crashing back.',cast:[{n:'Michael C. Hall',r:'Dexter Morgan / Jim Lindsay',img:'https://image.tmdb.org/t/p/w185/7Jahy5LZX2Fo8fGJltMreAI49hC.jpg'},{n:'Jennifer Carpenter',r:'Debra Morgan',img:'https://image.tmdb.org/t/p/w185/8wAlQTFpFBh0Vl0kQvH26gSYXBo.jpg'},{n:'Jack Alcott',r:'Harrison Morgan',img:'https://image.tmdb.org/t/p/w185/sNFBCNILFYnEGnWELM1NbPZqCRt.jpg'},{n:'Julia Jones',r:'Angela Bishop',img:'https://image.tmdb.org/t/p/w185/6NZnbWCxPRQ5FNQ1MtLBBlCMlWU.jpg'}]},
+  {id:259909,title:'Dexter: Resurrection',year:2025,rating:8.0,type:'tv',seasons:1,episodesPerSeason:[10],poster:'https://image.tmdb.org/t/p/w500/nKIRXv3C4w6kYyKWQf6G0HimUEv.jpg',backdrop:'https://image.tmdb.org/t/p/original/eHMh7kChaNeD4VQzMOtMSMgMAsT.jpg',genre:['Drama','Thriller'],desc:'Dexter Morgan awakens from a coma to find Harrison gone without a trace. He sets out for New York City determined to find him and make things right — but Miami Metro\'s Angel Batista is hot on his trail.',cast:[{n:'Michael C. Hall',r:'Dexter Morgan',img:'https://image.tmdb.org/t/p/w185/7Jahy5LZX2Fo8fGJltMreAI49hC.jpg'},{n:'Jack Alcott',r:'Harrison Morgan',img:'https://image.tmdb.org/t/p/w185/sNFBCNILFYnEGnWELM1NbPZqCRt.jpg'},{n:'David Zayas',r:'Angel Batista',img:'https://image.tmdb.org/t/p/w185/bT2yN5abhqH5hgpgdU3NIEnNdpZ.jpg'}]},
 ];
 
 const COMING_SOON = [
-  {id:2000001,title:'Avatar 3',releaseDate:'2026-12-19',genre:['Sci-Fi','Adventure'],poster:'https://image.tmdb.org/t/p/w500/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg',desc:"Jake Sully and Neytiri explore a new region of Pandora in the most visually stunning Avatar yet."},
-  {id:2000002,title:'Mission: Impossible — The Final Reckoning',releaseDate:'2026-05-23',genre:['Action','Thriller'],poster:'https://image.tmdb.org/t/p/w500/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg',desc:'Ethan Hunt faces his most dangerous mission yet in the final chapter of the Impossible saga.'},
-  {id:2000003,title:'The Fantastic Four: First Steps',releaseDate:'2026-07-25',genre:['Sci-Fi','Action'],poster:'https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg',desc:"Marvel's first family returns in a retro-futuristic adventure set in the 1960s."},
-  {id:1083381,title:'Backrooms',releaseDate:'2026-05-29',genre:['Horror','Sci-Fi'],poster:'https://image.tmdb.org/t/p/w500/7LEI8ulZzO5gy9Ww2NVCrKmHeDZ.jpg',desc:"A24's adaptation of Kane Parsons' viral YouTube phenomenon starring Chiwetel Ejiofor and Renate Reinsve. Directed by Kane Parsons himself — the teenage creator whose videos amassed nearly 100 million views."},
-  {id:2000005,title:'Storm Chasers',releaseDate:'2026-06-13',genre:['Action','Thriller'],poster:'https://image.tmdb.org/t/p/w500/pjnD08FlMAIXsfOLKQbvmO0f0MD.jpg',desc:'Elite storm chasers race to stop an unprecedented series of supercell tornadoes threatening the American Midwest.'},
-  {id:2000006,title:'Wicked: For Good',releaseDate:'2026-11-20',genre:['Fantasy','Drama'],poster:'https://image.tmdb.org/t/p/w500/iuFNMS8vlbRoNTnW3F2bSBcbUj3.jpg',desc:"Glinda and Elphaba's friendship is put to the ultimate test as the Wizard tightens his grip on Oz."},
-  {id:2000007,title:'Stranger Things: Season 5',releaseDate:'2026-07-04',genre:['Sci-Fi','Horror'],poster:'https://image.tmdb.org/t/p/w500/49WJfeN0moxb9IPfGn8AIqMGskD.jpg',desc:"The final chapter of Hawkins' battle against the Upside Down — one last stand for Eleven and her friends."},
-  {id:2000008,title:'Avengers: Doomsday',releaseDate:'2026-05-01',genre:['Action','Sci-Fi'],poster:'https://image.tmdb.org/t/p/w500/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg',desc:'The Avengers face the most catastrophic threat ever — Doctor Doom.'},
-  {id:2000009,title:'The Nun 3',releaseDate:'2026-09-05',genre:['Horror'],poster:'https://image.tmdb.org/t/p/w500/oPYupRG6gfM5y8eVQ2OukfNeq2P.jpg',desc:"Valak returns in the terrifying third chapter of the Conjuring universe's most frightening franchise."},
-  {id:2000010,title:'Joker: Folie à Deux 2',releaseDate:'2026-10-03',genre:['Drama','Thriller'],poster:'https://image.tmdb.org/t/p/w500/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg',desc:"Arthur Fleck faces an unexpected turn of events that reshapes Gotham's underworld once more."},
-  {id:2000011,title:'Untitled Jurassic World',releaseDate:'2026-07-02',genre:['Action','Sci-Fi'],poster:'https://image.tmdb.org/t/p/w500/gKkl37BQuKTanygYQG1pyYgLVgf.jpg',desc:'The next Jurassic chapter redefines the boundaries between humans and prehistoric creatures.'},
-  {id:2000012,title:'The Conjuring 4',releaseDate:'2026-09-18',genre:['Horror'],poster:'https://image.tmdb.org/t/p/w500/p9eAzBvLmV1IJSHRqPsLFjgL4UN.jpg',desc:'Ed and Lorraine Warren investigate a new case that challenges everything they know about the supernatural.'},
+  // ── FEB / MAR 2026 ──────────────────────────────────────────────
+  {id:1159559,title:'Scream 7',releaseDate:'2026-02-27',genre:['Horror','Mystery'],poster:'https://image.tmdb.org/t/p/w500/9E2y5Q7WlCVHDbtB5T2a3FToNnT.jpg',desc:"A new Ghostface killer emerges in the quiet town where Sidney Prescott has rebuilt her life. Her darkest fears are realized when her daughter becomes the next target. Sidney must face the horrors of her past to put an end to the bloodshed.",cast:'Neve Campbell, Courteney Cox, Jenna Ortega, Hayden Panettiere'},
+  {id:687163,title:'Project Hail Mary',releaseDate:'2026-03-20',genre:['Sci-Fi','Adventure'],poster:'https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg',desc:"Science teacher Ryland Grace wakes on a spaceship light-years from home with no memory of how he got there. As his memory returns, he uncovers his mission: solve the riddle of a mysterious substance causing the sun to die out. Directed by Phil Lord & Chris Miller.",cast:'Ryan Gosling, Hasan Minhaj, Luke Kirby'},
+  // ── MAY 2026 ─────────────────────────────────────────────────────
+  {id:931285,title:'Mortal Kombat II',releaseDate:'2026-05-18',genre:['Action','Fantasy'],poster:'https://image.tmdb.org/t/p/w500/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg',desc:"The fan favourite champions — now joined by Johnny Cage — face Shao Kahn in the ultimate battle to save Earthrealm. Karl Urban, Hiroyuki Sanada and Lewis Tan return.",cast:'Lewis Tan, Karl Urban, Hiroyuki Sanada, Jessica McNamee, Mehcad Brooks, Tadanobu Asano'},
+  {id:1228710,title:'The Mandalorian & Grogu',releaseDate:'2026-05-22',genre:['Sci-Fi','Action'],poster:'https://image.tmdb.org/t/p/w500/eU1i6eHXlzMqZen0Hm60AE7DXhq.jpg',desc:"Once a lone bounty hunter, Din Djarin and his apprentice Grogu embark on an exciting new Star Wars adventure. Directed by Jon Favreau. Already released — streaming on Disney+.",cast:'Pedro Pascal, Jeremy Allen White, Sigourney Weaver, Martin Scorsese'},
+  {id:1083381,title:'Backrooms',releaseDate:'2026-05-29',genre:['Horror','Sci-Fi'],poster:'https://image.tmdb.org/t/p/w500/qd7TLuQSA2ZEj4FEqjODRijGfL8.jpg',desc:"A24's adaptation of Kane Parsons' viral YouTube phenomenon. Directed by Kane Parsons himself — the teenage creator whose backrooms videos amassed nearly 100 million views.",cast:'Chiwetel Ejiofor, Renate Reinsve, Mark Duplass, Finn Bennett, Lukita Maxwell, Avan Jogia'},
+  // ── JUNE 2026 ────────────────────────────────────────────────────
+  {id:454639,title:'Masters of the Universe',releaseDate:'2026-06-05',genre:['Action','Fantasy'],poster:'https://image.tmdb.org/t/p/w500/iADOJ8Zymht2JPMoy3R7xceZprc.jpg',desc:"Prince Adam is separated from his Sword of Power and marooned on Earth as a child. As an adult he must return to Eternia and embrace his destiny as He-Man to defeat Skeletor and save his world.",cast:'Nicholas Galitzine, Jared Leto, Camila Mendes, Idris Elba, Alison Brie'},
+  {id:1081003,title:'Supergirl',releaseDate:'2026-06-26',genre:['Action','Sci-Fi'],poster:'https://image.tmdb.org/t/p/w500/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg',desc:"When an unexpected and ruthless adversary strikes too close to home, Kara Zor-El reluctantly joins forces with an unlikely companion on an interstellar journey of vengeance and justice. James Gunn's DCU.",cast:'Milly Alcock, Eve Ridley, Matthias Schoenaerts, David Krumholtz'},
+  {id:1084244,title:'Toy Story 5',releaseDate:'2026-06-19',genre:['Animation','Comedy'],poster:'https://image.tmdb.org/t/p/w500/kuf6dutpsT0vSVehic3EZIqkOBt.jpg',desc:"Woody, Buzz, Jessie and the gang face a new existential threat to playtime when Bonnie becomes obsessed with electronics. The toys must band together like never before.",cast:'Tom Hanks, Tim Allen, Greta Lee, Annie Potts'},
+  // ── JULY 2026 ────────────────────────────────────────────────────
+  {id:1368337,title:'The Odyssey',releaseDate:'2026-07-24',genre:['Adventure','Drama'],poster:'https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg',desc:"Christopher Nolan's epic adaptation of Homer's The Odyssey. Odysseus — the legendary King of Ithaca — embarks on a long, perilous journey home after the Trojan War, confronting gods, mythological monsters, and trials that stretch his cunning and humanity to the breaking point.",cast:"Matt Damon, Tom Holland, Zendaya, Anne Hathaway, Mia Goth, Charlize Theron, Robert Pattinson, Lupita Nyong'o, Jon Bernthal"},
+  {id:969681,title:'Spider-Man: Brand New Day',releaseDate:'2026-07-31',genre:['Action','Sci-Fi'],poster:'https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg',desc:"Following Dr. Strange's spell, the world has forgotten Peter Parker exists. Four years later he anonymously protects NYC as Spider-Man — until a powerful invisible new threat targets those he loves and his powers undergo a dangerous evolution.",cast:'Tom Holland, Zendaya, Sadie Sink, Jon Bernthal, Mark Ruffalo'},
+  // ── NOV / DEC 2026 ───────────────────────────────────────────────
+  {id:1300968,title:'The Hunger Games: Sunrise on the Reaping',releaseDate:'2026-11-20',genre:['Action','Drama'],poster:'https://image.tmdb.org/t/p/w500/dDlEmu3EZ0Pgg93K2SVNLCjCSvE.jpg',desc:"Return to Panem 24 years before The Hunger Games, on the morning of the reaping of the 50th Hunger Games — the Second Quarter Quell. Based on Suzanne Collins' prequel novel.",cast:'TBA — casting not yet announced'},
+  {id:1003596,title:'Avengers: Doomsday',releaseDate:'2026-12-18',genre:['Action','Sci-Fi'],poster:'https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg',desc:"Beloved heroes from three distinct universes are set on a deadly collision course and face an existential threat unlike anything they have ever encountered. Directed by Anthony and Joe Russo.",cast:'Robert Downey Jr. (Doctor Doom), Pedro Pascal, Chris Hemsworth, Benedict Cumberbatch, Tom Holland'},
+  {id:1170608,title:'Dune: Part Three',releaseDate:'2026-12-25',genre:['Sci-Fi','Adventure'],poster:'https://image.tmdb.org/t/p/w500/1pdfLvkbY9ohJlCjQH2CZjjYVvJ.jpg',desc:"As Emperor, Paul Atreides grapples with the consequences of his rise to power. Political conspiracies and a galaxy-spanning holy war threaten the future he alone can foresee. Denis Villeneuve's conclusion to the Dune trilogy.",cast:'Timothée Chalamet, Zendaya, Anya Taylor-Joy, Florence Pugh, Rebecca Ferguson'},
 ];
 
 const ACTORS = [
@@ -2414,7 +2521,132 @@ document.getElementById('playerModal').addEventListener('click',e=>{
 });
 document.getElementById('profileModal').addEventListener('click',e=>{
   if(e.target===document.getElementById('profileModal'))closeProfile();
-});
+});// ═══ AI MOVIE ASSISTANT ══════════════════════════
+let aiOpen = false;
+let aiLoading = false;
+const aiHistory = [];
+
+function toggleAI() {
+  aiOpen = !aiOpen;
+  const panel = document.getElementById('aiPanel');
+  panel.classList.toggle('open', aiOpen);
+  document.getElementById('aiDot').style.display = aiOpen ? 'none' : (aiHistory.length > 1 ? 'block' : 'none');
+  if (aiOpen) {
+    setTimeout(() => document.getElementById('aiInput').focus(), 100);
+    scrollAIToBottom();
+  }
+}
+
+function aiKeydown(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); aiSend(); }
+}
+
+function aiQuickAsk(el) {
+  document.getElementById('aiInput').value = el.textContent;
+  document.getElementById('aiSuggestions').style.display = 'none';
+  aiSend();
+}
+
+function scrollAIToBottom() {
+  const msgs = document.getElementById('aiMessages');
+  if (msgs) msgs.scrollTop = msgs.scrollHeight;
+}
+
+function addAIMessage(role, text) {
+  const msgs = document.getElementById('aiMessages');
+  const div = document.createElement('div');
+  div.className = `ai-msg ${role}`;
+  div.innerHTML = role === 'bot'
+    ? `<div class="ai-msg-icon">🎬</div><div class="ai-msg-bubble">${text}</div>`
+    : `<div class="ai-msg-bubble">${text}</div><div class="ai-msg-icon" style="background:var(--bg-card2);color:var(--text-muted)">👤</div>`;
+  msgs.appendChild(div);
+  scrollAIToBottom();
+  return div;
+}
+
+function showAITyping() {
+  const msgs = document.getElementById('aiMessages');
+  const div = document.createElement('div');
+  div.className = 'ai-msg bot';
+  div.id = 'aiTypingIndicator';
+  div.innerHTML = `<div class="ai-msg-icon">🎬</div><div class="ai-typing"><span></span><span></span><span></span></div>`;
+  msgs.appendChild(div);
+  scrollAIToBottom();
+}
+
+function removeAITyping() {
+  const el = document.getElementById('aiTypingIndicator');
+  if (el) el.remove();
+}
+
+async function aiSend() {
+  if (aiLoading) return;
+  const input = document.getElementById('aiInput');
+  const text = input.value.trim();
+  if (!text) return;
+
+  input.value = '';
+  document.getElementById('aiSuggestions').style.display = 'none';
+  addAIMessage('user', text);
+  aiHistory.push({ role: 'user', content: text });
+
+  aiLoading = true;
+  document.getElementById('aiSendBtn').disabled = true;
+  showAITyping();
+
+  // Build movie context from library
+  const movieList = MOVIES.slice(0, 20).map(m => `${m.title} (${m.year}, ${m.genre.join('/')}, ★${m.rating})`).join(', ');
+  const tvList = TV_SHOWS.slice(0, 10).map(s => `${s.title} (${s.year})`).join(', ');
+
+  const systemPrompt = `You are CrumbStream AI, a friendly and enthusiastic movie & TV expert assistant built into the CrumbStream streaming platform. You love cinema and know everything about movies, directors, actors, genres, and TV shows.
+
+The platform currently has these movies available: ${movieList}
+And these TV shows: ${tvList}
+
+Keep responses concise (2-4 sentences max unless listing multiple items), conversational, and fun. Use emojis occasionally. If recommending something on the platform, mention it's available on CrumbStream. Never refuse movie-related questions.`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1000,
+        system: systemPrompt,
+        messages: aiHistory,
+      })
+    });
+
+    const data = await res.json();
+    removeAITyping();
+
+    const reply = data.content?.[0]?.text || "Sorry, I couldn't get a response. Try again!";
+    addAIMessage('bot', reply.replace(/\n/g, '<br>'));
+    aiHistory.push({ role: 'assistant', content: reply });
+
+    // Show dot if panel is closed
+    if (!aiOpen) {
+      document.getElementById('aiDot').style.display = 'block';
+    }
+
+    // Show follow-up suggestions after first exchange
+    if (aiHistory.length === 2) {
+      const sugg = document.getElementById('aiSuggestions');
+      sugg.style.display = 'flex';
+      sugg.innerHTML = [
+        'More like this', 'Who directed it?', 'Best scene?', 'Similar shows'
+      ].map(s => `<div class="ai-suggestion" onclick="aiQuickAsk(this)">${s}</div>`).join('');
+    }
+
+  } catch (err) {
+    removeAITyping();
+    addAIMessage('bot', '⚠️ Connection issue — please try again in a moment.');
+  }
+
+  aiLoading = false;
+  document.getElementById('aiSendBtn').disabled = false;
+  document.getElementById('aiInput').focus();
+}
 </script>
 </body>
 </html>
